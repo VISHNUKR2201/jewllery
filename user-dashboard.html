@@ -127,6 +127,7 @@
             z-index: 100;
             transition: transform var(--transition-normal);
             position: relative;
+            overflow-y: auto;
         }
 
         .sidebar-header {
@@ -288,6 +289,7 @@
             margin-top: auto;
             border-top: 1px solid var(--border-gold-subtle);
             padding-top: 1.5rem;
+            flex-shrink: 0;
         }
 
         .logout-btn {
@@ -2401,7 +2403,7 @@
                             <div class="profile-avatar-large-badge" id="profileLargeAvatarBadge">U</div>
                             <div class="profile-meta-info">
                                 <h2 id="profileNameHeading">VIP Client</h2>
-                                <p>Creative Joaillerie Director & Elite Vault Patron • VIP Member since 2018</p>
+                                <p>Creative Jewellery Director & Elite Vault Patron • VIP Member since 2018</p>
                             </div>
                             <button onclick="window.location.href='404.html'" class="btn-gold" style="margin-bottom: 0.5rem;">
                                 Edit Cover

@@ -1,5 +1,5 @@
-﻿/**
- * STACKLY - Luxury Haute Joaillerie & Fine Jewelry
+/**
+ * STACKLY - Luxury STACKLY Jewellery & Fine Jewelry
  * Standalone Interactive Website Scripts & Fallbacks
  * Created & Designed by @stacklykr
  */
