@@ -1,0 +1,3557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="@stacklykr">
+    <title>STACKLY - VIP Client Portal</title>
+    <!-- Google Fonts Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* ==========================================================================
+           STACKLY Dashboard Custom Stylesheet (Obsidian & Gold Design System)
+           ========================================================================== */
+        :root {
+            --bg-obsidian: #0B0C0E;
+            --bg-charcoal: #16181D;
+            --bg-card: rgba(22, 24, 29, 0.85);
+            --bg-card-hover: rgba(30, 33, 40, 0.9);
+            
+            --gold-50: #FDFBF4;
+            --gold-100: #F7F1D9;
+            --gold-200: #EBDCB4;
+            --gold-300: #DFC78E;
+            --gold-400: #D4AF37;
+            --gold-500: #C29B27;
+            --gold-600: #A17D1B;
+            --gold-700: #7F6012;
+            --gold-800: #5E440A;
+            --gold-900: #3D2A04;
+            
+            --text-white: #FFFFFF;
+            --text-light: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --text-gold: #DFC78E;
+            
+            --border-gold-subtle: rgba(212, 175, 55, 0.15);
+            --border-gold-medium: rgba(212, 175, 55, 0.3);
+            --border-gold-dark: rgba(212, 175, 55, 0.5);
+            --border-danger-subtle: rgba(239, 68, 68, 0.25);
+
+            --font-serif: "Cormorant Garamond", Georgia, serif;
+            --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+
+            --transition-fast: 200ms ease;
+            --transition-normal: 300ms ease;
+            --transition-slow: 500ms ease;
+            --sidebar-width: 280px;
+        }
+
+        /* --------------------------------------------------------------------------
+           Reset & Base Setup
+           -------------------------------------------------------------------------- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-obsidian);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-gold-subtle);
+            border-radius: var(--radius-full);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-400);
+        }
+
+        /* Gradient Text Helper */
+        .shimmer-gold-text {
+            background: linear-gradient(135deg, var(--gold-100) 0%, var(--gold-300) 50%, var(--gold-500) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: var(--font-serif);
+        }
+
+        /* --------------------------------------------------------------------------
+           Dashboard Grid Layout
+           -------------------------------------------------------------------------- */
+        .dashboard-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --------------------------------------------------------------------------
+           Sidebar Navigation
+           -------------------------------------------------------------------------- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--bg-charcoal) 0%, var(--bg-obsidian) 100%);
+            border-right: 1px solid var(--border-gold-subtle);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            height: 100%;
+            flex-shrink: 0;
+            z-index: 100;
+            transition: transform var(--transition-normal);
+            position: relative;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .sidebar-brand img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .sidebar-brand span {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--text-white);
+        }
+
+        /* User Quick Card inside Sidebar */
+        .sidebar-user-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            border: 1px solid var(--gold-400);
+            background: linear-gradient(45deg, var(--bg-charcoal), var(--gold-700));
+        }
+
+        .sidebar-user-avatar-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.08));
+            border: 1.5px solid var(--gold-400);
+            color: var(--gold-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .profile-avatar-large-badge {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--bg-charcoal), #2a2415);
+            border: 3px solid var(--gold-400);
+            color: var(--gold-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 2.5rem;
+            font-family: var(--font-serif);
+            margin-top: -50px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            flex-shrink: 0;
+        }
+
+        .sidebar-user-info h4 {
+            font-size: 0.875rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .sidebar-user-info span {
+            font-size: 0.75rem;
+            color: var(--gold-400);
+            letter-spacing: 0.05em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        /* Sidebar Navigation Menu */
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+
+        .menu-item-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .menu-item-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            transition: stroke var(--transition-fast);
+        }
+
+        .menu-item-btn:hover {
+            color: var(--text-white);
+            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.1);
+        }
+
+        .menu-item-btn.active {
+            color: var(--text-white);
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.02) 100%);
+            border-left: 3px solid var(--gold-400);
+            border-top-color: var(--border-gold-subtle);
+            border-right-color: var(--border-gold-subtle);
+            border-bottom-color: var(--border-gold-subtle);
+            padding-left: calc(1rem - 3px);
+            font-weight: 600;
+        }
+
+        .menu-item-btn.active svg {
+            stroke: var(--gold-400);
+        }
+
+        /* Logout Button */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-gold-subtle);
+            padding-top: 1.5rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            color: #EF4444;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            cursor: pointer;
+            background: transparent;
+            width: 100%;
+        }
+
+        .logout-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Close Sidebar Button (Mobile) */
+        .close-sidebar-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .close-sidebar-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        /* --------------------------------------------------------------------------
+           Main Workspace Layout
+           -------------------------------------------------------------------------- */
+        .main-workspace {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-obsidian);
+            position: relative;
+        }
+
+        /* Top Mobile Navigation Bar */
+        .top-bar {
+            height: 70px;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+            display: none; /* Desktop hidden */
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 90;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger-btn svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Workspace Contents View Container */
+        .workspace-content {
+            padding: 2.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        /* Tab Switch Animations */
+        @keyframes slideRightIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tab-view {
+            display: none;
+        }
+
+        .tab-view.active {
+            display: block;
+            animation: slideRightIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --------------------------------------------------------------------------
+           Card Aesthetics & Elements
+           ========================================================================== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .card:hover {
+            border-color: var(--border-gold-medium);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title-icon {
+            color: var(--gold-400);
+        }
+
+        /* Staggered Delay Helpers */
+        .stagger-1 { animation-delay: 50ms; }
+        .stagger-2 { animation-delay: 100ms; }
+        .stagger-3 { animation-delay: 150ms; }
+        .stagger-4 { animation-delay: 200ms; }
+        .stagger-5 { animation-delay: 250ms; }
+
+        .animate-item {
+            opacity: 0;
+            transform: translateY(15px);
+            animation: cardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           VIEW 1: OVERVIEW & ANALYTICS COMPONENTS
+           -------------------------------------------------------------------------- */
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(22, 24, 29, 0.9) 0%, rgba(26, 22, 10, 0.4) 100%);
+            border: 1px solid var(--border-gold-medium);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-text h1 {
+            font-family: var(--font-serif);
+            font-size: 2.25rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .welcome-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .welcome-badge {
+            background: linear-gradient(135deg, var(--gold-800) 0%, var(--gold-900) 100%);
+            border: 1px solid var(--gold-400);
+            color: var(--gold-300);
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+        }
+
+        /* KPI Card Row */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .kpi-card {
+            padding: 1.5rem;
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .kpi-icon-wrap {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--border-gold-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-400);
+        }
+
+        .kpi-icon-wrap svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .kpi-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-white);
+            font-family: var(--font-serif);
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 600;
+        }
+
+        .kpi-change.positive { color: #10B981; }
+        .kpi-change.negative { color: #EF4444; }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .dashboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .dashboard-table th {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .dashboard-table td {
+            padding: 1.25rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .dashboard-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dashboard-table tbody tr {
+            transition: background var(--transition-fast);
+        }
+
+        .dashboard-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        /* Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .status-pill.active, .status-pill.completed {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+
+        .status-pill.pending, .status-pill.in-progress {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #F59E0B;
+        }
+
+        .status-pill.cancelled, .status-pill.danger {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+
+        /* Action Buttons */
+        .action-btn-sm {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--gold-300);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .action-btn-sm:hover {
+            background: var(--gold-400);
+            color: var(--bg-obsidian);
+            border-color: var(--gold-400);
+        }
+
+        .action-btn-danger-sm {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .action-btn-danger-sm:hover {
+            background: #EF4444;
+            color: var(--text-white);
+            border-color: #EF4444;
+        }
+
+        /* Primary Button */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-300) 0%, var(--gold-500) 100%);
+            border: 1px solid var(--gold-400);
+            color: var(--bg-obsidian);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--gold-200) 0%, var(--gold-400) 100%);
+        }
+
+        /* Secondary/Outline Button */
+        .btn-outline-gold {
+            background: transparent;
+            border: 1px solid var(--border-gold-medium);
+            color: var(--gold-300);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-outline-gold:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold-400);
+            color: var(--text-white);
+        }
+
+        /* --------------------------------------------------------------------------
+           VIEW 2: PROFILE & ACCOUNT COMPONENTS
+           -------------------------------------------------------------------------- */
+        .profile-banner-card {
+            position: relative;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-banner-img {
+            height: 180px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--bg-charcoal), var(--gold-900));
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .profile-header-details {
+            padding: 1.5rem 2rem 2.25rem 2rem;
+            display: flex;
+            align-items: flex-end;
+            gap: 1.5rem;
+            position: relative;
+            margin-top: -60px;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            border: 4px solid var(--bg-obsidian);
+            background: linear-gradient(45deg, var(--bg-charcoal), var(--gold-600));
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        .profile-meta-info {
+            flex-grow: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-meta-info h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--text-white);
+            font-weight: 500;
+        }
+
+        .profile-meta-info p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .form-control {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-white);
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            width: 100%;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-control:disabled {
+            color: var(--text-muted);
+            background-color: rgba(255, 255, 255, 0.02);
+            cursor: not-allowed;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .toggle-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .toggle-switch-wrapper:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch-label h5 {
+            font-size: 0.9rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .toggle-switch-label p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Toggle Slider styling */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #2D3139;
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid transparent;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-muted);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(212, 175, 55, 0.2);
+            border-color: var(--border-gold-subtle);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: var(--gold-400);
+        }
+
+        .connected-accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .integration-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .integration-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .integration-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .integration-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .integration-meta h5 {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .integration-meta span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .danger-zone {
+            border: 1px solid var(--border-danger-subtle);
+            border-radius: var(--radius-md);
+            background: rgba(239, 68, 68, 0.02);
+            padding: 1.5rem;
+        }
+
+        .danger-zone-header {
+            margin-bottom: 1rem;
+        }
+
+        .danger-zone-header h3 {
+            color: #EF4444;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .danger-zone-header p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* --------------------------------------------------------------------------
+           VIEW 3: PROJECTS & ORDERS COMPONENTS
+           -------------------------------------------------------------------------- */
+        .filter-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-input-wrap svg {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-input-wrap input {
+            padding-left: 2.75rem;
+        }
+
+        .filter-options {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .kanban-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-card {
+            padding: 0;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-img-wrapper {
+            position: relative;
+            height: 140px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--bg-charcoal), var(--gold-900));
+            overflow: hidden;
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+            transition: transform var(--transition-slow);
+        }
+
+        .project-card:hover .project-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .project-badge-top {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--gold-300);
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-details {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-meta-heading {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gold-400);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-name-text {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--text-white);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .project-progress-container {
+            margin-bottom: 1.25rem;
+            margin-top: auto;
+        }
+
+        .progress-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.375rem;
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-600) 0%, var(--gold-400) 100%);
+            border-radius: var(--radius-full);
+        }
+
+        .project-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-deadline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .quick-start-banner {
+            background: linear-gradient(135deg, rgba(22, 24, 29, 0.9) 0%, rgba(212, 175, 55, 0.03) 100%);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            gap: 2rem;
+        }
+
+        .quick-start-info h3 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .quick-start-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 550px;
+        }
+
+        /* --------------------------------------------------------------------------
+           VIEW 4: MESSAGES & SUPPORT COMPONENTS
+           -------------------------------------------------------------------------- */
+        .ticket-badges-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ticket-badge-card {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ticket-badge-num {
+            font-size: 2.25rem;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            color: var(--gold-400);
+            line-height: 1;
+        }
+
+        .ticket-badge-meta h5 {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .ticket-badge-meta span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .chat-split-view {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 1.5rem;
+            height: 480px;
+            margin-bottom: 1.5rem;
+        }
+
+        .chat-inbox-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .chat-inbox-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: 0.9rem;
+        }
+
+        .chat-inbox-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-inbox-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            align-items: center;
+            text-align: left;
+            background: transparent;
+            border-left: 2px solid transparent;
+            border-top: none;
+            border-right: none;
+            width: 100%;
+        }
+
+        .chat-inbox-item:hover {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .chat-inbox-item.active {
+            background: rgba(212, 175, 55, 0.03);
+            border-left-color: var(--gold-400);
+        }
+
+        .chat-item-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            border: 1px solid var(--border-gold-subtle);
+            flex-shrink: 0;
+            background: linear-gradient(45deg, var(--bg-charcoal), var(--gold-700));
+        }
+
+        .chat-item-avatar-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.05));
+            border: 1.5px solid var(--gold-400);
+            color: var(--gold-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: var(--font-serif);
+            flex-shrink: 0;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.15);
+        }
+
+        .chat-item-details {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .chat-item-name-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.15rem;
+        }
+
+        .chat-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-white);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .chat-item-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .chat-item-preview {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .chat-workspace-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .chat-workspace-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-current-user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-current-user-meta h4 {
+            font-size: 0.9rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .chat-current-user-meta span {
+            font-size: 0.75rem;
+            color: var(--gold-400);
+        }
+
+        .chat-history-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-bubble {
+            max-width: 70%;
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .chat-bubble.received {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-gold-subtle);
+            align-self: flex-start;
+            border-top-left-radius: 0;
+            color: var(--text-light);
+        }
+
+        .chat-bubble.sent {
+            background: linear-gradient(135deg, var(--gold-800) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 1px solid var(--border-gold-subtle);
+            align-self: flex-end;
+            border-top-right-radius: 0;
+            color: var(--text-white);
+        }
+
+        .chat-bubble-time {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            align-self: flex-end;
+        }
+
+        .chat-input-bar {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-gold-subtle);
+            background: rgba(0, 0, 0, 0.15);
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .ticket-attachment-dropzone {
+            border: 1.5px dashed var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color var(--transition-fast);
+        }
+
+        .ticket-attachment-dropzone:hover {
+            border-color: var(--gold-400);
+            background: rgba(212, 175, 55, 0.01);
+        }
+
+        .ticket-attachment-dropzone svg {
+            width: 28px;
+            height: 28px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .ticket-attachment-dropzone h5 {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .ticket-attachment-dropzone p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Accordion component */
+        .accordion-item {
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .accordion-header {
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-white);
+            transition: background var(--transition-fast);
+        }
+
+        .accordion-header:hover {
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        .accordion-header svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            transition: transform var(--transition-fast);
+        }
+
+        .accordion-item.active .accordion-header svg {
+            transform: rotate(180deg);
+            color: var(--gold-400);
+        }
+
+        .accordion-content {
+            padding: 0 1.25rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .accordion-item.active .accordion-content {
+            padding: 0.5rem 1.25rem 1.25rem 1.25rem;
+            max-height: 500px;
+            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0), padding 0.3s ease;
+        }
+
+        .manager-card {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .manager-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            object-position: center top;
+            border: 2px solid var(--gold-400);
+            background: linear-gradient(45deg, var(--bg-charcoal), var(--gold-700));
+        }
+
+        .manager-details h4 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--text-white);
+            font-weight: 500;
+        }
+
+        .manager-details span {
+            font-size: 0.75rem;
+            color: var(--gold-400);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .manager-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* --------------------------------------------------------------------------
+           VIEW 5: SETTINGS & PREFERENCES COMPONENTS
+           -------------------------------------------------------------------------- */
+        .color-selector-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .color-dot-label {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .color-dot-label input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .color-dot-label input:checked + .color-dot {
+            border-color: var(--text-white);
+            transform: scale(1.1);
+        }
+
+        .color-dot.yellow-gold { background-color: #D4AF37; }
+        .color-dot.rose-gold { background-color: #B76E79; }
+        .color-dot.white-gold { background-color: #E5E4E2; }
+        .color-dot.platinum { background-color: #A0B2C6; }
+
+        .saved-cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .credit-card-item {
+            background: linear-gradient(135deg, #1C1E24 0%, #0F1013 100%);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .credit-card-item::after {
+            content: 'VIP';
+            position: absolute;
+            right: -10px;
+            bottom: -15px;
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(212, 175, 55, 0.02);
+            pointer-events: none;
+        }
+
+        .credit-card-details {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .card-brand-logo {
+            width: 46px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gold-300);
+            letter-spacing: 0.05em;
+        }
+
+        .card-meta h5 {
+            font-size: 0.875rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .card-meta span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* --------------------------------------------------------------------------
+           Responsive Grid Layout Adaptations
+           -------------------------------------------------------------------------- */
+        @media (max-width: 1200px) {
+            .kanban-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                box-shadow: 15px 0 30px rgba(0,0,0,0.5);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .close-sidebar-btn {
+                display: block;
+            }
+
+            .top-bar {
+                display: flex;
+            }
+
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .connected-accounts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-split-view {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .chat-inbox-panel {
+                height: 250px;
+            }
+
+            .chat-workspace-panel {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .workspace-content {
+                padding: 1rem 0.75rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .tab-view {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .dashboard-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+
+            .dashboard-grid > div {
+                grid-column: 1 / -1 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .card {
+                grid-column: span 12 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.85rem !important;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1 !important;
+            }
+
+            .kanban-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+
+            .welcome-banner {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 1.25rem !important;
+                padding: 1.25rem 1rem !important;
+            }
+
+            /* View Profile Responsive Adjustments */
+            .profile-banner-card {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+
+            .profile-header-details {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 1.25rem 1rem !important;
+                gap: 0.75rem !important;
+            }
+
+            .profile-avatar-large-badge {
+                margin: 0 auto 0.5rem auto !important;
+            }
+
+            .profile-meta-info {
+                text-align: center !important;
+                width: 100% !important;
+            }
+
+            .profile-meta-info h2 {
+                font-size: 1.4rem !important;
+                text-align: center !important;
+            }
+
+            .profile-meta-info p {
+                font-size: 0.75rem !important;
+                text-align: center !important;
+                line-height: 1.4 !important;
+            }
+
+            .profile-header-details .btn-gold {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-top: 0.5rem !important;
+            }
+
+            .form-actions {
+                display: flex !important;
+                justify-content: center !important;
+                width: 100% !important;
+                margin-top: 1rem !important;
+            }
+
+            .form-actions .btn-gold {
+                width: 100% !important;
+            }
+
+            .toggle-switch-wrapper {
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 0.75rem 0.5rem !important;
+                gap: 0.5rem !important;
+            }
+
+            .toggle-switch-label {
+                text-align: left !important;
+            }
+
+            .toggle-switch-label h5 {
+                font-size: 0.85rem !important;
+            }
+
+            .toggle-switch-label p {
+                font-size: 0.7rem !important;
+            }
+
+            .connected-accounts-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.75rem !important;
+            }
+
+            .integration-item {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .danger-zone {
+                text-align: center !important;
+                padding: 1.25rem 1rem !important;
+            }
+
+            .danger-zone-header h3 {
+                font-size: 1.1rem !important;
+                text-align: center !important;
+            }
+
+            .danger-zone-header p {
+                font-size: 0.75rem !important;
+                text-align: center !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .danger-zone .action-btn-danger-sm {
+                width: 100% !important;
+                padding: 0.75rem 1rem !important;
+                text-align: center !important;
+            }
+
+            /* View Projects Filter Card & Layout Responsive */
+            .filter-action-bar {
+                padding: 1rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .filter-options {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                justify-content: center !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+            }
+
+            .filter-options select,
+            .filter-options .form-control {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+            }
+
+            .filter-options .btn-outline-gold {
+                width: 100% !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+                box-sizing: border-box !important;
+            }
+
+            .project-card {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .project-footer-row {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 0.5rem !important;
+            }
+
+            .project-footer-row .action-btn-sm {
+                width: 100% !important;
+                text-align: center !important;
+            }
+
+            .table-container {
+                width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            .dashboard-table {
+                min-width: 600px !important;
+            }
+
+            .quick-start-banner {
+                flex-direction: column !important;
+                text-align: center !important;
+                align-items: center !important;
+                padding: 1.25rem 1rem !important;
+                gap: 1rem !important;
+            }
+
+            .quick-start-info {
+                text-align: center !important;
+            }
+
+            .quick-start-info h3 {
+                font-size: 1.25rem !important;
+                text-align: center !important;
+            }
+
+            .quick-start-info p {
+                font-size: 0.75rem !important;
+                text-align: center !important;
+                max-width: 100% !important;
+            }
+
+            .quick-start-banner .btn-gold {
+                width: 100% !important;
+            }
+
+            /* View Messages Responsive Adjustments */
+            .ticket-badges-row {
+                grid-template-columns: 1fr !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+            }
+
+            .ticket-badge-card {
+                text-align: center !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                padding: 1rem !important;
+            }
+
+            .ticket-badge-meta {
+                text-align: center !important;
+            }
+
+            .chat-split-view {
+                grid-template-columns: 1fr !important;
+                height: auto !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+
+            .chat-inbox-panel {
+                height: auto !important;
+                max-height: 250px !important;
+                overflow-y: auto !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .chat-workspace-panel {
+                height: auto !important;
+                min-height: 480px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .chat-workspace-header {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 0.75rem !important;
+                padding: 0.9rem !important;
+            }
+
+            .chat-current-user-info {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 0.4rem !important;
+            }
+
+            .chat-current-user-meta {
+                text-align: center !important;
+            }
+
+            .chat-current-user-meta h4 {
+                text-align: center !important;
+            }
+
+            .chat-current-user-meta span {
+                text-align: center !important;
+            }
+
+            .chat-workspace-header .action-btn-sm {
+                width: 100% !important;
+                text-align: center !important;
+            }
+
+            .chat-history-container {
+                padding: 1rem 0.75rem !important;
+                max-height: 320px !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+            }
+
+            .chat-bubble {
+                max-width: 88% !important;
+                box-sizing: border-box !important;
+                word-break: break-word !important;
+                font-size: 0.8rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .chat-bubble.sent {
+                margin-left: auto !important;
+                margin-right: 0.25rem !important;
+            }
+
+            .chat-bubble.received {
+                margin-right: auto !important;
+                margin-left: 0.25rem !important;
+            }
+
+            .chat-input-bar {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+                padding: 0.75rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .chat-input-bar input,
+            .chat-input-bar .form-control {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .chat-input-bar button {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .ticket-attachment-dropzone {
+                text-align: center !important;
+                padding: 1.25rem 0.75rem !important;
+            }
+
+            .manager-card {
+                flex-direction: column !important;
+                text-align: center !important;
+                align-items: center !important;
+                gap: 0.75rem !important;
+            }
+
+            .manager-details {
+                text-align: center !important;
+            }
+
+            .accordion-header {
+                font-size: 0.8rem !important;
+                padding: 0.75rem !important;
+            }
+
+            .accordion-content {
+                font-size: 0.75rem !important;
+                padding: 0.75rem !important;
+            }
+
+            .btn-gold, .btn-outline-gold {
+                width: 100% !important;
+                text-align: center !important;
+                justify-content: center !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-row {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar" id="dashboardSidebar">
+            <div class="sidebar-header">
+                <a href="user-dashboard.html" class="sidebar-brand" onclick="sessionStorage.removeItem('userActiveTab');">
+                    <img src="images/image/logo.webp" alt="STACKLY Logo">
+                </a>
+                <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close Sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <!-- Client Info -->
+            <div class="sidebar-user-card">
+                <div class="sidebar-user-avatar-badge" id="userAvatarBadge">U</div>
+                <div class="sidebar-user-info">
+                    <h4 id="dashboardUserName">VIP Client</h4>
+                    <span id="dashboardUserEmail" style="word-break: break-all; font-size: 0.75rem; color: var(--text-muted);">client@stackly.com</span>
+                </div>
+            </div>
+
+            <!-- Sidebar Links -->
+            <nav class="sidebar-menu">
+                <button class="menu-item-btn active" data-target="view-overview">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>
+                    Overview / Analytics
+                </button>
+                <button class="menu-item-btn" data-target="view-profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Profile & Account
+                </button>
+                <button class="menu-item-btn" data-target="view-projects">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    My Projects / Orders
+                </button>
+                <button class="menu-item-btn" data-target="view-messages">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    Messages & Support
+                </button>
+                <button class="menu-item-btn" data-target="view-settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Settings & Preferences
+                </button>
+            </nav>
+
+            <!-- Bottom Pins -->
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN WORKSPACE -->
+        <main class="main-workspace">
+            
+            <!-- Mobile Top Bar Header -->
+            <header class="top-bar">
+                <button class="hamburger-btn" id="sidebarToggle" aria-label="Toggle Sidebar Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <a href="user-dashboard.html" style="display: flex; align-items: center; justify-content: center; height: 36px; text-decoration: none;" onclick="sessionStorage.removeItem('userActiveTab');">
+                    <img src="images/image/logo.webp" alt="STACKLY Logo" style="height: 36px; width: auto; object-fit: contain;">
+                </a>
+                <div style="width: 36px;"></div> <!-- Spacer -->
+            </header>
+
+            <div class="workspace-content">
+
+                <!-- ====================================================================
+                     VIEW 1: OVERVIEW / ANALYTICS
+                     ==================================================================== -->
+                <div class="tab-view active" id="view-overview">
+                    
+                    <!-- Section 1: Welcome Banner -->
+                    <div class="welcome-banner animate-item stagger-1">
+                        <div class="welcome-text">
+                            <h1>Welcome Back, <span class="shimmer-gold-text" id="welcomeUserName" style="background-image: none; -webkit-text-fill-color: var(--gold-300);">Client</span></h1>
+                            <p>Here is the appraisal statement and master ledger of your private vaults.</p>
+                        </div>
+                        <a href="404.html" class="welcome-badge" style="text-decoration: none; cursor: pointer;">VIP Elite Patron</a>
+                    </div>
+
+                    <!-- Section 2: KPI Row -->
+                    <div class="kpi-row">
+                        <div class="card kpi-card animate-item stagger-2">
+                            <div class="kpi-header">
+                                <span>Vault Portfolio Value</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">$2,485,000</div>
+                            <div class="kpi-change positive">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                +14.2% this quarter
+                            </div>
+                        </div>
+
+                        <div class="card kpi-card animate-item stagger-3">
+                            <div class="kpi-header">
+                                <span>Bespoke Commissions</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline><polyline points="2 15.5 12 8.5 22 15.5"></polyline><line x1="12" y1="2" x2="12" y2="8.5"></line></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">3 Active</div>
+                            <div class="kpi-change positive">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                1 Sourcing GIA Raw
+                            </div>
+                        </div>
+
+                        <div class="card kpi-card animate-item stagger-4">
+                            <div class="kpi-header">
+                                <span>Pending Actions</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">2 Tasks</div>
+                            <div class="kpi-change negative">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                Design sign-off needed
+                            </div>
+                        </div>
+
+                        <div class="card kpi-card animate-item stagger-5">
+                            <div class="kpi-header">
+                                <span>Portfolio Growth</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">+28.4%</div>
+                            <div class="kpi-change positive">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                Outperforming market
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Primary Analytics Chart Grid -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-2" style="grid-column: span 12;">
+                            <div class="card-title">
+                                <span>Vault Portfolio Valuation (12 Months)</span>
+                                <span class="card-title-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
+                                </span>
+                            </div>
+                            <div style="height: 320px; position: relative;">
+                                <canvas id="lineChartOverview"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Secondary Breakdown Charts -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-3" style="grid-column: span 7;">
+                            <div class="card-title">
+                                <span>Bespoke Completion Rates (Quarterly)</span>
+                                <span class="card-title-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                </span>
+                            </div>
+                            <div style="height: 240px; position: relative;">
+                                <canvas id="barChartOverview"></canvas>
+                            </div>
+                        </div>
+                        <div class="card animate-item stagger-4" style="grid-column: span 5;">
+                            <div class="card-title">
+                                <span>Collection Distribution</span>
+                                <span class="card-title-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 1 10 10H12z"></path></svg>
+                                </span>
+                            </div>
+                            <div style="height: 240px; position: relative;">
+                                <canvas id="donutChartOverview"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Recent Ledger Activity Table -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-5" style="grid-column: span 12;">
+                            <div class="card-title">
+                                <span>Recent Vault Transactions & Appraisal Audit</span>
+                                <button onclick="window.location.href='404.html'" class="action-btn-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    Export Ledger
+                                </button>
+                            </div>
+                            <div class="table-container">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Item Description</th>
+                                            <th>Appraisal Value</th>
+                                            <th>Vault Deposit Date</th>
+                                            <th>GIA Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">ST-9908-RG</td>
+                                            <td>Archival Rose Gold Solitaire Ring</td>
+                                            <td>$425,000</td>
+                                            <td>May 12, 2026</td>
+                                            <td><span class="status-pill completed">Certified</span></td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="action-btn-sm">View Certificate</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">ST-1033-BD</td>
+                                            <td>Rare Fancy Vivid Blue Diamond Pendant</td>
+                                            <td>$1,250,000</td>
+                                            <td>Jun 28, 2026</td>
+                                            <td><span class="status-pill completed">Certified</span></td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="action-btn-sm">View Certificate</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">ST-8041-PT</td>
+                                            <td>Vendôme Marquise Platinum Tiara</td>
+                                            <td>$810,000</td>
+                                            <td>Jul 05, 2026</td>
+                                            <td><span class="status-pill pending">Pending Appraisal</span></td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="action-btn-sm">Escalate Appraisal</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 2: PROFILE & ACCOUNT
+                     ==================================================================== -->
+                <div class="tab-view" id="view-profile">
+                    
+                    <!-- Section 1: Profile Header Card -->
+                    <div class="card profile-banner-card animate-item stagger-1">
+                        <div class="profile-banner-img" style="background-image: url('images/image/atelier-craftsman.webp');"></div>
+                        <div class="profile-header-details">
+                            <div class="profile-avatar-large-badge" id="profileLargeAvatarBadge">U</div>
+                            <div class="profile-meta-info">
+                                <h2 id="profileNameHeading">VIP Client</h2>
+                                <p>Creative Joaillerie Director & Elite Vault Patron • VIP Member since 2018</p>
+                            </div>
+                            <button onclick="window.location.href='404.html'" class="btn-gold" style="margin-bottom: 0.5rem;">
+                                Edit Cover
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        
+                        <!-- Section 2: Personal Information Form -->
+                        <div class="card animate-item stagger-2" style="grid-column: span 7;">
+                            <div class="card-title">Personal Information & Private Contacts</div>
+                            <form onsubmit="event.preventDefault(); window.location.href='404.html';">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="profileNameInput" value="VIP Client" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Private Email Address</label>
+                                        <input type="email" class="form-control" id="profileEmailInput" value="client@stackly.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">VIP Secure Phone</label>
+                                        <input type="text" class="form-control" value="+41 22 739 9000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Primary Salon Boutique</label>
+                                        <select class="form-control">
+                                            <option selected>Place Vendôme, Paris</option>
+                                            <option>Mayfair, London</option>
+                                            <option>Rue du Rhône, Geneva</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label class="form-label">Vault Escort Diplomatic Delivery Address</label>
+                                        <textarea class="form-control" rows="3">Villa de Vance, Chemin du Lac 42, 1223 Cologny, Switzerland</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-gold">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Side Profile Column -->
+                        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 1.5rem;">
+                            
+                            <!-- Section 3: Security & Authentication -->
+                            <div class="card animate-item stagger-3">
+                                <div class="card-title">Security & Authentications</div>
+                                <div class="toggle-switch-wrapper">
+                                    <div class="toggle-switch-label">
+                                        <h5>Diplomatic 2FA Verification</h5>
+                                        <p>Enforce WhatsApp authentication codes</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="toggle2FA" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-switch-wrapper">
+                                    <div class="toggle-switch-label">
+                                        <h5>Biometric Vault Login</h5>
+                                        <p>FaceID validation for mobile apps</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="toggleBiometrics">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                                    <button onclick="window.location.href='404.html'" class="btn-outline-gold" style="width: 100%;">
+                                        Reset VIP Password
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Connected Accounts -->
+                            <div class="card animate-item stagger-4">
+                                <div class="card-title">Connected Appraisal Services</div>
+                                <div class="connected-accounts-grid">
+                                    <div class="integration-item">
+                                        <div class="integration-info">
+                                            <div class="integration-icon" style="color: #DFC78E;">GIA</div>
+                                            <div class="integration-meta">
+                                                <h5>GIA Report Feed</h5>
+                                                <span>Active Sync</span>
+                                            </div>
+                                        </div>
+                                        <button onclick="window.location.href='404.html'" class="action-btn-danger-sm" style="padding: 0.25rem 0.5rem; font-size: 0.65rem;">Unlink</button>
+                                    </div>
+                                    <div class="integration-item">
+                                        <div class="integration-info">
+                                            <div class="integration-icon" style="color: #DFC78E;">CH</div>
+                                            <div class="integration-meta">
+                                                <h5>Sotheby's Auction</h5>
+                                                <span>Not Connected</span>
+                                            </div>
+                                        </div>
+                                        <button onclick="window.location.href='404.html'" class="action-btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.65rem;">Connect</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Section 5: Danger Zone Panel -->
+                        <div class="card danger-zone animate-item stagger-5" style="grid-column: span 12;">
+                            <div class="danger-zone-header">
+                                <h3>Danger Zone: Relinquish Vault Access</h3>
+                                <p>Once you close this portal account, all private commission historical appraisal records will be hard-deleted from our local registry servers.</p>
+                            </div>
+                            <button onclick="window.location.href='404.html'" class="action-btn-danger-sm" style="font-weight: 700; text-transform: uppercase;">
+                                Close Vault Portal Permanently
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 3: MY PROJECTS / ORDERS
+                     ==================================================================== -->
+                <div class="tab-view" id="view-projects">
+                    
+                    <!-- Section 1: Filter & Search Action Bar -->
+                    <div class="card filter-action-bar animate-item stagger-1">
+                        <div class="filter-options" style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+                            <select class="form-control" style="width: auto;">
+                                <option>All Collections</option>
+                                <option>Bespoke Rings</option>
+                                <option>High Jewelry Tiaras</option>
+                                <option>Gem Pendants</option>
+                            </select>
+                            <button onclick="window.location.href='404.html'" class="btn-outline-gold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Export Statements
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Active Projects Kanban/Grid -->
+                    <h2 class="shimmer-gold-text" style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 500;">Active Bespoke Commissions</h2>
+                    <div class="kanban-grid">
+                        
+                        <!-- Project Card 1 -->
+                        <div class="card project-card animate-item stagger-2">
+                            <div class="project-img-wrapper">
+                                <img src="images/image/6686239635dfc0650918ec51_product-thumb-19.webp" alt="Vendôme Solitaire Ring">
+                                <div class="project-badge-top">Sourcing Gem</div>
+                            </div>
+                            <div class="project-details">
+                                <div class="project-meta-heading">18K Yellow Gold</div>
+                                <h3 class="project-name-text">Vendôme Solitaire Ring</h3>
+                                <div class="project-progress-container">
+                                    <div class="progress-label-row">
+                                        <span>Gem Sourcing Audit</span>
+                                        <span>35%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" style="width: 35%;"></div>
+                                    </div>
+                                </div>
+                                <div class="project-footer-row">
+                                    <span class="project-deadline">Est: Sept 2026</span>
+                                    <button onclick="window.location.href='404.html'" class="action-btn-sm">Inspect Gem</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Card 2 -->
+                        <div class="card project-card animate-item stagger-3">
+                            <div class="project-img-wrapper">
+                                <img src="images/image/66862396f9a1930f3004a408_product-thumb-16.webp" alt="Archival Sapphire Tiara">
+                                <div class="project-badge-top">Wax Modeling</div>
+                            </div>
+                            <div class="project-details">
+                                <div class="project-meta-heading">950 Platinum</div>
+                                <h3 class="project-name-text">Archival Sapphire Tiara</h3>
+                                <div class="project-progress-container">
+                                    <div class="progress-label-row">
+                                        <span>CAD & Wax Modeling</span>
+                                        <span>60%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                                <div class="project-footer-row">
+                                    <span class="project-deadline">Est: Oct 2026</span>
+                                    <button onclick="window.location.href='404.html'" class="action-btn-sm">Review CAD 3D</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Card 3 -->
+                        <div class="card project-card animate-item stagger-4">
+                            <div class="project-img-wrapper">
+                                <img src="images/image/6686273431bc1f2fbbf9f5a6_Product-Thumb-12.webp" alt="Crown Emerald Pendant">
+                                <div class="project-badge-top">Final Polish</div>
+                            </div>
+                            <div class="project-details">
+                                <div class="project-meta-heading">18K White Gold</div>
+                                <h3 class="project-name-text">Crown Emerald Pendant</h3>
+                                <div class="project-progress-container">
+                                    <div class="progress-label-row">
+                                        <span>Lapidary Prong Setting</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+                                <div class="project-footer-row">
+                                    <span class="project-deadline">Est: Aug 2026</span>
+                                    <button onclick="window.location.href='404.html'" class="action-btn-sm">View Preview</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Section 3: Completed Orders Table -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-2" style="grid-column: span 12;">
+                            <div class="card-title">Historical Finished Commissions & Acquisitions</div>
+                            <div class="table-container">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Commission Name</th>
+                                            <th>Total Price</th>
+                                            <th>Completion Date</th>
+                                            <th>Locker Location</th>
+                                            <th>Invoices & Documents</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">ORD-2240</td>
+                                            <td>Archival Marquise Ring (2.4ct)</td>
+                                            <td>$185,000</td>
+                                            <td>Dec 10, 2025</td>
+                                            <td>Geneva Vault A-4</td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="action-btn-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                    Download Invoice
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">ORD-1902</td>
+                                            <td>Bespoke Emerald Ear Shells</td>
+                                            <td>$290,000</td>
+                                            <td>Sep 02, 2025</td>
+                                            <td>Place Vendôme Vault C-8</td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="action-btn-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                    Download Invoice
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Project Statistics Graph -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-3" style="grid-column: span 12;">
+                            <div class="card-title">Annual Gemstone Acquisition Analysis</div>
+                            <div style="height: 260px; position: relative;">
+                                <canvas id="projectStatsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: New Project Creation Quick-Start Banner -->
+                    <div class="quick-start-banner animate-item stagger-4" style="background-image: linear-gradient(135deg, rgba(22, 24, 29, 0.95) 0%, rgba(212, 175, 55, 0.05) 100%), url('images/image/artisan-hands.webp'); background-size: cover; background-position: center;">
+                        <div class="quick-start-info" style="position: relative; z-index: 5;">
+                            <h3>Commission an Archival Bespoke Creation</h3>
+                            <p>Collaborate with Antoine de Stackly and our Place Vendôme lapidary design masters to turn rare raw gemstones into your family's next generation heirloom tiara or ring.</p>
+                        </div>
+                        <button onclick="window.location.href='404.html'" class="btn-gold" style="position: relative; z-index: 5; flex-shrink: 0;">
+                            Initiate Atelier Commission
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 4: MESSAGES & SUPPORT
+                     ==================================================================== -->
+                <div class="tab-view" id="view-messages">
+                    
+                    <!-- Section 1: Support Ticket Status Counters -->
+                    <div class="ticket-badges-row animate-item stagger-1">
+                        <div class="ticket-badge-card">
+                            <div class="ticket-badge-num">12</div>
+                            <div class="ticket-badge-meta">
+                                <h5>Active Messages</h5>
+                                <span>Liaison with Master Lapidary</span>
+                            </div>
+                        </div>
+                        <div class="ticket-badge-card">
+                            <div class="ticket-badge-num">01</div>
+                            <div class="ticket-badge-meta">
+                                <h5>Pending Appraisal</h5>
+                                <span>GIA Certification Audit</span>
+                            </div>
+                        </div>
+                        <div class="ticket-badge-card">
+                            <div class="ticket-badge-num">34</div>
+                            <div class="ticket-badge-meta">
+                                <h5>Archived Letters</h5>
+                                <span>Secure communication logs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Live Chat / Inbox Split-View Interface -->
+                    <div class="chat-split-view animate-item stagger-2">
+                        
+                        <!-- Left Inbox Panel -->
+                        <div class="chat-inbox-panel">
+                            <div class="chat-inbox-header">Atelier Liaison List</div>
+                            <div class="chat-inbox-list" id="liaisonContactList">
+                                <button class="chat-inbox-item active" data-liaison="1">
+                                    <div class="chat-item-avatar-badge">A</div>
+                                    <div class="chat-item-details">
+                                        <div class="chat-item-name-row">
+                                            <span class="chat-item-name">Antoine de Stackly</span>
+                                            <span class="chat-item-time">10:42 AM</span>
+                                        </div>
+                                        <div class="chat-item-preview">The fancy vivid blue diamond setting is complete...</div>
+                                    </div>
+                                </button>
+                                <button class="chat-inbox-item" data-liaison="2">
+                                    <div class="chat-item-avatar-badge">S</div>
+                                    <div class="chat-item-details">
+                                        <div class="chat-item-name-row">
+                                            <span class="chat-item-name">Sophia Chen (Mayfair)</span>
+                                            <span class="chat-item-time">Yesterday</span>
+                                        </div>
+                                        <div class="chat-item-preview">Your private viewing suite in London is reserved for...</div>
+                                    </div>
+                                </button>
+                                <button class="chat-inbox-item" data-liaison="3">
+                                    <div class="chat-item-avatar-badge">M</div>
+                                    <div class="chat-item-details">
+                                        <div class="chat-item-name-row">
+                                            <span class="chat-item-name">Marc-Henri Laurent</span>
+                                            <span class="chat-item-time">2 days ago</span>
+                                        </div>
+                                        <div class="chat-item-preview">GIA certification audit report for imperial jade...</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Chat Feed Panel -->
+                        <div class="chat-workspace-panel">
+                            <div class="chat-workspace-header">
+                                <div class="chat-current-user-info">
+                                    <div class="chat-item-avatar-badge" id="activeLiaisonAvatar">A</div>
+                                    <div class="chat-current-user-meta">
+                                        <h4 id="activeLiaisonName">Antoine de Stackly</h4>
+                                        <span id="activeLiaisonTitle">Master Lapidary & Atelier Founder</span>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='404.html'" class="action-btn-sm">Schedule Call</button>
+                            </div>
+                            <div class="chat-history-container" id="chatHistoryContainer">
+                                <div class="chat-bubble received">
+                                    Bonjour. I have personally inspected the 2.4ct Marquise diamond sourced from our Geneva vault. Its clarity score is exceptional.
+                                    <span class="chat-bubble-time">Yesterday, 4:15 PM</span>
+                                </div>
+                                <div class="chat-bubble sent">
+                                    Magnificent, Antoine. Have you started setting it in the custom rose gold solitaire band?
+                                    <span class="chat-bubble-time">Yesterday, 4:32 PM</span>
+                                </div>
+                                <div class="chat-bubble received">
+                                    Yes, our lapidaries have commenced the claw resets. The fancy vivid blue diamond setting is complete and awaits GIA transit papers.
+                                    <span class="chat-bubble-time">10:42 AM</span>
+                                </div>
+                            </div>
+                            <form class="chat-input-bar" id="chatMessageForm" onsubmit="event.preventDefault(); handleSendChatMessage();">
+                                <input type="text" class="form-control" id="chatMessageInput" placeholder="Write private message to Atelier Liaison..." required>
+                                <button type="submit" class="btn-gold" style="padding: 0.65rem 1rem;">
+                                    Send
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-grid">
+                        
+                        <!-- Section 3: Submit New Support Ticket Form -->
+                        <div class="card animate-item stagger-3" style="grid-column: span 7;">
+                            <div class="card-title">Submit New Diplomatic Courier / Vault Request</div>
+                            <form onsubmit="event.preventDefault(); window.location.href='404.html';">
+                                <div class="form-grid">
+                                    <div class="form-group full-width">
+                                        <label class="form-label">Subject / Request Intent</label>
+                                        <input type="text" class="form-control" placeholder="e.g. Schedule Diplomatic Transport to Geneva Vault" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Vault Location Context</label>
+                                        <select class="form-control">
+                                            <option>Place Vendôme Vaults (Paris)</option>
+                                            <option>Mayfair Vaults (London)</option>
+                                            <option>Geneva Main Vault (Switzerland)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Urgency & Diplomatic Escort Needed</label>
+                                        <select class="form-control">
+                                            <option>Routine Appraisal Transport</option>
+                                            <option>High-Priority Atelier Hand-Delivery</option>
+                                            <option>Diplomatic Escort Required (> $1M Value)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label class="form-label">Description of Request Details</label>
+                                        <textarea class="form-control" rows="4" placeholder="Detail any diamond identification codes, preferred delivery windows, or specific vault locker instructions..."></textarea>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <div class="ticket-attachment-dropzone" onclick="window.location.href='404.html'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                            <h5>Upload Appraisal Certificates or CAD Schematics</h5>
+                                            <p>Drop PDF, PNG, JPG files here (Max 15MB)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-gold">Dispatch Request</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 1.5rem;">
+                            
+                            <!-- Section 4: Frequently Asked Support Questions -->
+                            <div class="card animate-item stagger-4">
+                                <div class="card-title">Vaulting & Sourcing FAQ</div>
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <span>How is high-value vault transit insured?</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                    </div>
+                                    <div class="accordion-content">
+                                        All shipments exceeding $100,000 USD are fully covered under STACKLY's global Lloyds of London marine and transit vault policies, with hand-delivery by senior atelier officers.
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <span>Can I schedule a GIA gemologist audit?</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                    </div>
+                                    <div class="accordion-content">
+                                        Yes. Vault patrons can request a private GIA appraisal review session inside our Geneva or Mayfair boutique viewing suites once per calendar quarter.
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <span>What are the design validation stages?</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                    </div>
+                                    <div class="accordion-content">
+                                        Bespoke items undergo three validation checkpoints: raw gemstone approval, CAD model confirmation, and physical wax ring fitment in salon before final gold casting.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 5: Dedicated Account Manager Contact Card -->
+                            <div class="card animate-item stagger-5">
+                                <div class="card-title">Your Private Client Advisor</div>
+                                <div class="manager-card" style="margin-bottom: 1.25rem;">
+                                    <img src="images/image/portrait-happy-smiling-young-businessman-blue-suit-isolated-white-wall.webp" alt="Marc-Henri Laurent" class="manager-avatar">
+                                    <div class="manager-details">
+                                        <span>Geneva Liaison Officer</span>
+                                        <h4>Marc-Henri Laurent</h4>
+                                        <p>Senior GIA Gemology Fellow</p>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='404.html'" class="btn-gold" style="width: 100%;">
+                                    Book Salon Consultation
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 5: SETTINGS & PREFERENCES
+                     ==================================================================== -->
+                <div class="tab-view" id="view-settings">
+                    
+                    <div class="dashboard-grid">
+                        
+                        <!-- Section 1: Theme & Appearance Toggles -->
+                        <div class="card animate-item stagger-1" style="grid-column: span 6;">
+                            <div class="card-title">Gold Theme Accent Preferences</div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">Select the exact precious metal alloy tone to style your client portal interface dashboards.</p>
+                            <div class="color-selector-row">
+                                <label class="color-dot-label" onclick="window.location.href='404.html'" style="cursor: pointer;">
+                                    <input type="radio" name="goldAccent" checked>
+                                    <span class="color-dot yellow-gold" title="Yellow Gold"></span>
+                                </label>
+                                <label class="color-dot-label" onclick="window.location.href='404.html'" style="cursor: pointer;">
+                                    <input type="radio" name="goldAccent">
+                                    <span class="color-dot rose-gold" title="Rose Gold"></span>
+                                </label>
+                                <label class="color-dot-label" onclick="window.location.href='404.html'" style="cursor: pointer;">
+                                    <input type="radio" name="goldAccent">
+                                    <span class="color-dot white-gold" title="White Gold"></span>
+                                </label>
+                                <label class="color-dot-label" onclick="window.location.href='404.html'" style="cursor: pointer;">
+                                    <input type="radio" name="goldAccent">
+                                    <span class="color-dot platinum" title="Platinum"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Notification Preferences -->
+                        <div class="card animate-item stagger-2" style="grid-column: span 6;">
+                            <div class="card-title">Vault Notifications & Alerts</div>
+                            <div class="toggle-switch-wrapper">
+                                <div class="toggle-switch-label">
+                                    <h5>Email Valuation Reports</h5>
+                                    <p>Monthly statements on portfolio appreciation</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-switch-wrapper">
+                                <div class="toggle-switch-label">
+                                    <h5>SMS Diplomatic Courier Alerts</h5>
+                                    <p>Instant SMS when vaults open or transit starts</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-switch-wrapper">
+                                <div class="toggle-switch-label">
+                                    <h5>WhatsApp GIA Invoices</h5>
+                                    <p>Receive certification PDFs directly on mobile</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Billing & Payment Methods -->
+                        <div class="card animate-item stagger-3" style="grid-column: span 6;">
+                            <div class="card-title">
+                                <span>Saved Payment & Vaulting Accounts</span>
+                                <button onclick="window.location.href='404.html'" class="action-btn-sm">Add Card</button>
+                            </div>
+                            <div class="saved-cards-list">
+                                <div class="credit-card-item">
+                                    <div class="credit-card-details">
+                                        <div class="card-brand-logo">WIRE</div>
+                                        <div class="card-meta">
+                                            <h5>HSBC Private Swiss Banking</h5>
+                                            <span>Acct ending in ****8900</span>
+                                        </div>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="action-btn-danger-sm">Remove</button>
+                                </div>
+                                <div class="credit-card-item">
+                                    <div class="credit-card-details">
+                                        <div class="card-brand-logo">BLACK</div>
+                                        <div class="card-meta">
+                                            <h5>Centurion Card AMEX</h5>
+                                            <span>Card ending in ****0001</span>
+                                        </div>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="action-btn-danger-sm">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Privacy & Data Sharing Controls -->
+                        <div class="card animate-item stagger-4" style="grid-column: span 6;">
+                            <div class="card-title">Privacy Controls & Sourcing Disclosures</div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">Toggle how appraisal portfolios are communicated to regional high jewelry trade databases.</p>
+                            <div class="toggle-switch-wrapper">
+                                <div class="toggle-switch-label">
+                                    <h5>Anonymize Portfolio Ownership</h5>
+                                    <p>Remove client tags from global GIA verification lookups</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-switch-wrapper">
+                                <div class="toggle-switch-label">
+                                    <h5>Public Atelier Exhibition</h5>
+                                    <p>Allow showcase of bespoke renderings at Paris Runway gala</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: Activity Log / Login History Table -->
+                        <div class="card animate-item stagger-5" style="grid-column: span 12;">
+                            <div class="card-title">VIP Client Portal Login History</div>
+                            <div class="table-container">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Boutique City / Location</th>
+                                            <th>IP Address</th>
+                                            <th>Device / Agent</th>
+                                            <th>Appraisal Sync Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Jul 27, 2026 10:42:15 AM</td>
+                                            <td>Geneva, Switzerland</td>
+                                            <td style="font-family: monospace;">194.230.104.99</td>
+                                            <td>Safari, Apple iPad Pro</td>
+                                            <td><span class="status-pill completed">Synced</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jul 25, 2026 04:12:08 PM</td>
+                                            <td>Paris, France</td>
+                                            <td style="font-family: monospace;">185.125.168.4</td>
+                                            <td>Chrome, macOS Sequoia</td>
+                                            <td><span class="status-pill completed">Synced</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jul 19, 2026 09:33:50 AM</td>
+                                            <td>London, United Kingdom</td>
+                                            <td style="font-family: monospace;">82.165.10.112</td>
+                                            <td>Mobile App FaceID Face ID</td>
+                                            <td><span class="status-pill completed">Synced</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- ====================================================================
+         Dashboard JavaScript Core Logic
+         ==================================================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // ----------------------------------------------------
+            // 0. Sync Logged In User Email and Profile Info
+            // ----------------------------------------------------
+            function syncLoggedInUser() {
+                const email = sessionStorage.getItem('userEmail') || sessionStorage.getItem('loggedInEmail');
+                if (email && email.includes('@')) {
+                    const usernamePart = email.split('@')[0];
+                    const words = usernamePart.replace(/[._-]/g, ' ').split(' ').filter(Boolean);
+                    const formattedName = words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    const initial = formattedName ? formattedName.charAt(0).toUpperCase() : email.charAt(0).toUpperCase();
+
+                    const nameEl = document.getElementById('dashboardUserName');
+                    const emailEl = document.getElementById('dashboardUserEmail');
+                    const welcomeNameEl = document.getElementById('welcomeUserName');
+                    const sidebarBadgeEl = document.getElementById('userAvatarBadge');
+                    const profileBadgeEl = document.getElementById('profileLargeAvatarBadge');
+                    const profileHeadingEl = document.getElementById('profileNameHeading');
+                    const profileNameInput = document.getElementById('profileNameInput');
+                    const profileEmailInput = document.getElementById('profileEmailInput');
+
+                    if (nameEl) nameEl.textContent = formattedName;
+                    if (emailEl) emailEl.textContent = email;
+                    if (welcomeNameEl) welcomeNameEl.textContent = formattedName;
+                    if (sidebarBadgeEl) sidebarBadgeEl.textContent = initial;
+                    if (profileBadgeEl) profileBadgeEl.textContent = initial;
+                    if (profileHeadingEl) profileHeadingEl.textContent = formattedName;
+                    if (profileNameInput) profileNameInput.value = formattedName;
+                    if (profileEmailInput) profileEmailInput.value = email;
+                }
+            }
+            syncLoggedInUser();
+            
+            // --- Tab-Switching Logic ---
+            const tabButtons = document.querySelectorAll('.menu-item-btn');
+            const tabViews = document.querySelectorAll('.tab-view');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetViewId = btn.getAttribute('data-target');
+                    
+                    // Remove active from all buttons
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    // Add active to current button
+                    btn.classList.add('active');
+                    
+                    // Hide all views and remove active state
+                    tabViews.forEach(view => {
+                        view.classList.remove('active');
+                    });
+                    
+                    // Show current view
+                    const activeView = document.getElementById(targetViewId);
+                    if (activeView) {
+                        activeView.classList.add('active');
+                        
+                        // Scroll workspace back to top on tab change
+                        document.querySelector('.workspace-content').scrollTop = 0;
+
+                        // Retrigger animation for cards in current tab
+                        const animatedCards = activeView.querySelectorAll('.animate-item');
+                        animatedCards.forEach(card => {
+                            card.style.animation = 'none';
+                            card.offsetHeight; /* Trigger reflow */
+                            card.style.animation = null;
+                        });
+                    }
+
+                    // Save active tab in sessionStorage and URL hash
+                    sessionStorage.setItem("userActiveTab", targetViewId);
+                    try {
+                        history.replaceState(null, null, '#' + targetViewId);
+                    } catch (e) {}
+
+                    // Mobile auto-close sidebar on navigate
+                    const sidebar = document.getElementById('dashboardSidebar');
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+
+            // Clear saved tabs on logout click
+            const logoutBtns = document.querySelectorAll(".logout-btn");
+            logoutBtns.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    sessionStorage.removeItem("adminActiveTab");
+                    sessionStorage.removeItem("userActiveTab");
+                });
+            });
+
+            // Restore active tab from URL hash first, then sessionStorage
+            const urlHash = window.location.hash;
+            const savedTabId = sessionStorage.getItem("userActiveTab");
+            let tabToRestore = null;
+
+            if (urlHash && document.getElementById(urlHash.replace("#", ""))) {
+                tabToRestore = urlHash.replace("#", "");
+            } else if (savedTabId) {
+                tabToRestore = savedTabId;
+            }
+
+            if (tabToRestore) {
+                const targetBtn = document.querySelector(`.menu-item-btn[data-target="${tabToRestore}"]`);
+                if (targetBtn) {
+                    targetBtn.click();
+                }
+            }
+
+            // ----------------------------------------------------
+            // Atelier Liaison Messages & Chat System Logic
+            // ----------------------------------------------------
+            const liaisonsData = {
+                '1': {
+                    name: 'Antoine de Stackly',
+                    title: 'Master Lapidary & Atelier Founder',
+                    initial: 'A',
+                    messages: [
+                        { type: 'received', text: 'Bonjour. I have personally inspected the 2.4ct Marquise diamond sourced from our Geneva vault. Its clarity score is exceptional.', time: 'Yesterday, 4:15 PM' },
+                        { type: 'sent', text: 'Magnificent, Antoine. Have you started setting it in the custom rose gold solitaire band?', time: 'Yesterday, 4:32 PM' },
+                        { type: 'received', text: 'Yes, our lapidaries have commenced the claw resets. The fancy vivid blue diamond setting is complete and awaits GIA transit papers.', time: '10:42 AM' }
+                    ]
+                },
+                '2': {
+                    name: 'Sophia Chen (Mayfair)',
+                    title: 'Senior Curator & Vault Manager',
+                    initial: 'S',
+                    messages: [
+                        { type: 'received', text: 'Hello! Your private viewing suite at Mayfair, London is reserved for tomorrow at 2:00 PM.', time: 'Yesterday, 2:10 PM' },
+                        { type: 'sent', text: 'Thank you Sophia, I will arrive with our family appraiser.', time: 'Yesterday, 3:00 PM' },
+                        { type: 'received', text: 'Perfect! We have arranged the emerald cut collection for your private viewing.', time: '9:15 AM' }
+                    ]
+                },
+                '3': {
+                    name: 'Marc-Henri Laurent',
+                    title: 'Geneva Senior Liaison Officer',
+                    initial: 'M',
+                    messages: [
+                        { type: 'received', text: 'Greetings. The GIA certification audit report for your imperial jade pendant has been verified.', time: '2 days ago' },
+                        { type: 'sent', text: 'Excellent news, Marc-Henri. Please archive the digital certificate in my vault ledger.', time: 'Yesterday, 11:20 AM' },
+                        { type: 'received', text: 'Understood. The certificate is now synchronized with your portal vault statement.', time: '8:05 AM' }
+                    ]
+                }
+            };
+
+            let currentLiaisonId = '1';
+
+            function renderChatHistory(liaisonId) {
+                const container = document.getElementById('chatHistoryContainer');
+                if (!container || !liaisonsData[liaisonId]) return;
+
+                const data = liaisonsData[liaisonId];
+
+                // Update Header
+                const avatarEl = document.getElementById('activeLiaisonAvatar');
+                const nameEl = document.getElementById('activeLiaisonName');
+                const titleEl = document.getElementById('activeLiaisonTitle');
+
+                if (avatarEl) avatarEl.textContent = data.initial;
+                if (nameEl) nameEl.textContent = data.name;
+                if (titleEl) titleEl.textContent = data.title;
+
+                // Render Messages
+                container.innerHTML = data.messages.map(msg => `
+                    <div class="chat-bubble ${msg.type}">
+                        ${msg.text}
+                        <span class="chat-bubble-time">${msg.time}</span>
+                    </div>
+                `).join('');
+
+                container.scrollTop = container.scrollHeight;
+            }
+
+            // Click listener for liaison contact buttons
+            const liaisonItems = document.querySelectorAll('.chat-inbox-item[data-liaison]');
+            liaisonItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    liaisonItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    currentLiaisonId = this.getAttribute('data-liaison');
+                    renderChatHistory(currentLiaisonId);
+                });
+            });
+
+            // Send Chat Message Function
+            window.handleSendChatMessage = function() {
+                const input = document.getElementById('chatMessageInput');
+                if (!input) return;
+                const text = input.value.trim();
+                if (!text) return;
+
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                if (liaisonsData[currentLiaisonId]) {
+                    liaisonsData[currentLiaisonId].messages.push({
+                        type: 'sent',
+                        text: text,
+                        time: `Today, ${timeStr}`
+                    });
+                    renderChatHistory(currentLiaisonId);
+                }
+
+                input.value = '';
+            };
+
+            // --- Mobile Off-Canvas Sidebar Toggling ---
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+            const sidebar = document.getElementById('dashboardSidebar');
+
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.add('open');
+                });
+            }
+
+            if (closeSidebarBtn && sidebar) {
+                closeSidebarBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                });
+            }
+
+            // Close sidebar when clicking outside on mobile overlay
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 991 && sidebar && sidebar.classList.contains('open')) {
+                    const isClickInsideSidebar = sidebar.contains(event.target);
+                    const isClickToggle = sidebarToggle && sidebarToggle.contains(event.target);
+                    
+                    if (!isClickInsideSidebar && !isClickToggle) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+
+            // --- FAQ Accordion Logic (View 4) ---
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordionItem = header.parentElement;
+                    const isActive = accordionItem.classList.contains('active');
+                    
+                    // Collapse all accordion items
+                    document.querySelectorAll('.accordion-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Toggle current item
+                    if (!isActive) {
+                        accordionItem.classList.add('active');
+                    }
+                });
+            });
+
+            // --- Chat inbox selection logic ---
+            const chatItems = document.querySelectorAll('.chat-inbox-item');
+            chatItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    chatItems.forEach(c => c.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+
+            // --- CHART.JS CONFIGURATION & RENDERING ---
+            
+            // Shared Styling Variables
+            const goldColor = '#D4AF37';
+            const goldHoverColor = '#DFC78E';
+            const mutedText = '#9CA3AF';
+            const gridColor = 'rgba(212, 175, 55, 0.08)';
+
+            // 1. Line Chart: Portfolio Growth Over 12 Months
+            const lineCtx = document.getElementById('lineChartOverview');
+            if (lineCtx) {
+                // Gradient Fill for Line Chart
+                const chartGrad = lineCtx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+                chartGrad.addColorStop(0, 'rgba(212, 175, 55, 0.2)');
+                chartGrad.addColorStop(1, 'rgba(11, 12, 14, 0.01)');
+
+                new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Aug 25', 'Sep 25', 'Oct 25', 'Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26'],
+                        datasets: [{
+                            label: 'Vault Value ($)',
+                            data: [1800000, 1850000, 1920000, 1900000, 2050000, 2100000, 2180000, 2220000, 2300000, 2350000, 2450000, 2485000],
+                            borderColor: goldColor,
+                            borderWidth: 2,
+                            backgroundColor: chartGrad,
+                            fill: true,
+                            tension: 0.35,
+                            pointBackgroundColor: goldColor,
+                            pointBorderColor: '#0B0C0E',
+                            pointHoverRadius: 6,
+                            pointHoverBackgroundColor: goldHoverColor
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#16181D',
+                                titleColor: goldHoverColor,
+                                bodyColor: '#FFFFFF',
+                                borderColor: 'rgba(212, 175, 55, 0.3)',
+                                borderWidth: 1,
+                                padding: 12
+                            }
+                        },
+                        scales: {
+                            y: {
+                                grid: { color: gridColor },
+                                ticks: {
+                                    color: mutedText,
+                                    font: { family: 'Plus Jakarta Sans', size: 10 },
+                                    callback: function(value) { return '$' + value.toLocaleString(); }
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: mutedText, font: { family: 'Plus Jakarta Sans', size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 2. Bar Chart: Quarterly Bespoke Approvals
+            const barCtx = document.getElementById('barChartOverview');
+            if (barCtx) {
+                new Chart(barCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Q3 2025', 'Q4 2025', 'Q1 2026', 'Q2 2026'],
+                        datasets: [{
+                            label: 'Design Approvals',
+                            data: [12, 18, 15, 22],
+                            backgroundColor: 'rgba(212, 175, 55, 0.75)',
+                            hoverBackgroundColor: goldColor,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#16181D',
+                                titleColor: goldHoverColor,
+                                bodyColor: '#FFFFFF',
+                                borderColor: 'rgba(212, 175, 55, 0.3)',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            y: {
+                                grid: { color: gridColor },
+                                ticks: { color: mutedText, font: { size: 10 } }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: mutedText, font: { size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 3. Donut Chart: Collection Distribution
+            const donutCtx = document.getElementById('donutChartOverview');
+            if (donutCtx) {
+                new Chart(donutCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Solitaire Rings', 'Archival Tiaras', 'Pendants', 'Bespoke Shells'],
+                        datasets: [{
+                            data: [45, 25, 20, 10],
+                            backgroundColor: [
+                                '#DFC78E',
+                                '#C29B27',
+                                '#8A6D19',
+                                '#5E440A'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#16181D'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: '#E5E7EB',
+                                    font: { family: 'Plus Jakarta Sans', size: 11 },
+                                    boxWidth: 12
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: '#16181D',
+                                titleColor: '#FFFFFF',
+                                bodyColor: goldColor,
+                                borderColor: 'rgba(212, 175, 55, 0.3)',
+                                borderWidth: 1
+                            }
+                        },
+                        cutout: '70%'
+                    }
+                });
+            }
+
+            // 4. Projects Sourcing & Completion Graph (Bar Chart - View 3)
+            const projCtx = document.getElementById('projectStatsChart');
+            if (projCtx) {
+                new Chart(projCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                        datasets: [
+                            {
+                                label: 'Diamonds Sourced',
+                                data: [3, 4, 2, 5, 4, 6, 7],
+                                backgroundColor: '#D4AF37',
+                                borderRadius: 3
+                            },
+                            {
+                                label: 'Items Casted',
+                                data: [2, 3, 3, 4, 3, 5, 5],
+                                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                                borderColor: 'rgba(212, 175, 55, 0.2)',
+                                borderWidth: 1,
+                                borderRadius: 3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { color: '#E5E7EB', font: { family: 'Plus Jakarta Sans', size: 10 } }
+                            },
+                            tooltip: {
+                                backgroundColor: '#16181D',
+                                titleColor: goldHoverColor,
+                                bodyColor: '#FFFFFF',
+                                borderColor: 'rgba(212, 175, 55, 0.3)',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            y: {
+                                grid: { color: gridColor },
+                                ticks: { color: mutedText, font: { size: 10 } }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: mutedText, font: { size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="@stacklykr">
+    <title>STACKLY - Administrative Command Center</title>
+    <!-- Google Fonts Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* ==========================================================================
+           STACKLY Admin Dashboard Custom Stylesheet (Obsidian & Gold Design System)
+           ========================================================================== */
+        :root {
+            --bg-obsidian: #0B0C0E;
+            --bg-charcoal: #16181D;
+            --bg-card: rgba(22, 24, 29, 0.85);
+            --bg-card-hover: rgba(30, 33, 40, 0.9);
+            
+            --gold-50: #FDFBF4;
+            --gold-100: #F7F1D9;
+            --gold-200: #EBDCB4;
+            --gold-300: #DFC78E;
+            --gold-400: #D4AF37;
+            --gold-500: #C29B27;
+            --gold-600: #A17D1B;
+            --gold-700: #7F6012;
+            --gold-800: #5E440A;
+            --gold-900: #3D2A04;
+            
+            --text-white: #FFFFFF;
+            --text-light: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --text-gold: #DFC78E;
+            
+            --border-gold-subtle: rgba(212, 175, 55, 0.15);
+            --border-gold-medium: rgba(212, 175, 55, 0.3);
+            --border-gold-dark: rgba(212, 175, 55, 0.5);
+            --border-danger-subtle: rgba(239, 68, 68, 0.25);
+
+            --status-success: #10B981;
+            --status-warning: #F59E0B;
+            --status-danger: #EF4444;
+            --status-info: #3B82F6;
+
+            --font-serif: "Cormorant Garamond", Georgia, serif;
+            --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+
+            --transition-fast: 200ms ease;
+            --transition-normal: 300ms ease;
+            --transition-slow: 500ms ease;
+            --sidebar-width: 280px;
+        }
+
+        /* Reset & Base Setup */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-obsidian);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-gold-subtle);
+            border-radius: var(--radius-full);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-400);
+        }
+
+        /* Helper Classes */
+        .shimmer-gold-text {
+            background: linear-gradient(135deg, var(--gold-100) 0%, var(--gold-300) 50%, var(--gold-500) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: var(--font-serif);
+        }
+
+        .dashboard-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--bg-charcoal) 0%, var(--bg-obsidian) 100%);
+            border-right: 1px solid var(--border-gold-subtle);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            height: 100%;
+            flex-shrink: 0;
+            z-index: 100;
+            transition: transform var(--transition-normal);
+            position: relative;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .sidebar-brand img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Sidebar User Card */
+        .sidebar-user-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            border: 1px solid var(--gold-400);
+            background: linear-gradient(45deg, var(--bg-charcoal), var(--gold-700));
+        }
+
+        .sidebar-user-info h4 {
+            font-size: 0.875rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .sidebar-user-info span {
+            font-size: 0.75rem;
+            color: var(--gold-400);
+            letter-spacing: 0.05em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        /* Navigation Menu */
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+
+        .menu-item-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .menu-item-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            transition: stroke var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .menu-item-btn:hover {
+            color: var(--text-white);
+            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.1);
+        }
+
+        .menu-item-btn.active {
+            color: var(--text-white);
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.02) 100%);
+            border-left: 3px solid var(--gold-400);
+            border-top-color: var(--border-gold-subtle);
+            border-right-color: var(--border-gold-subtle);
+            border-bottom-color: var(--border-gold-subtle);
+            padding-left: calc(1rem - 3px);
+            font-weight: 600;
+        }
+
+        .menu-item-btn.active svg {
+            stroke: var(--gold-400);
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-gold-subtle);
+            padding-top: 1.5rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            color: #EF4444;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            cursor: pointer;
+            background: transparent;
+            width: 100%;
+        }
+
+        .logout-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Mobile Controls */
+        .close-sidebar-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .close-sidebar-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        /* Main Workspace */
+        .main-workspace {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-obsidian);
+            position: relative;
+        }
+
+        /* Top Mobile Navigation Bar */
+        .top-bar {
+            height: 70px;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 90;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger-btn svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Workspace Content Viewport */
+        .workspace-content {
+            padding: 2.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        /* Staggered Left-to-Right Animation on Tab Switch */
+        @keyframes fadeRightIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tab-view {
+            display: none;
+        }
+
+        .tab-view.active {
+            display: block;
+        }
+
+        .tab-view.active .animate-item {
+            opacity: 0;
+            animation: fadeRightIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .stagger-1 { animation-delay: 50ms !important; }
+        .stagger-2 { animation-delay: 100ms !important; }
+        .stagger-3 { animation-delay: 150ms !important; }
+        .stagger-4 { animation-delay: 200ms !important; }
+        .stagger-5 { animation-delay: 250ms !important; }
+        .stagger-6 { animation-delay: 300ms !important; }
+        .stagger-7 { animation-delay: 350ms !important; }
+
+        /* Card Elements */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .card:hover {
+            border-color: var(--border-gold-medium);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title-icon {
+            color: var(--gold-400);
+        }
+
+        /* KPI Cards */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .kpi-card {
+            padding: 1.5rem;
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .kpi-icon-wrap {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--border-gold-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-400);
+        }
+
+        .kpi-icon-wrap svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .kpi-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-white);
+            font-family: var(--font-serif);
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 600;
+        }
+
+        .kpi-change.positive { color: var(--status-success); }
+        .kpi-change.negative { color: var(--status-danger); }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .dashboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .dashboard-table th {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .dashboard-table td {
+            padding: 1.1rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.875rem;
+            color: var(--text-light);
+            vertical-align: middle;
+        }
+
+        .dashboard-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dashboard-table tbody tr {
+            transition: background var(--transition-fast);
+        }
+
+        .dashboard-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        /* Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.725rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .status-pill.success {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--status-success);
+        }
+
+        .status-pill.warning {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--status-warning);
+        }
+
+        .status-pill.danger {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--status-danger);
+        }
+
+        .status-pill.info {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--status-info);
+        }
+
+        /* Buttons */
+        .btn-gold-sm {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--gold-300);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .btn-gold-sm:hover {
+            background: var(--gold-400);
+            color: var(--bg-obsidian);
+            border-color: var(--gold-400);
+        }
+
+        .btn-danger-sm {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--status-danger);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .btn-danger-sm:hover {
+            background: var(--status-danger);
+            color: var(--text-white);
+            border-color: var(--status-danger);
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            border: 1px solid var(--border-gold-medium);
+            color: var(--gold-300);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-outline-gold:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold-400);
+            color: var(--text-white);
+        }
+
+        /* Form Inputs */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-gold);
+            letter-spacing: 0.05em;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], select, textarea {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            color: var(--text-white);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Toggles */
+        .switch-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: background var(--transition-fast);
+        }
+
+        .switch-box:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .switch-box-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .switch-box-label h5 {
+            font-size: 0.9rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .switch-box-label p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .3s;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-gold-subtle);
+        }
+
+        .slider::before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-muted);
+            transition: .3s;
+            border-radius: var(--radius-full);
+        }
+
+        input:checked + .slider {
+            background-color: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold-400);
+        }
+
+        input:checked + .slider::before {
+            transform: translateX(24px);
+            background-color: var(--gold-400);
+        }
+
+        /* Progress Bars */
+        .progress-bar-wrap {
+            margin-bottom: 1.25rem;
+        }
+
+        .progress-bar-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width 0.8s ease;
+        }
+
+        /* User Avatar list */
+        .avatar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            object-position: center top;
+            border: 1px solid var(--gold-400);
+            background: linear-gradient(45deg, var(--bg-charcoal), var(--gold-700));
+        }
+
+        .sidebar-user-avatar-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.08));
+            border: 1.5px solid var(--gold-400);
+            color: var(--gold-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Invitation Banner */
+        .invitation-banner {
+            background: linear-gradient(135deg, rgba(22, 24, 29, 0.9) 0%, rgba(26, 22, 10, 0.4) 100%);
+            border: 1px solid var(--border-gold-medium);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        /* Matrix Table */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .matrix-table th {
+            padding: 0.75rem;
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--text-gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .matrix-table td {
+            padding: 0.875rem;
+            border: 1px solid var(--border-gold-subtle);
+            font-size: 0.875rem;
+        }
+
+        .matrix-icon-check {
+            color: var(--status-success);
+        }
+
+        .matrix-icon-cross {
+            color: var(--status-danger);
+            opacity: 0.4;
+        }
+
+        /* reported content cards */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .report-card {
+            background: rgba(22, 24, 29, 0.6);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .report-card:hover {
+            border-color: var(--border-gold-medium);
+            background: var(--bg-card-hover);
+        }
+
+        .report-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .report-item-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-gold-subtle);
+        }
+
+        /* Sessions grid */
+        .session-card {
+            border: 1px solid var(--border-gold-subtle);
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .session-active-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--status-success);
+            border-radius: var(--radius-full);
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            box-shadow: 0 0 10px var(--status-success);
+        }
+
+        /* Danger Zone warning */
+        .maintenance-warning-card {
+            border: 1px solid var(--status-warning);
+            background: rgba(245, 158, 11, 0.03);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .maintenance-warning-card svg {
+            color: var(--status-warning);
+            width: 42px;
+            height: 42px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            flex-shrink: 0;
+        }
+
+        /* Brand metadata logo dropzone */
+        .brand-logo-dropzone {
+            border: 1.5px dashed var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            background: rgba(0, 0, 0, 0.15);
+            transition: border-color var(--transition-fast);
+        }
+
+        .brand-logo-dropzone:hover {
+            border-color: var(--gold-400);
+        }
+
+        .brand-logo-dropzone img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-sm);
+            padding: 0.25rem;
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .report-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                box-shadow: 15px 0 30px rgba(0,0,0,0.5);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .close-sidebar-btn {
+                display: block;
+            }
+
+            .top-bar {
+                display: flex;
+            }
+
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .invitation-banner, .maintenance-warning-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1.25rem;
+            }
+        }
+
+        /* ── Mobile: 768px and below ──────────────────────────────────── */
+        @media (max-width: 768px) {
+
+            /* Core layout */
+            .workspace-content {
+                padding: 1rem 0.75rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .tab-view {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .dashboard-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+
+            .dashboard-grid > div,
+            .dashboard-grid > .card {
+                grid-column: 1 / -1 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .card {
+                grid-column: span 12 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            /* ── VIEW 1: Analytics ── */
+
+            /* Command center welcome banner */
+            .welcome-banner {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 1rem !important;
+                padding: 1.25rem 1rem !important;
+                text-align: left !important;
+            }
+
+            .welcome-banner h1 {
+                font-size: 1.35rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .welcome-banner > div:last-child {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.6rem !important;
+                width: 100% !important;
+            }
+
+            .welcome-banner .btn-gold-sm {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* KPI cards */
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.75rem !important;
+            }
+
+            .kpi-card {
+                padding: 1rem !important;
+            }
+
+            .kpi-value {
+                font-size: 1.4rem !important;
+            }
+
+            /* Tables - horizontal scroll */
+            .table-container {
+                width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            .dashboard-table {
+                min-width: 580px !important;
+            }
+
+            .matrix-table {
+                min-width: 360px !important;
+            }
+
+            /* Card title with action button */
+            .card-title {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.6rem !important;
+                font-size: 0.85rem !important;
+            }
+
+            .card-title button,
+            .card-title .btn-gold-sm {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* ── VIEW 2: Users ── */
+
+            /* User table action buttons */
+            .dashboard-table td:last-child {
+                text-align: left !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.4rem !important;
+            }
+
+            .btn-gold-sm {
+                font-size: 0.72rem !important;
+                padding: 0.4rem 0.75rem !important;
+            }
+
+            .btn-danger-sm {
+                font-size: 0.72rem !important;
+                padding: 0.4rem 0.75rem !important;
+            }
+
+            /* ── VIEW 3: Moderation ── */
+
+            .report-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+
+            .report-card {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .report-card > div:last-child {
+                flex-direction: column !important;
+            }
+
+            .report-card > div:last-child button {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* Toggle switch rows */
+            .switch-box {
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 0.85rem 0.75rem !important;
+                gap: 0.75rem !important;
+            }
+
+            .switch-box-label h5 {
+                font-size: 0.82rem !important;
+            }
+
+            .switch-box-label p {
+                font-size: 0.7rem !important;
+                line-height: 1.35 !important;
+            }
+
+            /* Form grid */
+            .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.85rem !important;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1 !important;
+            }
+
+            /* ── VIEW 4: Security ── */
+
+            /* Server health progress bars grid */
+            .card .form-grid[style*="repeat(4"] {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            .progress-bar-info {
+                font-size: 0.72rem !important;
+            }
+
+            /* Active admin sessions */
+            .report-grid[style*="repeat(3"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            .session-card {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .session-card .btn-gold-sm,
+            .session-card .btn-danger-sm {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* IP blacklist input row — scoped only to that card */
+            #view-security .form-group > div {
+                flex-direction: column !important;
+                gap: 0.6rem !important;
+            }
+
+            #view-security .form-group > div input {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            #view-security .form-group > div button {
+                width: 100% !important;
+                white-space: normal !important;
+            }
+
+            /* Backup & recovery form */
+            .card .form-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Action button rows — scoped to card footer rows only */
+            .card > div[style*="justify-content: flex-end"],
+            .card > form > div[style*="justify-content: flex-end"] {
+                justify-content: center !important;
+            }
+
+            /* ── VIEW 5: Settings ── */
+
+            /* Brand logo dropzone */
+            .brand-logo-dropzone {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 0.75rem !important;
+            }
+
+            .brand-logo-dropzone img {
+                width: 80px !important;
+                height: auto !important;
+            }
+
+            .brand-logo-dropzone div {
+                text-align: center !important;
+            }
+
+            .brand-logo-dropzone button {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
+
+            /* Payment API config - 3 column grid → 1 column */
+            .form-grid[style*="repeat(3"] {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+
+            /* SMTP action row — scoped to settings view card only */
+            #view-settings .card > div[style*="justify-content: space-between"] {
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                align-items: stretch !important;
+            }
+
+            #view-settings .card > div[style*="justify-content: space-between"] > button {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* GDPR data retention select */
+            select[style*="width: 250px"] {
+                width: 100% !important;
+            }
+
+            /* Maintenance warning card */
+            .maintenance-warning-card {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 1rem !important;
+                padding: 1.25rem 1rem !important;
+            }
+
+            .maintenance-warning-card svg {
+                width: 36px !important;
+                height: 36px !important;
+            }
+
+            .maintenance-warning-card > div {
+                text-align: center !important;
+            }
+
+            .maintenance-warning-card .switch {
+                margin: 0 auto !important;
+            }
+
+            /* Invitation banner */
+            .invitation-banner {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 1.25rem 1rem !important;
+                gap: 1rem !important;
+            }
+
+            .invitation-banner button,
+            .invitation-banner .btn-gold-action,
+            .invitation-banner .btn-gold-sm,
+            .invitation-banner .btn-outline-gold {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* Global buttons */
+            .btn-gold-action {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            .btn-outline-gold {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+        }
+
+        /* ── Mobile: 480px and below ──────────────────────────────────── */
+        @media (max-width: 480px) {
+            .kpi-row {
+                grid-template-columns: 1fr !important;
+            }
+
+            .kpi-value {
+                font-size: 1.25rem !important;
+            }
+
+            .welcome-banner h1 {
+                font-size: 1.15rem !important;
+            }
+
+            .card-title {
+                font-size: 0.8rem !important;
+            }
+
+            /* Health progress bars — stack vertically on very small screens */
+            .card .form-grid[style*="repeat(4"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .btn-gold-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+            color: #0b0c10;
+            border: 1px solid #f3e5ab;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-gold-action:hover {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboard.html" class="sidebar-brand" onclick="sessionStorage.removeItem('adminActiveTab');">
+                    <img src="images/image/logo.webp" alt="STACKLY Logo">
+                </a>
+                <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close Sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <!-- Administrator Info -->
+            <div class="sidebar-user-card">
+                <div class="sidebar-user-avatar-badge" id="adminAvatarBadge">A</div>
+                <div class="sidebar-user-info">
+                    <h4 id="adminDashboardName">Atelier Admin</h4>
+                    <span id="adminDashboardEmail" style="word-break: break-all; font-size: 0.75rem; color: var(--gold-400);">admin@stackly.com</span>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="sidebar-menu">
+                <button class="menu-item-btn active" data-target="view-analytics">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line><line x1="2" y1="20" x2="2" y2="18"></line></svg>
+                    System Analytics & Revenue
+                </button>
+                <button class="menu-item-btn" data-target="view-users">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    User & Role Management
+                </button>
+                <button class="menu-item-btn" data-target="view-moderation">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    Order & Content Moderation
+                </button>
+                <button class="menu-item-btn" data-target="view-security">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    Security & Server Logs
+                </button>
+                <button class="menu-item-btn" data-target="view-settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Global Platform Settings
+                </button>
+            </nav>
+
+            <!-- Bottom Pins -->
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN WORKSPACE -->
+        <main class="main-workspace">
+            
+            <!-- Mobile Top Bar Header -->
+            <header class="top-bar">
+                <button class="hamburger-btn" id="sidebarToggle" aria-label="Toggle Sidebar Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <a href="admin-dashboard.html" style="display: flex; align-items: center; justify-content: center; height: 36px; text-decoration: none;" onclick="sessionStorage.removeItem('adminActiveTab');">
+                    <img src="images/image/logo.webp" alt="STACKLY Logo" style="height: 36px; width: auto; object-fit: contain;">
+                </a>
+                <div style="width: 36px;"></div> <!-- Spacer -->
+            </header>
+
+            <div class="workspace-content">
+
+                <!-- ====================================================================
+                     VIEW 1: SYSTEM ANALYTICS & REVENUE (Default Active View)
+                     ==================================================================== -->
+                <div class="tab-view active" id="view-analytics">
+                    
+                    <!-- Section 1: Command Header -->
+                    <div class="welcome-banner animate-item stagger-1" style="background: linear-gradient(135deg, rgba(22, 24, 29, 0.9) 0%, rgba(26, 22, 10, 0.4) 100%); border: 1px solid var(--border-gold-medium); border-radius: var(--radius-lg); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+                                <h1 style="font-family: var(--font-serif); font-size: 2rem; color: var(--text-white); font-weight: 500;">Administrative Command Center</h1>
+                                <span class="status-pill success" style="padding: 0.25rem 0.6rem;"><span style="width:6px;height:6px;background:var(--status-success);border-radius:var(--radius-full);"></span> Systems Operational</span>
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Internal Server Host: <span id="liveServerClock" style="color: var(--text-gold); font-weight: 600;">Loading...</span></p>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="padding: 0.6rem 1rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Export PDF Report
+                            </button>
+                            <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="padding: 0.6rem 1rem;">Export CSV</button>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Primary KPI Summary Row -->
+                    <div class="kpi-row">
+                        <div class="card kpi-card animate-item stagger-2">
+                            <div class="kpi-header">
+                                <span>Platform Revenue</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">$1,824,950</div>
+                            <div class="kpi-change positive">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                +18.4% YoY
+                            </div>
+                        </div>
+
+                        <div class="card kpi-card animate-item stagger-3">
+                            <div class="kpi-header">
+                                <span>Active Daily Patrons</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">1,284</div>
+                            <div class="kpi-change positive">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                +6.2% vs yesterday
+                            </div>
+                        </div>
+
+                        <div class="card kpi-card animate-item stagger-4">
+                            <div class="kpi-header">
+                                <span>System Error Rate</span>
+                                <div class="kpi-icon-wrap" style="background: rgba(239, 68, 68, 0.08); color: var(--status-danger); border-color: rgba(239, 68, 68, 0.15);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">0.04%</div>
+                            <div class="kpi-change positive" style="color: var(--status-success);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                -0.02% decrease
+                            </div>
+                        </div>
+
+                        <div class="card kpi-card animate-item stagger-5">
+                            <div class="kpi-header">
+                                <span>CPU Cluster Load</span>
+                                <div class="kpi-icon-wrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                                </div>
+                            </div>
+                            <div class="kpi-value">14.8%</div>
+                            <div class="kpi-change positive" style="color: var(--status-success);">
+                                Optimal Load
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Master Financial Line Chart -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-3" style="grid-column: span 12;">
+                            <div class="card-title">
+                                <span>Master Financial Ledger & Revenue Forecast</span>
+                                <span class="card-title-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
+                                </span>
+                            </div>
+                            <div style="height: 320px; position: relative;">
+                                <canvas id="lineChartRevenue"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Secondary Analytics Split-View -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-4" style="grid-column: span 7;">
+                            <div class="card-title">
+                                <span>Patron Registration Demographics (By Country)</span>
+                                <span class="card-title-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                </span>
+                            </div>
+                            <div style="height: 240px; position: relative;">
+                                <canvas id="barChartAcquisition"></canvas>
+                            </div>
+                        </div>
+                        <div class="card animate-item stagger-5" style="grid-column: span 5;">
+                            <div class="card-title">
+                                <span>Client Access Device Breakdown</span>
+                                <span class="card-title-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 1 10 10H12z"></path></svg>
+                                </span>
+                            </div>
+                            <div style="height: 240px; position: relative;">
+                                <canvas id="donutChartDevices"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Real-Time Alerts Feed / Table -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-6" style="grid-column: span 12;">
+                            <div class="card-title">
+                                <span>Live Operations Alert & System Event Stream</span>
+                                <button onclick="window.location.href='404.html'" class="btn-gold-sm">Acknowledge All</button>
+                            </div>
+                            <div class="table-container">
+                                <table class="dashboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Operational Event</th>
+                                            <th>Origin Host</th>
+                                            <th>System Severity</th>
+                                            <th>Action Status</th>
+                                            <th>Trigger Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">11:24:51.24</td>
+                                            <td>DB Cluster Auto-Backup Sequence Initiated</td>
+                                            <td>db-vault-master-01</td>
+                                            <td><span class="status-pill info">Info</span></td>
+                                            <td><span class="status-pill success">Completed</span></td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="btn-gold-sm">Inspect Log</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">11:21:04.19</td>
+                                            <td>Repeated failed SSH authentication credentials</td>
+                                            <td>IP 194.22.148.11</td>
+                                            <td><span class="status-pill danger">Critical</span></td>
+                                            <td><span class="status-pill warning">Flagged & Blocked</span></td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="btn-danger-sm">Blacklist IP</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">11:15:33.82</td>
+                                            <td>SSL Certificate Renewal Complete</td>
+                                            <td>gateway-edge-nginx</td>
+                                            <td><span class="status-pill success">Success</span></td>
+                                            <td><span class="status-pill success">Verified</span></td>
+                                            <td>
+                                                <button onclick="window.location.href='404.html'" class="btn-gold-sm">View cert</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 2: USER & ROLE MANAGEMENT
+                     ==================================================================== -->
+                <div class="tab-view" id="view-users">
+                    
+
+
+                    <!-- Section 2: Master User Directory Table (6+ Avatars used) -->
+                    <div class="card animate-item stagger-2" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">User Accounts Directory Database</div>
+                        <div class="table-container">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Staff / Patron</th>
+                                        <th>Platform UID</th>
+                                        <th>Assigned Role</th>
+                                        <th>Joined Date</th>
+                                        <th>Account Status</th>
+                                        <th style="text-align: right;">Directory Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-wrap">
+                                                <img src="images/image/portrait-girl-jacket-white-shirt-looking-camera.webp" alt="Antoine" class="user-avatar-small">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-white);">Antoine de Stackly</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-muted);">antoine@stackly.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">UID-0001-ST</td>
+                                        <td><span class="status-pill success" style="background: rgba(16, 185, 129, 0.05); color: var(--status-success); border-color: rgba(16, 185, 129, 0.2);">Root Admin</span></td>
+                                        <td>Jan 10, 2026</td>
+                                        <td><span class="status-pill success">Active</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Edit</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Ban</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-wrap">
+                                                <img src="images/image/young-confident-businessman-looking-camera.webp" alt="Helena" class="user-avatar-small">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-white);">Helena Vance</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-muted);">helena.vance@vanguard.co</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">UID-0908-HV</td>
+                                        <td><span class="status-pill info" style="background: rgba(59, 130, 246, 0.05); color: var(--status-info); border-color: rgba(59, 130, 246, 0.2);">VIP Client</span></td>
+                                        <td>May 12, 2026</td>
+                                        <td><span class="status-pill success">Active</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Edit</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Ban</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-wrap">
+                                                <img src="images/image/portrait-happy-smiling-young-businessman-blue-suit-isolated-white-wall.webp" alt="Sophia" class="user-avatar-small">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-white);">Sophia Chen</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-muted);">sophia.chen@mayfair.co.uk</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">UID-1022-SC</td>
+                                        <td><span class="status-pill info" style="background: rgba(59, 130, 246, 0.05); color: var(--status-info); border-color: rgba(59, 130, 246, 0.2);">VIP Client</span></td>
+                                        <td>Jun 02, 2026</td>
+                                        <td><span class="status-pill success">Active</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Edit</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Ban</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-wrap">
+                                                <img src="images/image/portrait-happy-smiling-young-businessman-brown-suit-isolated-white-wall.webp" alt="Marcus" class="user-avatar-small">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-white);">Marcus Sterling</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-muted);">sterling.m@capital.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">UID-4809-MS</td>
+                                        <td><span class="status-pill success" style="background: rgba(16, 185, 129, 0.05); color: var(--status-success); border-color: rgba(16, 185, 129, 0.2);">Vault Officer</span></td>
+                                        <td>Mar 15, 2026</td>
+                                        <td><span class="status-pill success">Active</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Edit</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Ban</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-wrap">
+                                                <img src="images/image/66878515f5374460f86c8aec_testimonial-p-800.webp" alt="Helmut" class="user-avatar-small">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-white);">Helmut Krieger</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-muted);">h.krieger@frankfurt-gems.de</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">UID-3301-HK</td>
+                                        <td><span class="status-pill success" style="background: rgba(16, 185, 129, 0.05); color: var(--status-success); border-color: rgba(16, 185, 129, 0.2);">Master Lapidary</span></td>
+                                        <td>Feb 20, 2026</td>
+                                        <td><span class="status-pill success">Active</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Edit</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Ban</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-wrap">
+                                                <img src="images/image/66853b330584bdf0f4abdf24_blog-thumb-05-p-800.webp" alt="Juliet" class="user-avatar-small">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-white);">Juliet Rousseau</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-muted);">juliet@rousseaux-arts.fr</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">UID-8089-JR</td>
+                                        <td><span class="status-pill info" style="background: rgba(59, 130, 246, 0.05); color: var(--status-info); border-color: rgba(59, 130, 246, 0.2);">VIP Client</span></td>
+                                        <td>Jul 01, 2026</td>
+                                        <td><span class="status-pill danger">Banned</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Edit</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-outline-gold" style="padding:0.375rem 0.75rem; font-size: 0.75rem;">Lift Ban</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Section 4: Role Permissions Matrix -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-4" style="grid-column: span 6;">
+                            <div class="card-title">Administrative Role Permissions Matrix</div>
+                            <div class="table-container">
+                                <table class="matrix-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Role Permission</th>
+                                            <th>Admin</th>
+                                            <th>Editor</th>
+                                            <th>Lapidary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: 500; font-size: 0.8rem;">Database Schema & Config</td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                            <td><span class="matrix-icon-cross">✘</span></td>
+                                            <td><span class="matrix-icon-cross">✘</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: 500; font-size: 0.8rem;">Moderate User Content</td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                            <td><span class="matrix-icon-cross">✘</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: 500; font-size: 0.8rem;">View Financial Metrics</td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                            <td><span class="matrix-icon-cross">✘</span></td>
+                                            <td><span class="matrix-icon-cross">✘</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; font-weight: 500; font-size: 0.8rem;">Edit Jewelry Collections</td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                            <td><span class="matrix-icon-check">✔</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                                <button onclick="window.location.href='404.html'" class="btn-gold-sm">Modify Matrix</button>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: User Growth & Churn Bar Chart -->
+                        <div class="card animate-item stagger-5" style="grid-column: span 6;">
+                            <div class="card-title">Daily Patron Acquisition Trend (30 Days)</div>
+                            <div style="height: 240px; position: relative;">
+                                <canvas id="barChartUserGrowth"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 3: ORDER & CONTENT MODERATION
+                     ==================================================================== -->
+                <div class="tab-view" id="view-moderation">
+                    
+                    <!-- Section 1: Moderation Queue Status Counters -->
+                    <div class="kpi-row">
+                        <div class="card kpi-card animate-item stagger-1" style="padding: 1.25rem;">
+                            <div class="kpi-header">Pending Reviews</div>
+                            <div class="kpi-value" style="color: var(--status-warning);">18 Items</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">Awaiting manual sign-off</div>
+                        </div>
+                        <div class="card kpi-card animate-item stagger-2" style="padding: 1.25rem;">
+                            <div class="kpi-header">Flagged Comments</div>
+                            <div class="kpi-value" style="color: var(--status-danger);">7 Logs</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">AI toxicity check triggers</div>
+                        </div>
+                        <div class="card kpi-card animate-item stagger-3" style="padding: 1.25rem;">
+                            <div class="kpi-header">Approved Today</div>
+                            <div class="kpi-value" style="color: var(--status-success);">142 Content</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">Appraisal reviews published</div>
+                        </div>
+                        <div class="card kpi-card animate-item stagger-4" style="padding: 1.25rem;">
+                            <div class="kpi-header">Auto-Blocked Spam</div>
+                            <div class="kpi-value" style="color: var(--text-gold);">24 Blocked</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">Blocked IP link spammers</div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Pending Orders / Transactions Table -->
+                    <div class="card animate-item stagger-3" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">Bespoke Transactions & Valuation Approvals Queue</div>
+                        <div class="table-container">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Commission ID</th>
+                                        <th>VIP Client</th>
+                                        <th>Design item</th>
+                                        <th>Transaction value</th>
+                                        <th>GIA Risk Check</th>
+                                        <th style="text-align: right;">Approve / Hold Queue</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">TX-9988-RG</td>
+                                        <td>Lady Helena Vance</td>
+                                        <td>Archival Rose Gold Solitaire</td>
+                                        <td>$425,000</td>
+                                        <td><span class="status-pill success">Verified (Low Risk)</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Approve Transaction</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Hold</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">TX-1022-BD</td>
+                                        <td>Sophia Chen</td>
+                                        <td>Fancy Vivid Blue Diamond</td>
+                                        <td>$1,250,000</td>
+                                        <td><span class="status-pill success">Verified (Low Risk)</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Approve Transaction</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Hold</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: monospace; font-weight: bold; color: var(--gold-300);">TX-8041-PT</td>
+                                        <td>Marcus Sterling</td>
+                                        <td>Marquise Platinum Tiara</td>
+                                        <td>$810,000</td>
+                                        <td><span class="status-pill warning">Verification Needed</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Approve Transaction</button>
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Hold</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: User-Generated Content Moderation Grid (Flagged Content Previews) -->
+                    <div class="report-grid animate-item stagger-4">
+                        <div class="report-card">
+                            <div class="report-card-header">
+                                <span class="status-pill danger" style="padding: 0.15rem 0.5rem;">Flagged Review</span>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">ID: #R-9081</span>
+                            </div>
+                            <img src="images/image/ring-rose-gold.webp" alt="Reported Ring Product Review" class="report-item-img">
+                            <div>
+                                <div style="font-weight:600; font-size:0.85rem; color: var(--text-white);">User: Juliet Rousseau</div>
+                                <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">"Fake certification! Do not buy from them, check this website link instead..."</p>
+                            </div>
+                            <div style="font-size:0.7rem; color:var(--status-danger); font-weight:600;">Reason: Advertising / Harassment Link</div>
+                            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+                                <button onclick="window.location.href='404.html'" class="btn-danger-sm" style="flex:1;">Remove review</button>
+                                <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="flex:1; justify-content:center;">Approve review</button>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-card-header">
+                                <span class="status-pill warning" style="padding: 0.15rem 0.5rem;">Flagged review</span>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">ID: #R-1044</span>
+                            </div>
+                            <img src="images/image/ring-yellow-gold.webp" alt="Reported Ring Product Review" class="report-item-img">
+                            <div>
+                                <div style="font-weight:600; font-size:0.85rem; color: var(--text-white);">User: GuestPatron-88</div>
+                                <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">"SCAM CHEAP GOLD! NOT 18K! VERY BAD QUALITY RING PROVEN..."</p>
+                            </div>
+                            <div style="font-size:0.7rem; color:var(--status-warning); font-weight:600;">Reason: Unverified Purchase / Spam Toxicity</div>
+                            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+                                <button onclick="window.location.href='404.html'" class="btn-danger-sm" style="flex:1;">Remove review</button>
+                                <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="flex:1; justify-content:center;">Approve review</button>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-card-header">
+                                <span class="status-pill warning" style="padding: 0.15rem 0.5rem;">Flagged comment</span>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">ID: #C-3381</span>
+                            </div>
+                            <img src="images/image/ring-platinum.webp" alt="Reported Ring Comment" class="report-item-img">
+                            <div>
+                                <div style="font-weight:600; font-size:0.85rem; color: var(--text-white);">User: LapidaryAssistant-02</div>
+                                <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">"Master Helmut was drunk during the setting process on this client ring..."</p>
+                            </div>
+                            <div style="font-size:0.7rem; color:var(--status-danger); font-weight:600;">Reason: Internal Protocol Slander</div>
+                            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+                                <button onclick="window.location.href='404.html'" class="btn-danger-sm" style="flex:1;">Remove review</button>
+                                <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="flex:1; justify-content:center;">Approve review</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Automated Moderation Settings Card -->
+                    <div class="dashboard-grid" style="margin-top: 1.5rem;">
+                        <div class="card animate-item stagger-5" style="grid-column: span 6;">
+                            <div class="card-title">Automated Spam & Moderation Engine Settings</div>
+                            <div class="switch-box">
+                                <div class="switch-box-label">
+                                    <h5>AI Profanity & Toxicity Filtering</h5>
+                                    <p>Scan and auto-hide client reviews exceeding toxicity score thresholds.</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="switch-box">
+                                <div class="switch-box-label">
+                                    <h5>Block External URL Posting</h5>
+                                    <p>Automatically block reviews or comments containing hypertext anchors.</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="switch-box">
+                                <div class="switch-box-label">
+                                    <h5>Auto-blacklist repeat flags</h5>
+                                    <p>Temporarily suspend client portal permissions on three sequential violations.</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                                <button onclick="window.location.href='404.html'" class="btn-outline-gold" style="font-size: 0.8rem; padding: 0.5rem 1rem;">Update Engine</button>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: Moderation Volume Line Chart -->
+                        <div class="card animate-item stagger-6" style="grid-column: span 6;">
+                            <div class="card-title">Moderation Output & Flag Spike Audit</div>
+                            <div style="height: 240px; position: relative;">
+                                <canvas id="lineChartModeration"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 4: SECURITY & SERVER LOGS
+                     ==================================================================== -->
+                <div class="tab-view" id="view-security">
+                    
+                    <!-- Section 1: Real-Time Server Health Dashboard -->
+                    <div class="card animate-item stagger-1" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">Real-Time Core Server Health Diagnostics</div>
+                        <div class="form-grid" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar-info">
+                                    <span>Memory Allocation</span>
+                                    <span style="color: var(--status-success);">64.2%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 64.2%; background-color: var(--status-success);"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar-info">
+                                    <span>Database Storage</span>
+                                    <span style="color: var(--status-success);">42.8%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 42.8%; background-color: var(--status-success);"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar-info">
+                                    <span>Database IO Latency</span>
+                                    <span style="color: var(--status-warning);">88.4ms</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 78%; background-color: var(--status-warning);"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar-info">
+                                    <span>Bandwidth Throughput</span>
+                                    <span style="color: var(--status-success);">12.4 MB/s</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 25%; background-color: var(--status-success);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Live Firewall & Access Log Table -->
+                    <div class="card animate-item stagger-2" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">Live Firewall Traffic & HTTP Request Log</div>
+                        <div class="table-container">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>IP Origin Address</th>
+                                        <th>Geo Location</th>
+                                        <th>HTTP Request Endpoint</th>
+                                        <th>Response Code</th>
+                                        <th>Threat Classification</th>
+                                        <th style="text-align: right;">Mitigation Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">194.22.148.11</td>
+                                        <td>Russian Federation</td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted);">POST /api/v1/vault/auth/ssh</td>
+                                        <td><span class="status-pill danger" style="padding: 0.15rem 0.5rem;">401</span></td>
+                                        <td><span class="status-pill danger">Critical Threat</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-danger-sm">Blacklist IP</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">82.112.44.198</td>
+                                        <td>London, United Kingdom</td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted);">GET /services.html</td>
+                                        <td><span class="status-pill success" style="padding: 0.15rem 0.5rem;">200</span></td>
+                                        <td><span class="status-pill success">Safe (Standard user)</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Inspect</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--gold-300);">66.249.66.12</td>
+                                        <td>Mountain View, United States</td>
+                                        <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted);">GET /blog.html</td>
+                                        <td><span class="status-pill success" style="padding: 0.15rem 0.5rem;">200</span></td>
+                                        <td><span class="status-pill info">GoogleBot Indexer</span></td>
+                                        <td style="text-align: right;">
+                                            <button onclick="window.location.href='404.html'" class="btn-gold-sm">Inspect</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Active Admin Sessions Grid -->
+                    <div class="dashboard-grid">
+                        <div class="card animate-item stagger-3" style="grid-column: span 12;">
+                            <div class="card-title">Active Administrator Sessions Directory</div>
+                            <div class="report-grid" style="grid-template-columns: repeat(3, 1fr);">
+                                <div class="session-card">
+                                    <span class="session-active-dot"></span>
+                                    <div class="avatar-wrap">
+                                        <img src="images/image/portrait-girl-jacket-white-shirt-looking-camera.webp" alt="Antoine" class="user-avatar-small">
+                                        <div>
+                                            <div style="font-weight:600; color: var(--text-white); font-size:0.875rem;">Antoine Stackly (You)</div>
+                                            <div style="font-size:0.75rem; color: var(--gold-400);">Paris, France</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                        <div>Device: macOS Sonoma / Chrome 124</div>
+                                        <div>Address: IP 82.44.110.12</div>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="margin-top: 0.5rem; justify-content: center; width: 100%; cursor: pointer;">Your Session</button>
+                                </div>
+
+                                <div class="session-card">
+                                    <span class="session-active-dot"></span>
+                                    <div class="avatar-wrap">
+                                        <img src="images/image/portrait-happy-smiling-young-businessman-brown-suit-isolated-white-wall.webp" alt="Marcus" class="user-avatar-small">
+                                        <div>
+                                            <div style="font-weight:600; color: var(--text-white); font-size:0.875rem;">Marcus Sterling</div>
+                                            <div style="font-size:0.75rem; color: var(--gold-400);">Geneva, Switzerland</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                        <div>Device: Windows 11 / Edge 122</div>
+                                        <div>Address: IP 192.102.14.99</div>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="btn-danger-sm" style="margin-top: 0.5rem; justify-content: center;">Revoke Session</button>
+                                </div>
+
+                                <div class="session-card">
+                                    <span class="session-active-dot"></span>
+                                    <div class="avatar-wrap">
+                                        <img src="images/image/66878515f5374460f86c8aec_testimonial-p-800.webp" alt="Helmut" class="user-avatar-small">
+                                        <div>
+                                            <div style="font-weight:600; color: var(--text-white); font-size:0.875rem;">Helmut Krieger</div>
+                                            <div style="font-size:0.75rem; color: var(--gold-400);">Frankfurt, Germany</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                        <div>Device: Linux Ubuntu / Firefox 125</div>
+                                        <div>Address: IP 104.99.112.44</div>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="btn-danger-sm" style="margin-top: 0.5rem; justify-content: center;">Revoke Session</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Database Backup & Recovery Panel -->
+                    <div class="dashboard-grid" style="margin-top: 1.5rem;">
+                        <div class="card animate-item stagger-4" style="grid-column: span 6;">
+                            <div class="card-title">Database Storage Backup & Disaster Recovery</div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Automated Backup Interval</label>
+                                    <select>
+                                        <option value="hourly">Hourly Backup</option>
+                                        <option value="daily" selected>Daily Backup (Recommended)</option>
+                                        <option value="weekly">Weekly Archival</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Backup Compression Level</label>
+                                    <select>
+                                        <option value="gzip">Gzip (Fastest)</option>
+                                        <option value="zstd" selected>Zstd (Optimal)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-gold-subtle); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+                                <div>Last backup timestamp: <span style="color: var(--text-gold); font-weight: 600;">July 27, 2026 at 04:00 AM UTC</span></div>
+                                <div>Target file: <span style="color: var(--text-light); font-family: monospace;">stackly-db-archive_20260727.tar.zst</span></div>
+                            </div>
+                            <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                                <button onclick="window.location.href='404.html'" class="btn-gold-action">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                    Trigger Manual Backup
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: IP Blacklist / Banned Entities Management Card -->
+                        <div class="card animate-item stagger-5" style="grid-column: span 6;">
+                            <div class="card-title">IP Blacklist & Banned Domain Directories</div>
+                            <div class="form-group" style="margin-bottom: 1rem;">
+                                <label for="blacklistIpInput">Blacklist New Target Entity</label>
+                                <div style="display: flex; gap: 0.75rem;">
+                                    <input type="text" id="blacklistIpInput" placeholder="IP Address or domain name (e.g. 194.22.148.11)" style="flex-grow:1;">
+                                    <button onclick="window.location.href='404.html'" class="btn-danger-sm" style="white-space: nowrap; padding:0.5rem 1rem;">Blacklist Entity</button>
+                                </div>
+                            </div>
+                            <label>Active Blocked Directory Listing</label>
+                            <div style="max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border-gold-subtle); border-radius:var(--radius-sm); padding:0.5rem;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.25rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.02);">
+                                    <span style="font-family: monospace; color: var(--status-danger);">194.22.148.11</span>
+                                    <span style="color: var(--text-muted);">Russian Federation (SSH Abuse)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.25rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.02);">
+                                    <span style="font-family: monospace; color: var(--status-danger);">108.41.98.22</span>
+                                    <span style="color: var(--text-muted);">VPN Proxy Scraper Block</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.25rem 0.5rem;">
+                                    <span style="font-family: monospace; color: var(--status-danger);">badgems-spam.ru</span>
+                                    <span style="color: var(--text-muted);">Spam Content Referral Domain</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====================================================================
+                     VIEW 5: GLOBAL PLATFORM SETTINGS
+                     ==================================================================== -->
+                <div class="tab-view" id="view-settings">
+                    
+                    <!-- Section 1: Brand & Site Metadata Controls (Dropzone with site logo previewed) -->
+                    <div class="card animate-item stagger-1" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">Brand Identity & Search Engine Metadata configuration</div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="siteTitleInput">Global Website Title</label>
+                                <input type="text" id="siteTitleInput" value="STACKLY | Luxury Haute Joaillerie & Fine Jewelry">
+                            </div>
+                            <div class="form-group">
+                                <label for="siteSupportEmail">Atelier Support Email Address</label>
+                                <input type="email" id="siteSupportEmail" value="atelier@stackly.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Official Brand Logo Asset</label>
+                                <div class="brand-logo-dropzone">
+                                    <img src="images/image/logo.webp" alt="STACKLY logo preview">
+                                    <div style="text-align: left;">
+                                        <h5 style="font-size:0.85rem; color:var(--text-white); font-weight:600;">logo.png</h5>
+                                        <p style="font-size:0.75rem; color:var(--text-muted);">Dimensions: 480x120px | Size: 1.8MB</p>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="btn-gold-sm" style="margin-left: auto;">Replace Asset</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="siteMetaDesc">Search Engine Meta Description</label>
+                                <textarea id="siteMetaDesc" rows="3" style="resize: none;">Explore STACKLY's exclusive handcrafted diamond rings, luxury necklaces, gold bangles, and gemstone high jewelry collections.</textarea>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="window.location.href='404.html'" class="btn-gold-action">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                Save Metadata Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Payment Gateway & API Configuration Grid -->
+                    <div class="card animate-item stagger-2" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">Payment Gateways & S3 Storage Cloud API Configuration</div>
+                        <div class="form-grid" style="grid-template-columns: repeat(3, 1fr);">
+                            <div style="border: 1px solid var(--border-gold-subtle); border-radius: var(--radius-sm); padding: 1.25rem; background: rgba(0,0,0,0.15);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <span style="font-weight: 700; color: var(--text-white); font-size: 0.9rem;">Stripe Gateway</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0.75rem;">
+                                    <label style="font-size:0.75rem;">Live Publishable Key</label>
+                                    <input type="password" value="••••••••••••••••••••" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size:0.75rem;">Secret Key</label>
+                                    <input type="password" value="••••••••••••••••••••" readonly>
+                                </div>
+                            </div>
+
+                            <div style="border: 1px solid var(--border-gold-subtle); border-radius: var(--radius-sm); padding: 1.25rem; background: rgba(0,0,0,0.15);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <span style="font-weight: 700; color: var(--text-white); font-size: 0.9rem;">PayPal Merchant</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0.75rem;">
+                                    <label style="font-size:0.75rem;">Client ID</label>
+                                    <input type="password" value="••••••••••••••••••••" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size:0.75rem;">Secret Token</label>
+                                    <input type="password" value="••••••••••••••••••••" readonly>
+                                </div>
+                            </div>
+
+                            <div style="border: 1px solid var(--border-gold-subtle); border-radius: var(--radius-sm); padding: 1.25rem; background: rgba(0,0,0,0.15);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <span style="font-weight: 700; color: var(--text-white); font-size: 0.9rem;">AWS S3 Cloud Vault</span>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0.75rem;">
+                                    <label style="font-size:0.75rem;">Access Key ID</label>
+                                    <input type="password" value="••••••••••••••••••••" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size:0.75rem;">AWS Secret Access Key</label>
+                                    <input type="password" value="••••••••••••••••••••" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="window.location.href='404.html'" class="btn-gold-action">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                Save API Credentials
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: SMTP & System Email Templates Configuration -->
+                    <div class="card animate-item stagger-3" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">SMTP Mail server & Transactional Email Settings</div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="smtpHost">SMTP Hostname</label>
+                                <input type="text" id="smtpHost" value="smtp.postmarkapp.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="smtpPort">SMTP Port</label>
+                                <input type="text" id="smtpPort" value="587">
+                            </div>
+                            <div class="form-group">
+                                <label for="smtpUsername">SMTP Authentication User</label>
+                                <input type="text" id="smtpUsername" value="atelier-alerts@stackly.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="smtpPassword">SMTP Password</label>
+                                <input type="password" id="smtpPassword" value="••••••••••••••••••••" readonly>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+                            <button onclick="window.location.href='404.html'" class="btn-outline-gold" style="font-size: 0.85rem;">Send Test Email</button>
+                            <button onclick="window.location.href='404.html'" class="btn-gold-action">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                Update SMTP Config
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Legal & Compliance Toggles -->
+                    <div class="card animate-item stagger-4" style="margin-bottom: 1.5rem;">
+                        <div class="card-title">GDPR Data Compliance & Privacy Consent Auditing</div>
+                        <div class="switch-box">
+                            <div class="switch-box-label">
+                                <h5>GDPR Compliant Audit Logging</h5>
+                                <p>Anonymize user IP addresses in database transactions after 180 days automatically.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-box">
+                            <div class="switch-box-label">
+                                <h5>Cookie Consent Banner Enforcement</h5>
+                                <p>Enforce display of cookie banners on standard user page layouts on first entry.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label>Data Retention Policy Selection</label>
+                            <select style="width: 250px;">
+                                <option value="180">180 Days (Standard GDPR)</option>
+                                <option value="365">365 Days (Extended Auditing)</option>
+                                <option value="never">Never purge logs (Diplomatic Security)</option>
+                            </select>
+                        </div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="window.location.href='404.html'" class="btn-gold-action">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                Save Privacy Directives
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Danger Zone / Maintenance Mode Panel -->
+                    <div class="card animate-item stagger-5" style="border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.02);">
+                        <div class="card-title" style="color: var(--status-danger);">Danger Zone - Platform Integrity Controls</div>
+                        <div class="maintenance-warning-card">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            <div style="flex-grow: 1; text-align: left;">
+                                <h4 style="font-size: 1rem; color: var(--text-white); font-weight:600; margin-bottom: 0.25rem;">Enable Live Platform Maintenance Mode</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Enabling this will redirect all public traffic (Home, Services, Blog, etc.) immediately to a Maintenance landing page. Logged-in Administrators will remain authenticated to resolve issues.</p>
+                            </div>
+                            <label class="switch" style="margin-left: auto;">
+                                <input type="checkbox">
+                                <span class="slider" style="border-color: var(--status-warning);"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // ----------------------------------------------------
+            // 0. Sync Logged In Admin Email and Profile Info
+            // ----------------------------------------------------
+            function syncLoggedInAdmin() {
+                const email = sessionStorage.getItem('userEmail') || sessionStorage.getItem('loggedInEmail');
+                if (email && email.includes('@')) {
+                    const usernamePart = email.split('@')[0];
+                    const words = usernamePart.replace(/[._-]/g, ' ').split(' ').filter(Boolean);
+                    const formattedName = words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    const initial = formattedName ? formattedName.charAt(0).toUpperCase() : email.charAt(0).toUpperCase();
+
+                    const nameEl = document.getElementById('adminDashboardName');
+                    const emailEl = document.getElementById('adminDashboardEmail');
+                    const badgeEl = document.getElementById('adminAvatarBadge');
+
+                    if (nameEl) nameEl.textContent = formattedName;
+                    if (emailEl) emailEl.textContent = email;
+                    if (badgeEl) badgeEl.textContent = initial;
+                }
+            }
+            syncLoggedInAdmin();
+            
+            // ----------------------------------------------------
+            // 1. Live Server Clock
+            // ----------------------------------------------------
+            function updateServerClock() {
+                const clockEl = document.getElementById("liveServerClock");
+                if (clockEl) {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hrs = String(now.getHours()).padStart(2, '0');
+                    const mins = String(now.getMinutes()).padStart(2, '0');
+                    const secs = String(now.getSeconds()).padStart(2, '0');
+                    clockEl.innerText = `server_cluster_node_01 [ ${year}-${month}-${day} ${hrs}:${mins}:${secs} UTC+5:30 ]`;
+                }
+            }
+            updateServerClock();
+            setInterval(updateServerClock, 1000);
+
+            // ----------------------------------------------------
+            // 2. Tab Switching Logic
+            // ----------------------------------------------------
+            const menuBtns = document.querySelectorAll(".menu-item-btn");
+            const tabViews = document.querySelectorAll(".tab-view");
+
+            menuBtns.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const targetTabId = btn.getAttribute("data-target");
+
+                    // Deactivate all buttons
+                    menuBtns.forEach(b => b.classList.remove("active"));
+                    // Hide all views
+                    tabViews.forEach(v => v.classList.remove("active"));
+
+                    // Activate clicked button
+                    btn.classList.add("active");
+                    
+                    // Show target view
+                    const targetView = document.getElementById(targetTabId);
+                    if (targetView) {
+                        targetView.classList.add("active");
+                        
+                        // Restart staggered animations
+                        const animatedItems = targetView.querySelectorAll(".animate-item");
+                        animatedItems.forEach(item => {
+                            // Strip animation and trigger reflow
+                            item.style.animation = 'none';
+                            item.offsetHeight; // Reflow
+                            item.style.animation = ''; // Re-apply original class animation
+                        });
+                    }
+
+                    // Save active tab in sessionStorage and URL hash
+                    sessionStorage.setItem("adminActiveTab", targetTabId);
+                    try {
+                        history.replaceState(null, null, '#' + targetTabId);
+                    } catch (e) {}
+
+                    // Auto-close sidebar on mobile after tab switch
+                    const sidebar = document.getElementById("adminSidebar");
+                    if (sidebar) {
+                        sidebar.classList.remove("open");
+                    }
+                });
+            });
+
+            // Clear saved tabs on logout click
+            const logoutBtns = document.querySelectorAll(".logout-btn");
+            logoutBtns.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    sessionStorage.removeItem("adminActiveTab");
+                    sessionStorage.removeItem("userActiveTab");
+                });
+            });
+
+            // Restore active tab from URL hash first, then sessionStorage
+            const urlHash = window.location.hash;
+            const savedTabId = sessionStorage.getItem("adminActiveTab");
+            let tabToRestore = null;
+
+            if (urlHash && document.getElementById(urlHash.replace("#", ""))) {
+                tabToRestore = urlHash.replace("#", "");
+            } else if (savedTabId) {
+                tabToRestore = savedTabId;
+            }
+
+            if (tabToRestore) {
+                const targetBtn = document.querySelector(`.menu-item-btn[data-target="${tabToRestore}"]`);
+                if (targetBtn) {
+                    targetBtn.click();
+                }
+            }
+
+            // ----------------------------------------------------
+            // 3. Mobile Sidebar Toggle Functionality
+            // ----------------------------------------------------
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+            const sidebar = document.getElementById("adminSidebar");
+
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener("click", function() {
+                    sidebar.classList.add("open");
+                });
+            }
+
+            if (closeSidebarBtn && sidebar) {
+                closeSidebarBtn.addEventListener("click", function() {
+                    sidebar.classList.remove("open");
+                });
+            }
+
+            // Close sidebar if clicking outside it on mobile
+            document.addEventListener("click", function(event) {
+                if (window.innerWidth <= 991) {
+                    if (sidebar && sidebar.classList.contains("open")) {
+                        if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                            sidebar.classList.remove("open");
+                        }
+                    }
+                }
+            });
+
+            // ----------------------------------------------------
+            // 4. Chart.js Configurations & Rendering
+            // ----------------------------------------------------
+            
+            // Shared Styling Variables matching Gold/Obsidian
+            const chartGridColor = "rgba(212, 175, 55, 0.05)";
+            const chartBorderColor = "rgba(212, 175, 55, 0.15)";
+            const chartGoldColor = "#DFC78E";
+            const chartAccentGold = "#D4AF37";
+            const chartFontFamily = "Plus Jakarta Sans, system-ui, sans-serif";
+
+            // View 1: Master Financial Line Chart
+            const ctxLine = document.getElementById("lineChartRevenue");
+            if (ctxLine) {
+                // Line gradient
+                const ctx = ctxLine.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                gradient.addColorStop(0, 'rgba(212, 175, 55, 0.25)');
+                gradient.addColorStop(0.5, 'rgba(212, 175, 55, 0.08)');
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                new Chart(ctxLine, {
+                    type: 'line',
+                    data: {
+                        labels: ['Aug 25', 'Sep 25', 'Oct 25', 'Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26'],
+                        datasets: [
+                            {
+                                label: 'Gross Revenue ($)',
+                                data: [110000, 115000, 128000, 142000, 168000, 150000, 158000, 164000, 185000, 178000, 192000, 224950],
+                                borderColor: chartAccentGold,
+                                borderWidth: 3,
+                                pointBackgroundColor: chartAccentGold,
+                                pointBorderColor: '#0B0C0E',
+                                pointBorderWidth: 2,
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                fill: true,
+                                backgroundColor: gradient,
+                                tension: 0.35
+                            },
+                            {
+                                label: 'Projected Target ($)',
+                                data: [100000, 110000, 120000, 130000, 140000, 150000, 155000, 160000, 165000, 170000, 175000, 180000],
+                                borderColor: 'rgba(255, 255, 255, 0.25)',
+                                borderWidth: 1.5,
+                                borderDash: [5, 5],
+                                pointRadius: 0,
+                                fill: false,
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    color: '#E5E7EB',
+                                    font: { family: chartFontFamily, size: 11 }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(22, 24, 29, 0.95)',
+                                borderColor: 'rgba(212, 175, 55, 0.4)',
+                                borderWidth: 1,
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#DFC78E',
+                                bodyFont: { family: chartFontFamily },
+                                titleFont: { family: chartFontFamily, weight: 'bold' }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'transparent' },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 10 } }
+                            },
+                            y: {
+                                grid: { color: chartGridColor },
+                                border: { dash: [5, 5] },
+                                ticks: {
+                                    color: '#9CA3AF',
+                                    font: { family: chartFontFamily, size: 10 },
+                                    callback: function(val) { return '$' + val.toLocaleString(); }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // View 1: Secondary Split - Bar Chart
+            const ctxBarAcq = document.getElementById("barChartAcquisition");
+            if (ctxBarAcq) {
+                new Chart(ctxBarAcq, {
+                    type: 'bar',
+                    data: {
+                        labels: ['United States', 'United Kingdom', 'Switzerland', 'France', 'Germany', 'United Arab Emirates', 'Japan'],
+                        datasets: [{
+                            label: 'Active Patrons',
+                            data: [425, 298, 184, 150, 112, 95, 78],
+                            backgroundColor: 'rgba(212, 175, 55, 0.7)',
+                            hoverBackgroundColor: chartAccentGold,
+                            borderColor: chartAccentGold,
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(22, 24, 29, 0.95)',
+                                borderColor: 'rgba(212, 175, 55, 0.4)',
+                                borderWidth: 1,
+                                bodyColor: '#DFC78E',
+                                titleColor: '#FFFFFF'
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'transparent' },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 9 } }
+                            },
+                            y: {
+                                grid: { color: chartGridColor },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 9 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // View 1: Secondary Split - Donut Chart
+            const ctxDonutDev = document.getElementById("donutChartDevices");
+            if (ctxDonutDev) {
+                new Chart(ctxDonutDev, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Mobile Phone Safari/Chrome', 'Desktop Web Client', 'Tablet Mobile Port'],
+                        datasets: [{
+                            data: [61.2, 30.3, 8.5],
+                            backgroundColor: [
+                                'rgba(212, 175, 55, 0.85)',
+                                'rgba(223, 199, 142, 0.5)',
+                                'rgba(94, 68, 10, 0.9)'
+                            ],
+                            borderColor: '#16181D',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#9CA3AF',
+                                    font: { family: chartFontFamily, size: 10 },
+                                    boxWidth: 12
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(22, 24, 29, 0.95)',
+                                borderColor: 'rgba(212, 175, 55, 0.4)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) { return ` ${context.label}: ${context.raw}%`; }
+                                }
+                            }
+                        },
+                        cutout: '70%'
+                    }
+                });
+            }
+
+            // View 2: User Growth Bar Chart
+            const ctxBarGrowth = document.getElementById("barChartUserGrowth");
+            if (ctxBarGrowth) {
+                new Chart(ctxBarGrowth, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        datasets: [
+                            {
+                                label: 'New Registrations',
+                                data: [42, 58, 64, 78],
+                                backgroundColor: 'rgba(212, 175, 55, 0.8)',
+                                hoverBackgroundColor: chartAccentGold,
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Churned Accounts',
+                                data: [4, 6, 2, 8],
+                                backgroundColor: 'rgba(239, 68, 68, 0.4)',
+                                hoverBackgroundColor: '#EF4444',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { color: '#E5E7EB', font: { family: chartFontFamily, size: 10 } }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(22, 24, 29, 0.95)',
+                                borderColor: 'rgba(212, 175, 55, 0.4)',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'transparent' },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 10 } }
+                            },
+                            y: {
+                                grid: { color: chartGridColor },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // View 3: Moderation Volume Line Chart
+            const ctxLineMod = document.getElementById("lineChartModeration");
+            if (ctxLineMod) {
+                new Chart(ctxLineMod, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [
+                            {
+                                label: 'Flagged Comments',
+                                data: [12, 8, 15, 6, 22, 18, 7],
+                                borderColor: 'rgba(239, 68, 68, 0.8)',
+                                backgroundColor: 'rgba(239, 68, 68, 0.05)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Manual Reviews Resolved',
+                                data: [24, 30, 28, 42, 38, 20, 14],
+                                borderColor: chartAccentGold,
+                                backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { color: '#E5E7EB', font: { family: chartFontFamily, size: 10 } }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(22, 24, 29, 0.95)',
+                                borderColor: 'rgba(212, 175, 55, 0.4)',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'transparent' },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 10 } }
+                            },
+                            y: {
+                                grid: { color: chartGridColor },
+                                ticks: { color: '#9CA3AF', font: { family: chartFontFamily, size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

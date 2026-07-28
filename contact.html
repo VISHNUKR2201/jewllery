@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY | Contact Private Salon &amp; VIP Concierge</title>
+    <meta name="description" content="Contact STACKLY Haute Joaillerie for private salon appointments in Coimbatore, Bangalore, or Salem. Book bespoke consultations with our master jewelers.">
+    <meta name="author" content="@stacklykr">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Main Site Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Styling for Contact Page -->
+    <style>
+        @keyframes shimmerText {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.08); }
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(35px, -25px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .shimmer-gold-text {
+            background: linear-gradient(120deg, #FFF5D0 0%, #D4AF37 25%, #FFF8E7 50%, #D4AF37 75%, #FFF5D0 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 5s linear infinite;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 1: CONTACT HERO BANNER                                */
+        /* ------------------------------------------------------------- */
+        .contact-hero-section {
+            position: relative;
+            padding: 7.5rem 0 5.5rem 0;
+            background: linear-gradient(180deg, rgba(11, 12, 14, 0.88) 0%, rgba(11, 12, 14, 0.97) 100%),
+                        url('images/image/contact-hero-bg.webp') no-repeat center center/cover;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            overflow: hidden;
+        }
+
+        .hero-particles-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-decor-orb {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(95px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-left {
+            top: 5%;
+            left: -120px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+            animation: floatOrb 16s ease-in-out infinite;
+        }
+
+        .orb-right {
+            bottom: 5%;
+            right: -120px;
+            background: radial-gradient(circle, rgba(230, 195, 90, 0.15) 0%, transparent 70%);
+            animation: floatOrb 18s ease-in-out infinite reverse;
+        }
+
+        .contact-hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .hero-pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(22, 24, 29, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-gold-medium);
+            padding: 0.45rem 1.35rem;
+            border-radius: 50px;
+            color: var(--gold-300);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10B981;
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 2: DIRECT TOUCHPOINTS GRID                            */
+        /* ------------------------------------------------------------- */
+        .touchpoints-section {
+            padding: 6.5rem 0;
+            background: var(--bg-obsidian);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .touchpoints-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .touchpoint-card {
+            background: rgba(22, 24, 29, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .touchpoint-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-400);
+            box-shadow: 0 18px 40px rgba(212, 175, 55, 0.18);
+            background: rgba(22, 24, 29, 0.95);
+        }
+
+        .touchpoint-img-wrap {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .touchpoint-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .touchpoint-card:hover .touchpoint-img-wrap img {
+            transform: scale(1.09);
+        }
+
+        .touchpoint-icon-badge {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--bg-obsidian);
+            border: 1.5px solid var(--gold-400);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-300);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .touchpoint-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .touchpoint-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: var(--text-white);
+            font-weight: 400;
+            margin-bottom: 0.65rem;
+        }
+
+        .touchpoint-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold-300);
+            font-size: 0.875rem;
+            text-decoration: none;
+            margin-top: 0.35rem;
+            transition: color var(--transition-fast);
+        }
+
+        .touchpoint-link:hover {
+            color: var(--gold-400);
+            text-decoration: underline;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 3: INTERACTIVE CONTACT FORM & SHOWCASE (SPLIT LAYOUT) */
+        /* ------------------------------------------------------------- */
+        .form-split-section {
+            padding: 7rem 0;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .form-split-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (min-width: 992px) {
+            .form-split-grid {
+                grid-template-columns: 0.95fr 1.05fr;
+            }
+        }
+
+        .trust-showcase-card {
+            background: rgba(22, 24, 29, 0.7);
+            backdrop-filter: blur(14px);
+            border: 1.5px solid var(--border-gold-medium);
+            border-radius: var(--radius-xl);
+            padding: 2.25rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .trust-img-main {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-gold-medium);
+            margin-bottom: 1.75rem;
+        }
+
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid var(--gold-400);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            color: var(--gold-300);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Form Controls */
+        .contact-form-card {
+            background: rgba(22, 24, 29, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid var(--border-gold-medium);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .form-grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 991px) {
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            .form-grid-2col {
+                grid-template-columns: 1fr !important;
+                gap: 0.85rem !important;
+            }
+            .contact-form-card,
+            .trust-showcase-card {
+                padding: 1.5rem 1.15rem !important;
+                border-radius: var(--radius-lg);
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .salons-cards-grid,
+            .touchpoints-cards-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            .form-split-section,
+            .touchpoints-section,
+            .salons-section,
+            .map-section {
+                padding: 3rem 0 !important;
+                overflow-x: hidden !important;
+            }
+            .contact-input {
+                font-size: 0.875rem !important;
+                padding: 0.75rem 1rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        .form-group-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.35rem;
+        }
+
+        .form-group-field label {
+            color: var(--text-light);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .contact-input {
+            width: 100%;
+            background: rgba(11, 12, 14, 0.85);
+            border: 1px solid var(--border-gold-medium);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1.25rem;
+            color: var(--text-white);
+            font-size: 0.925rem;
+            outline: none;
+            transition: all var(--transition-fast);
+        }
+
+        .contact-input:focus {
+            border-color: var(--gold-400);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            background: rgba(11, 12, 14, 0.98);
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 4: GLOBAL SALON LOCATIONS (IMAGE-HEAVY GRID)           */
+        /* ------------------------------------------------------------- */
+        .salons-section {
+            padding: 7rem 0;
+            background: var(--bg-obsidian);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .salons-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 2.25rem;
+            margin-top: 3.5rem;
+        }
+
+        .salon-card {
+            background: rgba(22, 24, 29, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .salon-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-400);
+            box-shadow: 0 18px 40px rgba(212, 175, 55, 0.18);
+            background: rgba(22, 24, 29, 0.95);
+        }
+
+        .salon-img-wrap {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+            background: #111;
+        }
+
+        .salon-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .salon-card:hover .salon-img-wrap img {
+            transform: scale(1.09);
+        }
+
+        .salon-city-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--gold-400);
+            padding: 0.35rem 0.95rem;
+            border-radius: 50px;
+            color: var(--gold-300);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .salon-info-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 5: INTERACTIVE MAP & TRANSIT GUIDE                    */
+        /* ------------------------------------------------------------- */
+        .map-section {
+            padding: 7rem 0;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .map-wrapper-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-top: 3.5rem;
+        }
+
+        @media (min-width: 992px) {
+            .map-wrapper-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+
+        .map-frame-box {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1.5px solid var(--border-gold-medium);
+            height: 440px;
+            background: #111;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .map-frame-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(1) invert(0.92) contrast(1.2);
+        }
+
+        .map-location-switcher {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(11, 12, 14, 0.9);
+            border: 1px solid var(--gold-400);
+            padding: 0.4rem;
+            border-radius: 50px;
+            z-index: 10;
+        }
+
+        .map-switch-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.45rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .map-switch-btn.active {
+            background: var(--gold-400);
+            color: #0B0C0E;
+        }
+
+        .transit-guide-card {
+            background: rgba(22, 24, 29, 0.7);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-xl);
+            padding: 2.25rem;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 6: FAQ ACCORDION & SOCIAL BANNER                       */
+        /* ------------------------------------------------------------- */
+        .faq-social-section {
+            padding: 7rem 0 0 0;
+            background: var(--bg-obsidian);
+        }
+
+        .faq-accordion-wrap {
+            max-width: 850px;
+            margin: 3.5rem auto 6rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .faq-item-row {
+            background: rgba(22, 24, 29, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: border-color var(--transition-normal);
+        }
+
+        .faq-item-row.active {
+            border-color: var(--gold-400);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .faq-header-btn {
+            width: 100%;
+            padding: 1.5rem 1.75rem;
+            background: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-white);
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-body-content {
+            padding: 0 1.75rem 1.5rem 1.75rem;
+            color: var(--text-muted);
+            font-size: 0.925rem;
+            line-height: 1.75;
+            font-weight: 300;
+            display: none;
+        }
+
+        .faq-item-row.active .faq-body-content {
+            display: block;
+        }
+
+        .social-closing-banner {
+            padding: 6.5rem 0;
+            background: linear-gradient(180deg, rgba(11, 12, 14, 0.92) 0%, rgba(11, 12, 14, 0.96) 100%),
+                        url('images/image/66877869df77ac3cc37c6a4e_banner-02-p-800.webp') no-repeat center center/cover;
+            border-top: 1px solid var(--border-gold-medium);
+            text-align: center;
+        }
+
+        .social-icons-large {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-top: 2.25rem;
+        }
+
+        .social-lg-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(22, 24, 29, 0.85);
+            border: 1.5px solid var(--gold-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-300);
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .social-lg-btn:hover {
+            background: var(--gold-400);
+            color: #0B0C0E;
+            transform: translateY(-6px);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Animation utilities */
+        [data-anim] {
+            opacity: 0;
+            transition: opacity 800ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        [data-anim="fade-up"] { transform: translateY(35px); }
+        [data-anim="slide-right"] { transform: translateX(-45px); }
+        [data-anim="slide-left"] { transform: translateX(45px); }
+        [data-anim="zoom-in"] { transform: scale(0.94); }
+
+        [data-anim].is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        @media (max-width: 768px) {
+            .form-grid-2col {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 0.85rem !important;
+                width: 100% !important;
+            }
+            .contact-form-card {
+                padding: 1.5rem 1.15rem !important;
+                border-radius: var(--radius-lg) !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .contact-input {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                font-size: 0.875rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ══ LUXURY PRELOADER ══════════════════════════════════════════════ -->
+    <div id="luxrio-preloader" role="status" aria-label="Loading STACKLY">
+
+        <!-- Decorative corner sparkles -->
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+
+        <!-- Horizontal deco lines -->
+        <div class="preloader-deco-line"></div>
+        <div class="preloader-deco-line"></div>
+
+        <!-- STACKLY Logo -->
+        <div class="preloader-logo-wrap">
+            <img src="images/image/logo.webp" alt="STACKLY — Luxury Haute Joaillerie">
+        </div>
+
+        <!-- Animated Diamond Orbit Scene -->
+        <div class="preloader-diamond-scene">
+            <div class="preloader-ring-outer"></div>
+            <div class="preloader-ring-mid"></div>
+            <div class="preloader-ring-inner"></div>
+
+            <!-- Orbiting gold dots -->
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+
+            <!-- Spinning Diamond SVG -->
+            <svg class="preloader-diamond-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%"   stop-color="#FFF8E7"/>
+                        <stop offset="35%"  stop-color="#D4AF37"/>
+                        <stop offset="65%"  stop-color="#FFF5D0"/>
+                        <stop offset="100%" stop-color="#AA771C"/>
+                    </linearGradient>
+                    <filter id="diamondGlow">
+                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur"/>
+                    </filter>
+                </defs>
+                <polygon points="32,4 58,24 32,60 6,24" fill="url(#diamondGrad)" filter="url(#diamondGlow)" opacity="0.95"/>
+                <line x1="32" y1="4"  x2="32" y2="60" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="58" y2="24" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="6"  y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+            </svg>
+        </div>
+
+        <!-- Brand name + tagline -->
+        <p class="preloader-brand-name">STACKLY</p>
+        <p class="preloader-tagline">Haute Joaillerie &amp; Fine Jewelry</p>
+
+        <!-- Shimmer progress bar -->
+        <div class="preloader-progress-wrap">
+            <div class="preloader-progress-bar"></div>
+        </div>
+
+        <!-- Loading text -->
+        <p class="preloader-loading-text">Curating Your Luxury Experience</p>
+
+    </div>
+    <!-- ══ END PRELOADER ═══════════════════════════════════════════════════ -->
+    <!-- MAIN HEADER -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+
+            <!-- Brand Logo (Left) -->
+            <a href="index.html" class="brand-logo" aria-label="STACKLY Home">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img">
+            </a>
+
+            <!-- Desktop Navigation Links (Centered) -->
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </nav>
+
+            <!-- Right Actions (Cart + Login Button + Mobile Menu) -->
+            <div class="header-right-actions">
+                <button id="headerCartBtn" onclick="toggleCartDrawer(true)" class="header-cart-btn" title="Shopping Bag" aria-label="Open Shopping Bag">
+                    <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+                    <span id="cartCount" class="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="header-login-btn" title="Client Portal Sign In" style="text-decoration: none;">
+                    <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+                <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="mobile-drawer-menu hidden">
+            <div class="mobile-drawer-inner">
+                <a href="index.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Home</a>
+                <a href="services.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Services</a>
+                <a href="about.html" class="mobile-nav-link" onclick="toggleMobileMenu()">About</a>
+                <a href="blog.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Blog</a>
+                <a href="contact.html" class="mobile-nav-link active" onclick="toggleMobileMenu()">Contact</a>
+                <a href="login.html" class="mobile-nav-link" onclick="toggleMobileMenu()" style="color: var(--gold-400); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO BANNER -->
+    <section class="contact-hero-section">
+        <canvas id="contactHeroCanvas" class="hero-particles-canvas"></canvas>
+        <div class="hero-decor-orb orb-left"></div>
+        <div class="hero-decor-orb orb-right"></div>
+
+        <div class="container">
+            <div class="contact-hero-content" data-anim="slide-right">
+                <div class="hero-pill-badge">
+                    <span class="status-dot"></span>
+                    <span>VIP Salon Suite &amp; Concierge Access</span>
+                </div>
+
+                <h1 class="hero-title" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.15; font-weight: 300;">
+                    Connect With STACKLY • <br>
+                    <span class="shimmer-gold-text">Private Salon Concierge</span>
+                </h1>
+
+                <p style="color: var(--text-light); font-size: clamp(1rem, 1.8vw, 1.15rem); line-height: 1.8; margin-top: 1.25rem; font-weight: 300;">
+                    Schedule a private viewing in Coimbatore, Bangalore, or Salem, or contact our master lapidaries for bespoke diamond commissions.
+                </p>
+
+                <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-top: 2.25rem;">
+                    <a href="404.html" class="btn-primary gold-bg-gradient" style="text-decoration: none; padding: 0.95rem 2.25rem;">
+                        <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                        <span>Send a Message</span>
+                    </a>
+                    <a href="404.html" class="btn-secondary" style="text-decoration: none; padding: 0.95rem 2rem;">
+                        <span>View Global Salons</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: DIRECT TOUCHPOINTS GRID -->
+    <section class="touchpoints-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Direct Communication</span>
+                <h2 class="section-title">Atelier Touchpoints</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="touchpoints-cards-grid">
+                             <!-- Channel 1 -->
+                <div class="touchpoint-card" data-anim="fade-up">
+                    <div class="touchpoint-img-wrap">
+                        <img src="images/image/private-salon-suite.webp" alt="Private Salon Suite">
+                        <div class="touchpoint-icon-badge">
+                            <i data-lucide="calendar" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="touchpoint-body">
+                        <h3 class="touchpoint-title">Salon Concierge</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; font-weight: 300;">Private salon suite reservations and VIP appointments.</p>
+                        <div style="margin-top: auto; padding-top: 1rem;">
+                            <a href="tel:9876543210" class="touchpoint-link"><i data-lucide="phone" style="width: 14px; height: 14px;"></i> mob: 9876543210</a>
+                            <a href="404.html" class="touchpoint-link"><i data-lucide="mail" style="width: 14px; height: 14px;"></i> Email Concierge</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Channel 2 -->
+                <div class="touchpoint-card" data-anim="fade-up" class="delay-100">
+                    <div class="touchpoint-img-wrap">
+                        <img src="images/image/atelier-craftsman.webp" alt="Bespoke Workshop">
+                        <div class="touchpoint-icon-badge">
+                            <i data-lucide="sparkles" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="touchpoint-body">
+                        <h3 class="touchpoint-title">Bespoke Commissions</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; font-weight: 300;">Custom solitaire ring design and rare diamond sourcing.</p>
+                        <div style="margin-top: auto; padding-top: 1rem;">
+                            <a href="404.html" class="touchpoint-link"><i data-lucide="phone" style="width: 14px; height: 14px;"></i> +44 (0)20 7946 0912</a>
+                            <a href="404.html" class="touchpoint-link"><i data-lucide="mail" style="width: 14px; height: 14px;"></i> Email Lapidary Team</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Channel 3 -->
+                <div class="touchpoint-card" data-anim="fade-up" class="delay-200">
+                    <div class="touchpoint-img-wrap">
+                        <img src="images/image/rare-blue-diamond.webp" alt="Press &amp; Vault">
+                        <div class="touchpoint-icon-badge">
+                            <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="touchpoint-body">
+                        <h3 class="touchpoint-title">Diplomatic Vault &amp; Press</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; font-weight: 300;">Armored vault logistics and international media relations.</p>
+                        <div style="margin-top: auto; padding-top: 1rem;">
+                            <a href="404.html" class="touchpoint-link"><i data-lucide="phone" style="width: 14px; height: 14px;"></i> +41 (0)22 819 30 00</a>
+                            <a href="404.html" class="touchpoint-link"><i data-lucide="mail" style="width: 14px; height: 14px;"></i> Email Press Office</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Channel 4 -->
+                <div class="touchpoint-card" data-anim="fade-up" class="delay-300">
+                    <div class="touchpoint-img-wrap">
+                        <img src="images/image/artisan-hands.webp" alt="GIA Audit">
+                        <div class="touchpoint-icon-badge">
+                            <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="touchpoint-body">
+                        <h3 class="touchpoint-title">GIA Gemology Audit</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; font-weight: 300;">Diamond laser inscription verification and appraisals.</p>
+                        <div style="margin-top: auto; padding-top: 1rem;">
+                            <a href="tel:9876543210" class="touchpoint-link"><i data-lucide="phone" style="width: 14px; height: 14px;"></i> mob: 9876543210</a>
+                            <a href="404.html" class="touchpoint-link"><i data-lucide="mail" style="width: 14px; height: 14px;"></i> Email Gemology Desk</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE CONTACT FORM & SHOWCASE (SPLIT LAYOUT) -->
+    <section class="form-split-section" id="contact-form">
+        <div class="container">
+            <div class="form-split-grid">
+                
+                <!-- Left Column: Trust & Response Guarantee -->
+                <div data-anim="slide-right">
+                    <span class="section-subtitle">White-Glove Service</span>
+                    <h2 class="section-title" style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin-top: 0.5rem; line-height: 1.2;">
+                        Schedule Your Private <br>
+                        <span class="shimmer-gold-text">Salon Consultation</span>
+                    </h2>
+
+                    <p style="color: var(--text-light); font-size: 1rem; line-height: 1.8; margin: 1.5rem 0 1.5rem 0; font-weight: 300;">
+                        Whether seeking a custom GIA solitaire ring, inspecting archival high jewelry collections, or requesting diplomatic vault delivery, our concierge team stands at your service.
+                    </p>
+
+                    <div class="trust-showcase-card">
+                        <img src="images/image/668794e9667ffcf96c132e85_our-store-p-800.webp" alt="Place Vendôme Salon" class="trust-img-main">
+                        <div class="guarantee-badge">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            <span>Response Guarantee: Under 2 Hours</span>
+                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; color: var(--text-muted); font-size: 0.88rem; font-weight: 300;">
+                            <li style="display: flex; align-items: center; gap: 0.6rem;"><i data-lucide="check-circle" style="width: 16px; height: 16px; color: var(--gold-400);"></i> 100% Confidential Private Viewing Suites</li>
+                            <li style="display: flex; align-items: center; gap: 0.6rem;"><i data-lucide="check-circle" style="width: 16px; height: 16px; color: var(--gold-400);"></i> On-Duty Senior GIA Certified Gemologists</li>
+                            <li style="display: flex; align-items: center; gap: 0.6rem;"><i data-lucide="check-circle" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Diplomatic Armored Escort Available</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Form -->
+                <div data-anim="slide-left" class="delay-100">
+                    <div class="contact-form-card">
+                        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--text-white); font-weight: 300; margin-bottom: 0.35rem;">Send a Message</h3>
+                        <p style="color: var(--gold-300); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.75rem;">Direct Concierge Transmission</p>
+
+                        <form id="mainContactForm" onsubmit="handleMainFormSubmit(event)">
+                            
+                            <div class="form-grid-2col">
+                                <div class="form-group-field">
+                                    <label>Full Name *</label>
+                                    <input type="text" required placeholder="Lady Eleanor Vance" class="contact-input">
+                                </div>
+                                <div class="form-group-field">
+                                    <label>Email Address *</label>
+                                    <input type="email" required placeholder="eleanor@vance.com" class="contact-input">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2col">
+                                <div class="form-group-field">
+                                    <label>Phone / WhatsApp</label>
+                                    <input type="tel" placeholder="+44 7700 900077" class="contact-input">
+                                </div>
+                                <div class="form-group-field">
+                                    <label>Preferred Salon</label>
+                                    <select class="contact-input">
+                                        <option>Coimbatore Salon</option>
+                                        <option>Bangalore Salon</option>
+                                        <option>Salem Salon</option>
+                                        <option>Virtual VIP Concierge</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group-field">
+                                <label>Subject *</label>
+                                <select class="contact-input" required>
+                                    <option>Bespoke Jewelry Commission</option>
+                                    <option>Solitaire Diamond Consultation</option>
+                                    <option>Archival Viewing Appointment</option>
+                                    <option>GIA Gemology Audit Inquiry</option>
+                                    <option>General Concierge Inquiry</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group-field">
+                                <label>Your Message *</label>
+                                <textarea required rows="4" placeholder="Describe your custom jewelry vision or requested appointment dates..." class="contact-input" style="resize: vertical;"></textarea>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                                <input type="checkbox" required checked style="accent-color: var(--gold-400);">
+                                <span>I agree to STACKLY's privacy policy and confidential data handling.</span>
+                            </div>
+
+                            <button type="submit" id="formSubmitBtn" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; padding: 1.05rem; justify-content: center; font-size: 0.925rem;">
+                                <span>Transmit Message</span>
+                                <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: GLOBAL SALON LOCATIONS (IMAGE-HEAVY GRID) -->
+    <section class="salons-section" id="global-salons">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Global Ateliers</span>
+                <h2 class="section-title">Flagship Salon Locations</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="salons-cards-grid">
+                
+                <!-- Salon 1: Coimbatore -->
+                <div class="salon-card" data-anim="fade-up">
+                    <div class="salon-img-wrap">
+                        <img src="images/image/668794e9667ffcf96c132e85_our-store-p-800.webp" alt="Coimbatore Store">
+                        <span class="salon-city-badge">Coimbatore Flagship</span>
+                    </div>
+                    <div class="salon-info-body">
+                        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-white); margin-bottom: 0.5rem;">Coimbatore Atelier</h3>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300; margin-bottom: 1.25rem;">
+                            100 Feet Road, Crosscut Road, Coimbatore, Tamil Nadu 641012
+                        </p>
+                        <div style="font-size: 0.8rem; color: var(--gold-400); margin-bottom: 1.5rem;">
+                            <i data-lucide="clock" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Mon - Sat: 10:00 - 20:00 IST
+                        </div>
+                        <a href="404.html" class="btn-secondary" style="text-decoration: none; padding: 0.75rem 1.25rem; font-size: 0.825rem; text-align: center; margin-top: auto;">
+                            Get Salon Directions <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Salon 2: Bangalore -->
+                <div class="salon-card" data-anim="fade-up" class="delay-100">
+                    <div class="salon-img-wrap">
+                        <img src="images/image/668778693c1ba0f546677cb4_banner-03-p-800.webp" alt="Bangalore Suite">
+                        <span class="salon-city-badge">Bangalore Suite</span>
+                    </div>
+                    <div class="salon-info-body">
+                        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-white); margin-bottom: 0.5rem;">UB City Viewing Suite</h3>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300; margin-bottom: 1.25rem;">
+                            UB City, 24 Vittal Mallya Rd, Bangalore, Karnataka 560001
+                        </p>
+                        <div style="font-size: 0.8rem; color: var(--gold-400); margin-bottom: 1.5rem;">
+                            <i data-lucide="clock" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Mon - Sat: 10:00 - 20:00 IST
+                        </div>
+                        <a href="404.html" class="btn-secondary" style="text-decoration: none; padding: 0.75rem 1.25rem; font-size: 0.825rem; text-align: center; margin-top: auto;">
+                            Get Salon Directions <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Salon 3: Salem -->
+                <div class="salon-card" data-anim="fade-up" class="delay-200">
+                    <div class="salon-img-wrap">
+                        <img src="images/image/66877869cfa774b7fe8b2d22_banner-01-p-800.webp" alt="Salem Salon">
+                        <span class="salon-city-badge">Salem Salon</span>
+                    </div>
+                    <div class="salon-info-body">
+                        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-white); margin-bottom: 0.5rem;">Salem Salon Privé</h3>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300; margin-bottom: 1.25rem;">
+                            5/432 Brindavan Road, Fairlands, Salem, Tamil Nadu 636016
+                        </p>
+                        <div style="font-size: 0.8rem; color: var(--gold-400); margin-bottom: 1.5rem;">
+                            <i data-lucide="clock" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Mon - Sun: 10:00 - 20:00 IST
+                        </div>
+                        <a href="404.html" class="btn-secondary" style="text-decoration: none; padding: 0.75rem 1.25rem; font-size: 0.825rem; text-align: center; margin-top: auto;">
+                            Get Salon Directions <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE MAP & TRANSIT GUIDE -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Visitor Access</span>
+                <h2 class="section-title">Salon Map &amp; Diplomatic Transit</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="map-pin" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="map-wrapper-grid">
+                
+                <!-- Map Visual Box with Location Switcher -->
+                <div class="map-frame-box" data-anim="slide-right">
+                    <div class="map-location-switcher">
+                        <button class="map-switch-btn active" onclick="switchMap('coimbatore', this)">Coimbatore</button>
+                        <button class="map-switch-btn" onclick="switchMap('bangalore', this)">Bangalore</button>
+                        <button class="map-switch-btn" onclick="switchMap('salem', this)">Salem</button>
+                    </div>
+
+                    <a id="salonMapLink" href="https://maps.app.goo.gl/14GJma1mN9odEqbk8" target="_blank" title="Click to open map in new tab" style="display: block; position: relative; width: 100%; height: 380px; text-decoration: none;">
+                        <div class="map-click-overlay" style="position: absolute; inset: 0; z-index: 5; background: rgba(10,10,12,0.05); cursor: pointer; transition: background 0.3s ease; display: flex; align-items: flex-end; justify-content: flex-end; padding: 1rem;">
+                            <span style="background: rgba(10, 10, 12, 0.85); border: 1px solid rgba(212, 175, 55, 0.5); color: #d4af37; font-size: 0.8rem; padding: 0.5rem 1rem; border-radius: 20px; display: flex; align-items: center; gap: 0.5rem; backdrop-filter: blur(6px); font-family: var(--font-sans);">
+                                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i> Open in Google Maps
+                            </span>
+                        </div>
+                        <iframe id="salonMapIframe" src="https://maps.google.com/maps?q=Coimbatore,+Tamil+Nadu,+India&output=embed" allowfullscreen="" loading="lazy" style="width: 100%; height: 100%; border: 0; pointer-events: none;"></iframe>
+                    </a>
+                </div>
+
+                <!-- Visitor Transit Guide Info Card -->
+                <div class="transit-guide-card" data-anim="slide-left" class="delay-100">
+                    <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--text-white); font-weight: 300; margin-bottom: 1.25rem;">
+                        VIP Visitor Information
+                    </h3>
+
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                        <div style="display: flex; gap: 1rem;">
+                            <i data-lucide="car" style="width: 22px; height: 22px; color: var(--gold-400); flex-shrink: 0; margin-top: 0.2rem;"></i>
+                            <div>
+                                <h4 style="font-size: 0.95rem; color: var(--text-white); font-weight: 600;">Private Valet &amp; Parking</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-top: 0.2rem;">Complimentary underground valet parking is provided at Coimbatore, Bangalore, and Salem viewing suites.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem;">
+                            <i data-lucide="shield" style="width: 22px; height: 22px; color: var(--gold-400); flex-shrink: 0; margin-top: 0.2rem;"></i>
+                            <div>
+                                <h4 style="font-size: 0.95rem; color: var(--text-white); font-weight: 600;">Private Security Reception</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-top: 0.2rem;">All private salon visits require advance photo identification for diplomatic reception access.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem;">
+                            <i data-lucide="plane" style="width: 22px; height: 22px; color: var(--gold-400); flex-shrink: 0; margin-top: 0.2rem;"></i>
+                            <div>
+                                <h4 style="font-size: 0.95rem; color: var(--text-white); font-weight: 600;">Helicopter &amp; Airport Transfers</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-top: 0.2rem;">Direct private chauffeur transfer from Coimbatore, Bangalore, or Trichy Airport available upon request.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: FAQ ACCORDION & SOCIAL CONNECT BANNER -->
+    <section class="faq-social-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Common Inquiries</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="help-circle" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- FAQ Accordion Container -->
+            <div class="faq-accordion-wrap">
+                
+                <!-- Q1 -->
+                <div class="faq-item-row active" data-anim="fade-up">
+                    <button class="faq-header-btn" onclick="toggleFaqRow(this)">
+                        <span>How do I reserve a private salon suite consultation?</span>
+                        <i data-lucide="chevron-down" class="faq-icon" style="width: 20px; height: 20px; color: var(--gold-400);"></i>
+                    </button>
+                    <div class="faq-body-content">
+                        Private salon consultations in Coimbatore, Bangalore, or Salem can be reserved using our online VIP booking modal, by submitting the contact form above, or by directly telephoning our Coimbatore concierge desk at +91 9876543210.
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="faq-item-row" data-anim="fade-up" class="delay-100">
+                    <button class="faq-header-btn" onclick="toggleFaqRow(this)">
+                        <span>Can STACKLY gemologists source specific rare GIA diamonds on request?</span>
+                        <i data-lucide="chevron-down" class="faq-icon" style="width: 20px; height: 20px; color: var(--gold-400);"></i>
+                    </button>
+                    <div class="faq-body-content">
+                        Yes. Our master gemologists maintain direct access to top GIA sight-holders globally, allowing us to source rare Natural Fancy Color diamonds, D-Flawless solitaires, and unheated Colombian emeralds within 48 to 72 hours.
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="faq-item-row" data-anim="fade-up" class="delay-200">
+                    <button class="faq-header-btn" onclick="toggleFaqRow(this)">
+                        <span>What security measures are implemented for vault transport &amp; delivery?</span>
+                        <i data-lucide="chevron-down" class="faq-icon" style="width: 20px; height: 20px; color: var(--gold-400);"></i>
+                    </button>
+                    <div class="faq-body-content">
+                        All high jewelry creations dispatched from our Paris atelier travel via fully insured diplomatic armored transport, equipped with dual security escorts and real-time GPS vault tracking.
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="faq-item-row" data-anim="fade-up">
+                    <button class="faq-header-btn" onclick="toggleFaqRow(this)">
+                        <span>What is the average timeline for crafting a bespoke high jewelry piece?</span>
+                        <i data-lucide="chevron-down" class="faq-icon" style="width: 20px; height: 20px; color: var(--gold-400);"></i>
+                    </button>
+                    <div class="faq-body-content">
+                        Bespoke commissions typically require between 3 to 6 weeks from initial 3D CAD design approval to final hand setting under 50x binocular stereoscopic magnification.
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-item-row" data-anim="fade-up" class="delay-100">
+                    <button class="faq-header-btn" onclick="toggleFaqRow(this)">
+                        <span>Do you provide international diplomatic escort delivery for private collectors?</span>
+                        <i data-lucide="chevron-down" class="faq-icon" style="width: 20px; height: 20px; color: var(--gold-400);"></i>
+                    </button>
+                    <div class="faq-body-content">
+                        Yes. For archival high jewelry commissions exceeding $100,000 USD, STACKLY provides hand-delivery by a senior atelier officer and diplomatic escort directly to your private estate or vault.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Closing Social Media Banner -->
+        <div class="social-closing-banner">
+            <div class="container" style="max-width: 760px; margin: 0 auto;" data-anim="zoom-in">
+                <h2 class="section-title" style="font-size: clamp(2.2rem, 4vw, 3.2rem);">
+                    Connect With STACKLY <span class="shimmer-gold-text">Online</span>
+                </h2>
+                <p style="color: var(--text-light); font-weight: 300; line-height: 1.8; margin-top: 1rem; font-size: 0.95rem;">
+                    Follow our social channels for behind-the-scenes lapidary craftsmanship videos, archival high jewelry drops, and Place Vendôme event highlights.
+                </p>
+
+                <div class="social-icons-large">
+                    <a href="404.html" class="social-lg-btn" title="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <a href="404.html" class="social-lg-btn" title="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <a href="404.html" class="social-lg-btn" title="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                    </a>
+                    <a href="404.html" class="social-lg-btn" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="404.html" class="social-lg-btn" title="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="brand-logo" aria-label="STACKLY Home" style="display: inline-block; margin-bottom: 1.25rem; text-decoration: none;">
+                        <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img" style="height: 60px; width: auto; object-fit: contain;">
+                    </a>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                        Handcrafting world-class high jewelry, certified solitaire engagement rings, and bespoke gem creations since 1874.
+                    </p>
+                    <div class="social-links">
+                        <a href="404.html" class="social-btn" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Youtube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Collections</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Solitaire Diamond Rings</a></li>
+                        <li><a href="404.html">Royal Gemstone Necklaces</a></li>
+                        <li><a href="404.html">Haute Drop Earrings</a></li>
+                        <li><a href="404.html">Fine Gold Bangles</a></li>
+                        <li><a href="404.html">Archival Masterpieces</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html" class="active">Contact</a></li>
+                        <li><a href="login.html">Login / Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Contact Atelier</h4>
+                    <ul class="footer-contact-list">
+                        <li><i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Aishwrya complex, gandhipuram, coimbatore</li>
+                        <li><i data-lucide="phone" style="width: 16px; height: 16px; color: var(--gold-400);"></i> mob: 9876543210</li>
+                        <li><i data-lucide="mail" style="width: 16px; height: 16px; color: var(--gold-400);"></i> stacklykr@jewll.com</li>
+                        <li><i data-lucide="clock" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Mon - Sat: 10:00 - 19:00 IST</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 STACKLY Haute Joaillerie. All rights reserved. Created &amp; Maintained by <a href="404.html" style="color: var(--gold-300); text-decoration: underline;">@stacklykr</a></p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Privacy Policy</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Terms of Service</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">GIA Certification Guarantee</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CLIENT LOGIN MODAL -->
+    <div id="loginModal" class="quick-view-modal hidden">
+        <div class="quick-view-content glass-card" style="max-width: 28rem; padding: 2.5rem 2rem;">
+            <button onclick="closeLoginModal()" class="modal-close-btn" title="Close Modal">&times;</button>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" style="height: 48px; width: auto; filter: contrast(1.6) brightness(1.1); margin-bottom: 1rem;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--text-white); font-weight: 300;">Client Portal</h3>
+                <p style="color: var(--gold-300); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.25rem;">STACKLY VIP Salon Access</p>
+            </div>
+            
+            <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div>
+                    <label style="display: block; color: var(--text-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Email or Client ID</label>
+                    <input type="email" required placeholder="client@jewll.com" class="form-input" style="width: 100%; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--border-gold-medium); color: var(--text-white);">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Password</label>
+                    <input type="password" required placeholder="••••••••••••" class="form-input" style="width: 100%; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--border-gold-medium); color: var(--text-white);">
+                </div>
+                <button type="submit" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; margin-top: 0.5rem; justify-content: center; padding: 0.85rem;">
+                    Sign In to Portal <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CART SIDE DRAWER -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay hidden" onclick="toggleCartDrawer()"></div>
+    <div id="cartDrawer" class="cart-drawer hidden">
+        <div class="cart-drawer-header">
+            <h3>Shopping Bag (<span id="drawerCartCount">0</span>)</h3>
+            <button onclick="toggleCartDrawer()" style="background: transparent; border: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <div id="cartDrawerItems" class="cart-drawer-body">
+            <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">Your shopping bag is empty.</p>
+        </div>
+        <div class="cart-drawer-footer">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span style="color: var(--text-light);">Subtotal</span>
+                <span id="cartSubtotal" style="font-weight: bold; color: var(--gold-300);">$0.00</span>
+            </div>
+            <button onclick="window.location.href='404.html'" class="btn-primary gold-bg-gradient" style="width: 100%; border: none;">
+                Checkout Now <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastNotification" class="toast-notification" style="position: fixed; bottom: 2rem; right: 2rem; background: rgba(18, 20, 24, 0.95); border: 1.5px solid var(--gold-400); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); border-radius: var(--radius-md); padding: 1.2rem 1.75rem; color: var(--text-white); z-index: 10000; display: flex; align-items: center; gap: 1rem; opacity: 0; transform: translateY(120%); pointer-events: none; transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;">
+        <i data-lucide="check-circle-2" style="width: 22px; height: 22px; color: var(--gold-400);"></i>
+        <div>
+            <h4 id="toastTitle" style="font-size: 0.9rem; font-weight: 600; color: var(--text-white);">Transmission Received</h4>
+            <p id="toastBody" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem;">Our Concierge will respond within 2 hours.</p>
+        </div>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script src="js/script.js"></script>
+
+    <!-- CONTACT DYNAMIC LOGIC SCRIPT -->
+    <script>
+        const mapCoords = {
+            coimbatore: "https://maps.google.com/maps?q=Coimbatore,+Tamil+Nadu,+India&output=embed",
+            bangalore: "https://maps.google.com/maps?q=Bangalore,+Karnataka,+India&output=embed",
+            salem: "https://maps.google.com/maps?q=Salem,+Tamil+Nadu,+India&output=embed"
+        };
+
+        const mapDirectLinks = {
+            coimbatore: "https://maps.app.goo.gl/14GJma1mN9odEqbk8",
+            bangalore: "https://maps.app.goo.gl/AutSZRJtF2scNqGm6",
+            salem: "https://maps.app.goo.gl/ap6y3987KkybUAUA6"
+        };
+
+        function switchMap(locationKey, btn) {
+            document.querySelectorAll('.map-switch-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const iframe = document.getElementById('salonMapIframe');
+            const mapLink = document.getElementById('salonMapLink');
+            if (iframe && mapCoords[locationKey]) {
+                iframe.src = mapCoords[locationKey];
+            }
+            if (mapLink && mapDirectLinks[locationKey]) {
+                mapLink.href = mapDirectLinks[locationKey];
+            }
+        }
+
+        function toggleFaqRow(btn) {
+            const row = btn.parentElement;
+            const isActive = row.classList.contains('active');
+            document.querySelectorAll('.faq-item-row').forEach(r => r.classList.remove('active'));
+            if (!isActive) {
+                row.classList.add('active');
+            }
+        }
+
+        function handleMainFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            let valid = true;
+
+            inputs.forEach(input => {
+                const val = input.value.trim();
+                const isEmpty = !val;
+                const isInvalidEmail = input.type === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+
+                if (isEmpty || isInvalidEmail) {
+                    valid = false;
+                    input.style.borderColor = '#e87c7c';
+                    input.setAttribute('placeholder', input.getAttribute('placeholder') || 'Please fill this field');
+
+                    // Add error hint if not already there
+                    let hint = input.parentElement.querySelector('.field-error-hint');
+                    if (!hint) {
+                        hint = document.createElement('span');
+                        hint.className = 'field-error-hint';
+                        hint.style.cssText = 'color:#e87c7c;font-size:0.72rem;display:block;margin-top:0.25rem;';
+                        input.parentElement.appendChild(hint);
+                    }
+                    hint.textContent = isInvalidEmail ? '⚠ Enter a valid email address.' : '⚠ Please fill in this field.';
+                } else {
+                    input.style.borderColor = '';
+                    const hint = input.parentElement.querySelector('.field-error-hint');
+                    if (hint) hint.remove();
+                }
+            });
+
+            // Also check checkbox
+            const checkbox = form.querySelector('input[type="checkbox"][required]');
+            if (checkbox && !checkbox.checked) {
+                valid = false;
+                let hint = checkbox.parentElement.querySelector('.field-error-hint');
+                if (!hint) {
+                    hint = document.createElement('span');
+                    hint.className = 'field-error-hint';
+                    hint.style.cssText = 'color:#e87c7c;font-size:0.72rem;display:block;margin-top:0.25rem;';
+                    checkbox.parentElement.appendChild(hint);
+                }
+                hint.textContent = '⚠ Please accept the privacy policy.';
+            }
+
+            if (!valid) return;
+
+            // All valid — redirect to 404.html
+            sessionStorage.setItem('prevScrollY', window.scrollY);
+            sessionStorage.setItem('prevScrollPage', window.location.pathname);
+            window.location.href = '404.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+
+            // Scroll reveal animation observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('[data-anim]').forEach(el => observer.observe(el));
+
+            // Clear form field errors on input
+            const contactForm = document.getElementById('mainContactForm');
+            if (contactForm) {
+                contactForm.querySelectorAll('input, textarea, select').forEach(input => {
+                    input.addEventListener('input', () => {
+                        input.style.borderColor = '';
+                        const hint = input.parentElement.querySelector('.field-error-hint');
+                        if (hint) hint.remove();
+                    });
+                    input.addEventListener('change', () => {
+                        input.style.borderColor = '';
+                        const hint = input.parentElement.querySelector('.field-error-hint');
+                        if (hint) hint.remove();
+                    });
+                });
+            }
+
+            // Hero Canvas Particle Animation
+            const canvas = document.getElementById('contactHeroCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width = canvas.width = canvas.parentElement.clientWidth;
+                let height = canvas.height = canvas.parentElement.clientHeight;
+
+                window.addEventListener('resize', () => {
+                    if (!canvas.parentElement) return;
+                    width = canvas.width = canvas.parentElement.clientWidth;
+                    height = canvas.height = canvas.parentElement.clientHeight;
+                });
+
+                const particles = Array.from({ length: 45 }, () => ({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2 + 0.5,
+                    speedY: - (Math.random() * 0.35 + 0.1),
+                    speedX: (Math.random() - 0.5) * 0.25,
+                    opacity: Math.random() * 0.7 + 0.2
+                }));
+
+                function renderParticles() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(p => {
+                        p.y += p.speedY;
+                        p.x += p.speedX;
+                        if (p.y < 0) p.y = height;
+                        if (p.x < 0 || p.x > width) p.x = Math.random() * width;
+
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
+                        ctx.shadowBlur = 8;
+                        ctx.shadowColor = "#D4AF37";
+                        ctx.fill();
+                    });
+                    requestAnimationFrame(renderParticles);
+                }
+                renderParticles();
+            }
+        });
+    </script>
+</body>
+
+</html>

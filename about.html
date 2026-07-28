@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY | Our Heritage & Haute Joaillerie Craftsmanship</title>
+    <meta name="description" content="Discover STACKLY's 150-year legacy of haute joaillerie craftsmanship, Paris Place Vendôme origins, GIA-certified gemology, and master lapidary artisans.">
+    <meta name="author" content="@stacklykr">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Main Site Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Advanced Styling for About Page -->
+    <style>
+        /* Keyframe Animations */
+        @keyframes shimmerText {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.08); }
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(35px, -25px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .shimmer-gold-text {
+            background: linear-gradient(120deg, #FFF5D0 0%, #D4AF37 25%, #FFF8E7 50%, #D4AF37 75%, #FFF5D0 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 5s linear infinite;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 1: ABOUT HERO BANNER                                  */
+        /* ------------------------------------------------------------- */
+        .about-hero-section {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(11, 12, 14, 0.85) 0%, rgba(11, 12, 14, 0.97) 100%), 
+                        url('images/image/about-hero-bg.webp') no-repeat center center/cover;
+            overflow: hidden;
+            padding: 7.5rem 0 5.5rem 0;
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .hero-particles-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-decor-orb {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-left {
+            top: 5%;
+            left: -100px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+            animation: floatOrb 16s ease-in-out infinite;
+        }
+
+        .orb-right {
+            bottom: 10%;
+            right: -100px;
+            background: radial-gradient(circle, rgba(230, 195, 90, 0.15) 0%, transparent 70%);
+            animation: floatOrb 18s ease-in-out infinite reverse;
+        }
+
+        .about-hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (min-width: 992px) {
+            .about-hero-grid {
+                grid-template-columns: 1.15fr 0.85fr;
+            }
+        }
+
+        .hero-pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(22, 24, 29, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-gold-medium);
+            padding: 0.45rem 1.25rem;
+            border-radius: 50px;
+            color: var(--gold-300);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10B981;
+            animation: pulseGlow 2s infinite;
+        }
+
+        .hero-highlights-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            margin: 2rem 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .hero-highlight-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            background: rgba(22, 24, 29, 0.45);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            padding: 0.45rem 0.95rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .hero-highlight-tag i {
+            color: var(--gold-400);
+        }
+
+        /* Hero Right Collage Card */
+        .hero-collage-card {
+            position: relative;
+            background: rgba(18, 20, 24, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid var(--border-gold-medium);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.12);
+        }
+
+        .hero-collage-img-main {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-gold-medium);
+        }
+
+        .hero-collage-badge-float {
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-obsidian);
+            border: 1.5px solid var(--gold-400);
+            padding: 0.65rem 1.75rem;
+            border-radius: 50px;
+            color: var(--gold-300);
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            white-space: nowrap;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 2: BRAND STORY (SPLIT LAYOUT)                        */
+        /* ------------------------------------------------------------- */
+        .brand-story-section {
+            padding: 7rem 0;
+            background: var(--bg-obsidian);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .story-split-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (min-width: 992px) {
+            .story-split-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .story-collage-wrap {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .story-img-box {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-gold-medium);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            background: #111;
+        }
+
+        .story-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .story-img-box:hover img {
+            transform: scale(1.08);
+        }
+
+        .story-img-tall {
+            height: 380px;
+        }
+
+        .story-img-short {
+            height: 180px;
+        }
+
+        .story-center-emblem {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(11, 12, 14, 0.95);
+            border: 2px solid var(--gold-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-300);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            z-index: 5;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 3: MISSION, VISION & VALUES (3-COLUMN CARDS GRID)    */
+        /* ------------------------------------------------------------- */
+        .pillars-section {
+            padding: 7rem 0;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.25rem;
+            margin-top: 3.5rem;
+        }
+
+        .pillar-card {
+            background: rgba(22, 24, 29, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-400);
+            box-shadow: 0 18px 40px rgba(212, 175, 55, 0.18);
+            background: rgba(22, 24, 29, 0.95);
+        }
+
+        .pillar-img-wrap {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .pillar-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pillar-card:hover .pillar-img-wrap img {
+            transform: scale(1.09);
+        }
+
+        .pillar-icon-badge {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--bg-obsidian);
+            border: 1.5px solid var(--gold-400);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-300);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .pillar-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .pillar-tag {
+            color: var(--gold-400);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .pillar-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-white);
+            font-weight: 400;
+            margin-bottom: 0.85rem;
+        }
+
+        .pillar-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 4: INTERACTIVE HISTORY & MILESTONES TIMELINE          */
+        /* ------------------------------------------------------------- */
+        .timeline-section {
+            padding: 7rem 0;
+            background: var(--bg-obsidian);
+            position: relative;
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .timeline-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 4rem auto 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), var(--gold-400), rgba(212, 175, 55, 0.1));
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+        }
+
+        .timeline-node-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-node-item {
+                grid-template-columns: 1fr;
+                padding-left: 50px;
+                gap: 1.5rem;
+            }
+        }
+
+        .timeline-node-item:nth-child(even) .timeline-card-content {
+            grid-column: 2;
+        }
+
+        .timeline-node-item:nth-child(even) .timeline-year-box {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-node-item:nth-child(even) .timeline-card-content,
+            .timeline-node-item:nth-child(even) .timeline-year-box {
+                grid-column: 1;
+                text-align: left;
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--bg-obsidian);
+            border: 3px solid var(--gold-400);
+            box-shadow: 0 0 15px var(--gold-400);
+            z-index: 5;
+            transition: all var(--transition-normal);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        .timeline-card-content {
+            background: rgba(22, 24, 29, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            transition: all var(--transition-normal);
+        }
+
+        .timeline-card-content:hover {
+            border-color: var(--gold-400);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+            background: rgba(22, 24, 29, 0.95);
+        }
+
+        .timeline-year-text {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            color: var(--gold-300);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 5: LEADERSHIP & MASTER ARTISANS TEAM GRID             */
+        /* ------------------------------------------------------------- */
+        .team-section {
+            padding: 7rem 0;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .team-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .team-card {
+            background: rgba(22, 24, 29, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-400);
+            box-shadow: 0 18px 35px rgba(212, 175, 55, 0.2);
+            background: rgba(22, 24, 29, 0.95);
+        }
+
+        .team-img-wrap {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .team-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .team-card:hover .team-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .team-social-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11, 12, 14, 0.9) 0%, rgba(11, 12, 14, 0.2) 60%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1.25rem;
+            gap: 0.75rem;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .team-card:hover .team-social-overlay {
+            opacity: 1;
+        }
+
+        .team-social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(11, 12, 14, 0.85);
+            border: 1px solid var(--gold-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-300);
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .team-social-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--gold-300);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            display: block;
+            pointer-events: none;
+            flex-shrink: 0;
+        }
+
+        .team-social-icon:hover {
+            background: var(--gold-400);
+            color: #0B0C0E;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+        }
+
+        .team-social-icon:hover svg {
+            stroke: #0B0C0E;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-name {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: var(--text-white);
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-role {
+            font-size: 0.78rem;
+            color: var(--gold-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 0.65rem;
+        }
+
+        .team-bio {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 6: CULTURE & BEHIND-THE-SCENES MASONRY GRID           */
+        /* ------------------------------------------------------------- */
+        .culture-section {
+            padding: 7rem 0;
+            background: var(--bg-obsidian);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .culture-masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.75rem;
+            margin-top: 3.5rem;
+        }
+
+        .culture-item {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-gold-subtle);
+            height: 280px;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            background: #111;
+        }
+
+        .culture-item:hover {
+            border-color: var(--gold-400);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.18);
+        }
+
+        .culture-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .culture-item:hover img {
+            transform: scale(1.09);
+        }
+
+        .culture-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11, 12, 14, 0.92) 0%, rgba(11, 12, 14, 0.2) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .culture-item:hover .culture-overlay {
+            opacity: 1;
+        }
+
+        .culture-tag {
+            color: var(--gold-400);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .culture-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--text-white);
+            font-weight: 400;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 7: BY THE NUMBERS (METRICS CARDS)                     */
+        /* ------------------------------------------------------------- */
+        .metrics-section {
+            padding: 7rem 0;
+            background: var(--bg-charcoal);
+            border-bottom: 1px solid var(--border-gold-subtle);
+        }
+
+        .metrics-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .metric-glass-card {
+            background: rgba(22, 24, 29, 0.55);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-xl);
+            padding: 2.75rem 1.75rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-glass-card:hover {
+            border-color: var(--gold-400);
+            background: rgba(22, 24, 29, 0.9);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.18);
+        }
+
+        .metric-icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(11, 12, 14, 0.8);
+            border: 1.5px solid var(--gold-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem auto;
+            color: var(--gold-300);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .metric-number-display {
+            font-family: var(--font-serif);
+            font-size: 3.4rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #FFF5D0, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label-title {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-white);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.35rem;
+        }
+
+        .metric-label-desc {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SECTION 8: PARTNERS, CERTIFICATIONS & CALLOUT CTA             */
+        /* ------------------------------------------------------------- */
+        .partners-cta-section {
+            padding: 7rem 0 0 0;
+            background: var(--bg-obsidian);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            margin-top: 3rem;
+            margin-bottom: 6rem;
+        }
+
+        .partner-box {
+            display: block;
+            text-decoration: none;
+            background: rgba(22, 24, 29, 0.5);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: var(--gold-300);
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            letter-spacing: 0.08em;
+            transition: all var(--transition-fast);
+        }
+
+        .partner-box:hover {
+            border-color: var(--gold-400);
+            background: rgba(22, 24, 29, 0.9);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            color: var(--text-white);
+        }
+
+        .callout-cta-banner {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, rgba(11, 12, 14, 0.92) 0%, rgba(11, 12, 14, 0.96) 100%), 
+                        url('images/image/66877869df77ac3cc37c6a4e_banner-02-p-800.webp') no-repeat center center/cover;
+            border-top: 1px solid var(--border-gold-medium);
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-availability-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(22, 24, 29, 0.85);
+            border: 1px solid var(--gold-400);
+            padding: 0.45rem 1.25rem;
+            border-radius: 50px;
+            color: var(--gold-300);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+        }
+
+        /* Animation utilities */
+        [data-anim] {
+            opacity: 0;
+            transition: opacity 800ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        [data-anim="fade-up"] { transform: translateY(35px); }
+        [data-anim="slide-right"] { transform: translateX(-45px); }
+        [data-anim="slide-left"] { transform: translateX(45px); }
+        [data-anim="zoom-in"] { transform: scale(0.94); }
+
+        [data-anim].is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+    </style>
+</head>
+
+<body>
+    <!-- ══ LUXURY PRELOADER ══════════════════════════════════════════════ -->
+    <div id="luxrio-preloader" role="status" aria-label="Loading STACKLY">
+
+        <!-- Decorative corner sparkles -->
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+
+        <!-- Horizontal deco lines -->
+        <div class="preloader-deco-line"></div>
+        <div class="preloader-deco-line"></div>
+
+        <!-- STACKLY Logo -->
+        <div class="preloader-logo-wrap">
+            <img src="images/image/logo.webp" alt="STACKLY — Luxury Haute Joaillerie">
+        </div>
+
+        <!-- Animated Diamond Orbit Scene -->
+        <div class="preloader-diamond-scene">
+            <div class="preloader-ring-outer"></div>
+            <div class="preloader-ring-mid"></div>
+            <div class="preloader-ring-inner"></div>
+
+            <!-- Orbiting gold dots -->
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+
+            <!-- Spinning Diamond SVG -->
+            <svg class="preloader-diamond-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%"   stop-color="#FFF8E7"/>
+                        <stop offset="35%"  stop-color="#D4AF37"/>
+                        <stop offset="65%"  stop-color="#FFF5D0"/>
+                        <stop offset="100%" stop-color="#AA771C"/>
+                    </linearGradient>
+                    <filter id="diamondGlow">
+                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur"/>
+                    </filter>
+                </defs>
+                <polygon points="32,4 58,24 32,60 6,24" fill="url(#diamondGrad)" filter="url(#diamondGlow)" opacity="0.95"/>
+                <line x1="32" y1="4"  x2="32" y2="60" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="58" y2="24" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="6"  y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+            </svg>
+        </div>
+
+        <!-- Brand name + tagline -->
+        <p class="preloader-brand-name">STACKLY</p>
+        <p class="preloader-tagline">Haute Joaillerie &amp; Fine Jewelry</p>
+
+        <!-- Shimmer progress bar -->
+        <div class="preloader-progress-wrap">
+            <div class="preloader-progress-bar"></div>
+        </div>
+
+        <!-- Loading text -->
+        <p class="preloader-loading-text">Curating Your Luxury Experience</p>
+
+    </div>
+    <!-- ══ END PRELOADER ═══════════════════════════════════════════════════ -->
+    <!-- MAIN HEADER -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+
+            <!-- Brand Logo (Left) -->
+            <a href="index.html" class="brand-logo" aria-label="STACKLY Home">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img">
+            </a>
+
+            <!-- Desktop Navigation Links (Centered) -->
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Actions (Cart + Login Button + Mobile Menu) -->
+            <div class="header-right-actions">
+                <button id="headerCartBtn" onclick="toggleCartDrawer(true)" class="header-cart-btn" title="Shopping Bag" aria-label="Open Shopping Bag">
+                    <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+                    <span id="cartCount" class="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="header-login-btn" title="Client Portal Sign In" style="text-decoration: none;">
+                    <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+                <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="mobile-drawer-menu hidden">
+            <div class="mobile-drawer-inner">
+                <a href="index.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Home</a>
+                <a href="services.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Services</a>
+                <a href="about.html" class="mobile-nav-link active" onclick="toggleMobileMenu()">About</a>
+                <a href="blog.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Blog</a>
+                <a href="contact.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Contact</a>
+                <a href="login.html" class="mobile-nav-link" onclick="toggleMobileMenu()" style="color: var(--gold-400); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO BANNER -->
+    <section class="about-hero-section">
+        <canvas id="aboutHeroCanvas" class="hero-particles-canvas"></canvas>
+        <div class="hero-decor-orb orb-left"></div>
+        <div class="hero-decor-orb orb-right"></div>
+
+        <div class="container">
+            <div class="about-hero-grid">
+                
+                <!-- Left Hero Content Column (Slide Right Animation) -->
+                <div data-anim="slide-right">
+                    <div class="hero-pill-badge">
+                        <span class="status-dot"></span>
+                        <span>Established 1874 • Place Vendôme, Paris</span>
+                    </div>
+
+                    <h1 class="hero-title" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.15; font-weight: 300;">
+                        Crafting Timeless Heritage &amp; <br>
+                        <span class="shimmer-gold-text">Haute Joaillerie Excellence</span>
+                    </h1>
+
+                    <p style="color: var(--text-light); font-size: clamp(1rem, 1.8vw, 1.15rem); line-height: 1.8; margin-top: 1.25rem; font-weight: 300; max-width: 620px;">
+                        For over 150 years, STACKLY has defined the pinacle of fine French joaillerie. Combining 19th-century goldsmith traditions with certified GIA gemology, we craft heirloom masterpieces for discerning global collectors.
+                    </p>
+
+                    <!-- Feature Tags -->
+                    <ul class="hero-highlights-list">
+                        <li class="hero-highlight-tag">
+                            <i data-lucide="award" style="width: 16px; height: 16px;"></i>
+                            <span>152 Years Heritage</span>
+                        </li>
+                        <li class="hero-highlight-tag">
+                            <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
+                            <span>100% GIA Certified</span>
+                        </li>
+                        <li class="hero-highlight-tag">
+                            <i data-lucide="map-pin" style="width: 16px; height: 16px;"></i>
+                            <span>Paris • London • Geneva</span>
+                        </li>
+                    </ul>
+
+                    <div style="display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 2.25rem;">
+                        <a href="404.html" class="btn-primary gold-bg-gradient" style="text-decoration: none; padding: 0.95rem 2rem;">
+                            <i data-lucide="compass" style="width: 16px; height: 16px;"></i>
+                            <span>Discover Our Story</span>
+                        </a>
+                        <a href="404.html" class="btn-secondary" style="text-decoration: none; padding: 0.95rem 1.75rem;">
+                            <span>Meet Master Artisans</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Image Showcase Column (Zoom In Animation) -->
+                <div data-anim="zoom-in" class="delay-200">
+                    <div class="hero-collage-card">
+                        <img src="images/image/66868535682fce4489cb8d46_about-03.webp" alt="STACKLY Atelier Craftsman" class="hero-collage-img-main">
+                        <div class="hero-collage-badge-float">
+                            ✨ Maison de Haute Joaillerie
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: BRAND STORY / WHO WE ARE (SPLIT LAYOUT) -->
+    <section class="brand-story-section" id="brand-story">
+        <div class="container">
+            <div class="story-split-grid">
+                
+                <!-- Left Image Collage Column -->
+                <div class="story-collage-wrap" data-anim="slide-right">
+                    <div class="story-img-box story-img-tall">
+                        <img src="images/image/atelier-craftsman.webp" alt="Goldsmith at Workbench">
+                    </div>
+                    <div class="story-img-box story-img-short" style="margin-top: auto;">
+                        <img src="images/image/668794e9667ffcf96c132e85_our-store-p-800.webp" alt="Place Vendôme Salon">
+                    </div>
+                    <div class="story-center-emblem">
+                        <i data-lucide="crown" style="width: 38px; height: 38px;"></i>
+                    </div>
+                </div>
+
+                <!-- Right Text Content Column (Slide Left Animation) -->
+                <div data-anim="slide-left" class="delay-100">
+                    <span class="section-subtitle">The STACKLY Genesis</span>
+                    <h2 class="section-title" style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin-top: 0.5rem; line-height: 1.2;">
+                        Over 150 Years of <br>
+                        <span class="shimmer-gold-text">Unrivaled Joaillerie Mastery</span>
+                    </h2>
+
+                    <p style="color: var(--text-light); font-size: 1rem; line-height: 1.8; margin: 1.5rem 0 1.25rem 0; font-weight: 300;">
+                        Founded in 1874 by master goldsmith Antoine de Stackly at 12 Place Vendôme in Paris, STACKLY was born from a singular passion: creating jewelry of imperishable beauty and unmatched craftsmanship.
+                    </p>
+
+                    <p style="color: var(--text-muted); font-size: 0.925rem; line-height: 1.75; font-weight: 300; margin-bottom: 2rem;">
+                        Through generations of lapidary art, our atelier has hand-selected only top 0.1% GIA-certified diamonds and rare gemstones. Today, operating across private viewing salons in Paris, London Mayfair, and Geneva, STACKLY fuses historical goldsmith traditions with state-of-the-art 3D CAD modeling.
+                    </p>
+
+                    <div style="display: flex; align-items: center; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.18);">
+                        <img src="images/image/young-confident-businessman-looking-camera.webp" alt="Antoine de Stackly" style="width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid var(--gold-400); object-fit: cover;">
+                        <div>
+                            <h4 style="font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-white); font-weight: 400;">Antoine de Stackly</h4>
+                            <span style="color: var(--gold-400); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.2rem;">Founder &amp; Master Lapidary</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MISSION, VISION & VALUES (3-COLUMN CARDS GRID) -->
+    <section class="pillars-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Our Pillars</span>
+                <h2 class="section-title">Mission, Vision &amp; Core Values</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="pillars-grid">
+                
+                <!-- Card 1: Mission -->
+                <div class="pillar-card" data-anim="fade-up">
+                    <div class="pillar-img-wrap">
+                        <img src="images/image/artisan-hands.webp" alt="Master Goldsmith Handwork">
+                        <div class="pillar-icon-badge">
+                            <i data-lucide="sparkles" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="pillar-content">
+                        <span class="pillar-tag">Pillar I • Mission</span>
+                        <h3 class="pillar-title">Uncompromising Craftsmanship</h3>
+                        <p class="pillar-desc">To forge unique, heirloom-grade jewelry that captures emotions and survives generations, crafted under 50x binocular stereoscopic magnification.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Vision -->
+                <div class="pillar-card" data-anim="fade-up" class="delay-100">
+                    <div class="pillar-img-wrap">
+                        <img src="images/image/ring-yellow-gold.webp" alt="Bespoke Gold Ring">
+                        <div class="pillar-icon-badge">
+                            <i data-lucide="eye" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="pillar-content">
+                        <span class="pillar-tag">Pillar II • Vision</span>
+                        <h3 class="pillar-title">Timeless Innovation</h3>
+                        <p class="pillar-desc">Harmonizing 19th-century French goldsmith techniques with 3D digital precision rendering, setting global standards for bespoke fine joaillerie.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Values -->
+                <div class="pillar-card" data-anim="fade-up" class="delay-200">
+                    <div class="pillar-img-wrap">
+                        <img src="images/image/rare-blue-diamond.webp" alt="Rare Blue Diamond">
+                        <div class="pillar-icon-badge">
+                            <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="pillar-content">
+                        <span class="pillar-tag">Pillar III • Values</span>
+                        <h3 class="pillar-title">100% Ethical Sourcing</h3>
+                        <p class="pillar-desc">Strict adherence to the Kimberley Process, acquiring only conflict-free GIA-certified natural gemstones and 100% recycled 18K gold and platinum.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: COMPANY HISTORY & MILESTONES (INTERACTIVE TIMELINE) -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Chronology of Excellence</span>
+                <h2 class="section-title">Historic Milestones</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="timeline-wrapper">
+                <div class="timeline-line"></div>
+
+                <!-- Node 1 -->
+                <div class="timeline-node-item" data-anim="fade-up">
+                    <div class="timeline-year-box">
+                        <div class="timeline-year-text">1874</div>
+                        <span style="color: var(--gold-400); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;">Place Vendôme, Paris</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card-content">
+                        <h4 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-white); margin-bottom: 0.5rem;">Founding of the Paris Atelier</h4>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300;">Antoine de Stackly opens his first private goldsmith chamber on Place Vendôme, creating bespoke tiaras and signet rings for European royalty.</p>
+                    </div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="timeline-node-item" data-anim="fade-up" class="delay-100">
+                    <div class="timeline-year-box">
+                        <div class="timeline-year-text">1925</div>
+                        <span style="color: var(--gold-400); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;">Paris Exposition Decorative</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card-content">
+                        <h4 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-white); margin-bottom: 0.5rem;">The Art Deco Epoch</h4>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300;">STACKLY wins the Grand Prix for geometric platinum &amp; Colombian emerald medallion craftsmanship during the legendary 1925 Paris Exhibition.</p>
+                    </div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="timeline-node-item" data-anim="fade-up" class="delay-200">
+                    <div class="timeline-year-box">
+                        <div class="timeline-year-text">1978</div>
+                        <span style="color: var(--gold-400); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;">London &amp; Geneva Salons</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card-content">
+                        <h4 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-white); margin-bottom: 0.5rem;">Global Flagship Expansion</h4>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300;">Opening exclusive private consultation chambers on Mayfair's New Bond Street in London and Rue du Rhône in Geneva.</p>
+                    </div>
+                </div>
+
+                <!-- Node 4 -->
+                <div class="timeline-node-item" data-anim="fade-up" class="delay-300">
+                    <div class="timeline-year-box">
+                        <div class="timeline-year-text">2012</div>
+                        <span style="color: var(--gold-400); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;">GIA Micro-Inspection</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card-content">
+                        <h4 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-white); margin-bottom: 0.5rem;">100% GIA Independent Audit Pioneer</h4>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300;">Pioneering full transparent provenance tracking and GIA binocular 50x diamond laser-inscription verification for all catalog creations.</p>
+                    </div>
+                </div>
+
+                <!-- Node 5 -->
+                <div class="timeline-node-item" data-anim="fade-up" class="delay-400">
+                    <div class="timeline-year-box">
+                        <div class="timeline-year-text">2026</div>
+                        <span style="color: var(--gold-400); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;">Digital Atelier</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card-content">
+                        <h4 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-white); margin-bottom: 0.5rem;">Interactive Digital Salon &amp; Armored Escort</h4>
+                        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; font-weight: 300;">Launching 3D CAD real-time commission estimators, worldwide diplomatic vault delivery, and virtual VIP concierge services.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: MEET OUR LEADERSHIP & MASTER ARTISANS (TEAM GRID) -->
+    <section class="team-section" id="team-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Master Lapidaries &amp; Directors</span>
+                <h2 class="section-title">Meet Our Atelier Leadership</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="team-cards-grid">
+                
+                <!-- Member 1 -->
+                <div class="team-card" data-anim="fade-up">
+                    <div class="team-img-wrap">
+                        <img src="images/image/young-confident-businessman-looking-camera.webp" alt="Antoine de Stackly">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Antoine de Stackly</h3>
+                        <span class="team-role">Founder &amp; Master Lapidary</span>
+                        <p class="team-bio">Over 40 years mastering high jewelry casting, antique diamond resetting, and Place Vendôme heritage curation.</p>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="team-card" data-anim="fade-up" class="delay-100">
+                    <div class="team-img-wrap">
+                        <img src="images/image/portrait-girl-jacket-white-shirt-looking-camera.webp" alt="Helena Vance">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Lady Helena Vance</h3>
+                        <span class="team-role">Creative Joaillerie Director</span>
+                        <p class="team-bio">Graduate of L'École des Arts Joailliers Paris, leading bespoke solitaire design and gala runway collections.</p>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="team-card" data-anim="fade-up" class="delay-200">
+                    <div class="team-img-wrap">
+                        <img src="images/image/portrait-happy-smiling-young-businessman-blue-suit-isolated-white-wall.webp" alt="Marc-Henri Laurent">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Marc-Henri Laurent</h3>
+                        <span class="team-role">Chief GIA Gemologist</span>
+                        <p class="team-bio">Senior GIA Fellow directing raw diamond grading, rare emerald sourcing, and diplomatic vault security appraisals.</p>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="team-card" data-anim="fade-up" class="delay-300">
+                    <div class="team-img-wrap">
+                        <img src="images/image/portrait-happy-smiling-young-businessman-brown-suit-isolated-white-wall.webp" alt="Sophia Chen">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Sophia Chen</h3>
+                        <span class="team-role">Director of Salon Commissions</span>
+                        <p class="team-bio">Managing private salon viewings in London, Paris, and Geneva with tailored white-glove concierge service.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: OUR CULTURE & BEHIND-THE-SCENES MASONRY GRID -->
+    <section class="culture-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Inside The Atelier</span>
+                <h2 class="section-title">Behind The Scenes Culture</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="culture-masonry-grid">
+                
+                <div class="culture-item" data-anim="zoom-in">
+                    <img src="images/image/6686853561e02fbafcbecca8_about-04.webp" alt="Goldsmith Workbench">
+                    <div class="culture-overlay">
+                        <span class="culture-tag">Handcrafting</span>
+                        <h4 class="culture-title">Precision Gold Smelting</h4>
+                    </div>
+                </div>
+
+                <div class="culture-item" data-anim="zoom-in" class="delay-100">
+                    <img src="images/image/6685437e46722a1ae9e8899e_category-07.webp" alt="Microscopic Setting">
+                    <div class="culture-overlay">
+                        <span class="culture-tag">Gemology</span>
+                        <h4 class="culture-title">50x Binocular Micro-Pavé</h4>
+                    </div>
+                </div>
+
+                <div class="culture-item" data-anim="zoom-in" class="delay-200">
+                    <img src="images/image/private-salon-suite.webp" alt="Private Salon Chamber">
+                    <div class="culture-overlay">
+                        <span class="culture-tag">Place Vendôme</span>
+                        <h4 class="culture-title">Private Viewing Suites</h4>
+                    </div>
+                </div>
+
+                <div class="culture-item" data-anim="zoom-in">
+                    <img src="images/image/gala-runway.webp" alt="Haute Joaillerie Runway">
+                    <div class="culture-overlay">
+                        <span class="culture-tag">Exhibition</span>
+                        <h4 class="culture-title">Gala Runway Highlights</h4>
+                    </div>
+                </div>
+
+                <div class="culture-item" data-anim="zoom-in" class="delay-100">
+                    <img src="images/image/6685436e265d5f8d0d1cde67_category-05-p-500.webp" alt="Emerald Inspection">
+                    <div class="culture-overlay">
+                        <span class="culture-tag">Rare Gems</span>
+                        <h4 class="culture-title">Colombian Emerald Grading</h4>
+                    </div>
+                </div>
+
+                <div class="culture-item" data-anim="zoom-in" class="delay-200">
+                    <img src="images/image/668794e9667ffcf96c132e85_our-store-p-800.webp" alt="Store Frontage">
+                    <div class="culture-overlay">
+                        <span class="culture-tag">Architecture</span>
+                        <h4 class="culture-title">Flagship Boutique Heritage</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: BY THE NUMBERS / ACHIEVEMENTS (ANIMATED COUNTERS) -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Heritage By The Numbers</span>
+                <h2 class="section-title">Our Global Achievements</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="metrics-cards-grid">
+                <div class="metric-glass-card" data-anim="fade-up">
+                    <div class="metric-icon-wrap">
+                        <i data-lucide="award" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="metric-number-display" data-target="152">0</div>
+                    <h4 class="metric-label-title">Years of Joaillerie Excellence</h4>
+                    <p class="metric-label-desc">Continuous French goldsmithing legacy since 1874.</p>
+                </div>
+
+                <div class="metric-glass-card" data-anim="fade-up" class="delay-100">
+                    <div class="metric-icon-wrap">
+                        <i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="metric-number-display" data-target="100">0%</div>
+                    <h4 class="metric-label-title">GIA Certified Diamonds</h4>
+                    <p class="metric-label-desc">Independently audited and certified natural gemstones.</p>
+                </div>
+
+                <div class="metric-glass-card" data-anim="fade-up" class="delay-200">
+                    <div class="metric-icon-wrap">
+                        <i data-lucide="crown" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="metric-number-display" data-target="12">0k+</div>
+                    <h4 class="metric-label-title">Bespoke Masterpieces</h4>
+                    <p class="metric-label-desc">Cataloged custom creations in our global archive.</p>
+                </div>
+
+                <div class="metric-glass-card" data-anim="fade-up" class="delay-300">
+                    <div class="metric-icon-wrap">
+                        <i data-lucide="star" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="metric-number-display" data-target="48">0</div>
+                    <h4 class="metric-label-title">International Design Awards</h4>
+                    <p class="metric-label-desc">Recognized for haute joaillerie design innovation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: PARTNERS, CERTIFICATIONS & FINAL CALLOUT CTA BANNER -->
+    <section class="partners-cta-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Certified Accreditations</span>
+                <h2 class="section-title">Trusted Global Industry Partners</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Partner Logos Grid -->
+            <div class="partners-grid">
+                <a href="404.html" class="partner-box" data-anim="fade-up">GIA Certified</a>
+                <a href="404.html" class="partner-box" data-anim="fade-up" class="delay-100">Kimberley Process</a>
+                <a href="404.html" class="partner-box" data-anim="fade-up" class="delay-200">Responsible Jewellery Council</a>
+                <a href="404.html" class="partner-box" data-anim="fade-up" class="delay-300">CIBJO Federation</a>
+            </div>
+        </div>
+
+        <!-- Closing Callout CTA Banner -->
+        <div class="callout-cta-banner">
+            <div class="container" style="max-width: 760px; margin: 0 auto;" data-anim="zoom-in">
+                <div class="cta-availability-pill">
+                    <span class="status-dot"></span>
+                    <span>Private Salon Appointments Available</span>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 0.5rem; font-size: clamp(2.4rem, 4.5vw, 3.4rem);">
+                    Begin Your <span class="shimmer-gold-text italic">Bespoke Heritage</span>
+                </h2>
+                <p style="color: var(--text-light); font-weight: 300; line-height: 1.8; margin: 1.25rem 0 2.25rem 0; font-size: 1rem;">
+                    Connect with our master jewelers for a private salon consultation in Paris Place Vendôme, London Mayfair, or Geneva.
+                </p>
+
+                <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="404.html" class="btn-primary gold-bg-gradient" style="text-decoration: none; border: none; padding: 1.05rem 2.5rem; font-size: 0.9rem;">
+                        Book VIP Consultation <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+                    </a>
+                    <a href="404.html" class="btn-secondary" style="text-decoration: none; padding: 1.05rem 2.25rem; font-size: 0.9rem;">
+                        Explore Atelier Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="brand-logo" aria-label="STACKLY Home" style="display: inline-block; margin-bottom: 1.25rem; text-decoration: none;">
+                        <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img" style="height: 60px; width: auto; object-fit: contain;">
+                    </a>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                        Handcrafting world-class high jewelry, certified solitaire engagement rings, and bespoke gem creations since 1874.
+                    </p>
+                    <div class="social-links">
+                        <a href="404.html" class="social-btn" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Youtube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Collections</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Solitaire Diamond Rings</a></li>
+                        <li><a href="404.html">Royal Gemstone Necklaces</a></li>
+                        <li><a href="404.html">Haute Drop Earrings</a></li>
+                        <li><a href="404.html">Fine Gold Bangles</a></li>
+                        <li><a href="404.html">Archival Masterpieces</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html" class="active">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login / Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Contact Atelier</h4>
+                    <ul class="footer-contact-list">
+                        <li><i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Aishwrya complex, gandhipuram, coimbatore</li>
+                        <li><i data-lucide="phone" style="width: 16px; height: 16px; color: var(--gold-400);"></i> mob: 9876543210</li>
+                        <li><i data-lucide="mail" style="width: 16px; height: 16px; color: var(--gold-400);"></i> stacklykr@jewll.com</li>
+                        <li><i data-lucide="clock" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Mon - Sat: 10:00 - 19:00 IST</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 STACKLY Haute Joaillerie. All rights reserved. Created &amp; Maintained by <a href="404.html" style="color: var(--gold-300); text-decoration: underline;">@stacklykr</a></p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Privacy Policy</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Terms of Service</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">GIA Certification Guarantee</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CLIENT LOGIN MODAL -->
+    <div id="loginModal" class="quick-view-modal hidden">
+        <div class="quick-view-content glass-card" style="max-width: 28rem; padding: 2.5rem 2rem;">
+            <button onclick="closeLoginModal()" class="modal-close-btn" title="Close Modal">&times;</button>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" style="height: 48px; width: auto; filter: contrast(1.6) brightness(1.1); margin-bottom: 1rem;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--text-white); font-weight: 300;">Client Portal</h3>
+                <p style="color: var(--gold-300); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.25rem;">STACKLY VIP Salon Access</p>
+            </div>
+            
+            <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div>
+                    <label style="display: block; color: var(--text-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Email or Client ID</label>
+                    <input type="email" required placeholder="client@jewll.com" class="form-input" style="width: 100%; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--border-gold-medium); color: var(--text-white);">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Password</label>
+                    <input type="password" required placeholder="••••••••••••" class="form-input" style="width: 100%; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--border-gold-medium); color: var(--text-white);">
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                    <label style="color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                        <input type="checkbox" checked style="accent-color: var(--gold-400);"> Remember Me
+                    </label>
+                    <a href="#" onclick="alert('Password reset link sent to your VIP account email.')" style="color: var(--gold-400); text-decoration: underline;">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; margin-top: 0.5rem; justify-content: center; padding: 0.85rem;">
+                    Sign In to Portal <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- CART SIDE DRAWER -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay hidden" onclick="toggleCartDrawer()"></div>
+    <div id="cartDrawer" class="cart-drawer hidden">
+        <div class="cart-drawer-header">
+            <h3>Shopping Bag (<span id="drawerCartCount">0</span>)</h3>
+            <button onclick="toggleCartDrawer()" style="background: transparent; border: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <div id="cartDrawerItems" class="cart-drawer-body">
+            <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">Your shopping bag is empty.</p>
+        </div>
+        <div class="cart-drawer-footer">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span style="color: var(--text-light);">Subtotal</span>
+                <span id="cartSubtotal" style="font-weight: bold; color: var(--gold-300);">$0.00</span>
+            </div>
+            <button onclick="window.location.href='404.html'" class="btn-primary gold-bg-gradient" style="width: 100%; border: none;">
+                Checkout Now <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastNotification" class="toast-notification" style="position: fixed; bottom: 2rem; right: 2rem; background: rgba(18, 20, 24, 0.95); border: 1.5px solid var(--gold-400); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); border-radius: var(--radius-md); padding: 1.2rem 1.75rem; color: var(--text-white); z-index: 10000; display: flex; align-items: center; gap: 1rem; opacity: 0; transform: translateY(120%); pointer-events: none; transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;">
+        <i data-lucide="check-circle-2" style="width: 22px; height: 22px; color: var(--gold-400);"></i>
+        <div>
+            <h4 id="toastTitle" style="font-size: 0.9rem; font-weight: 600; color: var(--text-white);">Reservation Confirmed</h4>
+            <p id="toastBody" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem;">Our concierge will contact you within 2 hours.</p>
+        </div>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script src="js/script.js"></script>
+
+    <!-- ABOUT DYNAMIC LOGIC SCRIPT -->
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucide icons init
+            if (window.lucide) lucide.createIcons({
+                attrs: {
+                    'stroke': 'currentColor',
+                    'fill': 'none',
+                    'stroke-width': '2',
+                    'stroke-linecap': 'round',
+                    'stroke-linejoin': 'round'
+                }
+            });
+
+            // Scroll reveal animation observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('[data-anim]').forEach(el => observer.observe(el));
+
+            // Metric Counters Logic
+            let countersRun = false;
+            const metricsSec = document.querySelector('.metrics-section');
+            if (metricsSec) {
+                const metricObs = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !countersRun) {
+                        countersRun = true;
+                        document.querySelectorAll('.metric-number-display').forEach(el => {
+                            const target = parseInt(el.getAttribute('data-target'), 10);
+                            let count = 0;
+                            const step = target / 50;
+                            const timer = setInterval(() => {
+                                count += step;
+                                if (count >= target) {
+                                    el.textContent = target + (target === 100 ? '%' : target === 12 ? 'k+' : target === 152 || target === 48 ? '+' : '');
+                                    clearInterval(timer);
+                                } else {
+                                    el.textContent = Math.ceil(count) + (target === 100 ? '%' : target === 12 ? 'k+' : '');
+                                }
+                            }, 30);
+                        });
+                    }
+                }, { threshold: 0.3 });
+                metricObs.observe(metricsSec);
+            }
+
+            // Hero Canvas Particle Animation
+            const canvas = document.getElementById('aboutHeroCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width = canvas.width = canvas.parentElement.clientWidth;
+                let height = canvas.height = canvas.parentElement.clientHeight;
+
+                window.addEventListener('resize', () => {
+                    if (!canvas.parentElement) return;
+                    width = canvas.width = canvas.parentElement.clientWidth;
+                    height = canvas.height = canvas.parentElement.clientHeight;
+                });
+
+                const particles = Array.from({ length: 45 }, () => ({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2 + 0.5,
+                    speedY: - (Math.random() * 0.35 + 0.1),
+                    speedX: (Math.random() - 0.5) * 0.25,
+                    opacity: Math.random() * 0.7 + 0.2
+                }));
+
+                function renderParticles() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(p => {
+                        p.y += p.speedY;
+                        p.x += p.speedX;
+                        if (p.y < 0) p.y = height;
+                        if (p.x < 0 || p.x > width) p.x = Math.random() * width;
+
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
+                        ctx.shadowBlur = 8;
+                        ctx.shadowColor = "#D4AF37";
+                        ctx.fill();
+                    });
+                    requestAnimationFrame(renderParticles);
+                }
+                renderParticles();
+            }
+        });
+    </script>
+</body>
+
+</html>

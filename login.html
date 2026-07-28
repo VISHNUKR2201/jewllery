@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY | VIP Client Portal & Atelier Access</title>
+    <meta name="description" content="Sign in to your STACKLY VIP Client Portal or register a new account to coordinate private salon appointments and custom GIA commissions.">
+    <meta name="author" content="@stacklykr">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet in css Folder -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom JavaScript in js Folder -->
+    <script src="js/script.js" defer></script>
+
+    <style>
+        /* ============================================================
+           STACKLY AUTH LAYOUT CUSTOM STYLES
+           ============================================================ */
+        .auth-page-section {
+            display: flex;
+            min-height: calc(100vh - 5rem);
+            background: var(--bg-obsidian);
+            position: relative;
+            overflow: hidden;
+            align-items: stretch;
+        }
+
+        .auth-container-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 991px) {
+            .auth-container-grid {
+                grid-template-columns: 1fr;
+            }
+            .auth-hero-panel {
+                display: none !important;
+            }
+        }
+
+        /* Hero Panel (Left Column) */
+        .auth-hero-panel {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4.5rem 3.5rem;
+            overflow: hidden;
+            border-right: 1px solid var(--border-gold-subtle);
+        }
+
+        .auth-hero-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.45;
+            filter: contrast(1.15) brightness(0.7);
+            z-index: 0;
+            transition: transform 12s ease;
+        }
+
+        .auth-hero-panel:hover .auth-hero-bg {
+            transform: scale(1.08);
+        }
+
+        .auth-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 12, 14, 0.96) 0%, rgba(22, 24, 29, 0.8) 50%, rgba(11, 12, 14, 0.96) 100%);
+            z-index: 1;
+        }
+
+        .auth-hero-content {
+            position: relative;
+            z-index: 2;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .auth-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1.1rem;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1.5px solid var(--border-gold-subtle);
+            border-radius: var(--radius-full);
+            color: var(--gold-300);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-hero-badge .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--gold-400);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold-400);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+
+        .auth-hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 3.2vw, 3.25rem);
+            font-weight: 300;
+            line-height: 1.2;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-hero-text {
+            color: var(--text-light);
+            font-size: 1.025rem;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 92%;
+            margin-bottom: 3rem;
+        }
+
+        .auth-trust-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-trust-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            background: rgba(22, 24, 29, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.05);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .auth-trust-item:hover {
+            border-color: var(--border-gold-subtle);
+            transform: translateX(6px);
+            background: rgba(22, 24, 29, 0.65);
+        }
+
+        .auth-trust-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(11, 12, 14, 0.9);
+            border: 1.5px solid var(--gold-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-300);
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .auth-trust-info h4 {
+            font-size: 0.925rem;
+            color: var(--text-white);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.03em;
+        }
+
+        .auth-trust-info p {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+            font-weight: 300;
+        }
+
+        /* Form Panel (Right Column) */
+        .auth-form-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, var(--bg-obsidian) 0%, var(--bg-charcoal) 100%);
+            position: relative;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 31rem;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            position: relative;
+            border: 1.5px solid var(--border-gold-medium);
+            background: rgba(18, 20, 24, 0.98);
+        }
+
+        /* Leaf decorative sketch background inside card */
+        .auth-card-decor-leaf {
+            position: absolute;
+            bottom: -20px;
+            right: -25px;
+            width: 130px;
+            height: auto;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 1;
+            transform: rotate(-15deg);
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            background: rgba(11, 12, 14, 0.98);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1.35rem 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            font-size: 0.825rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            position: relative;
+        }
+
+        .auth-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-50%);
+        }
+
+        .auth-tab.active {
+            color: var(--gold-300);
+            background: rgba(22, 24, 29, 0.4);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .auth-tab.active::after {
+            width: 75%;
+        }
+
+        .auth-card-frame {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-card-slider {
+            display: flex;
+            width: 200%;
+            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .auth-panel {
+            width: 50%;
+            flex-shrink: 0;
+            padding: 2.75rem 2.25rem;
+            box-sizing: border-box;
+        }
+
+        /* Role Selector Styles */
+        .role-selector-container {
+            display: flex;
+            background: rgba(11, 12, 14, 0.95);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-full);
+            padding: 0.25rem;
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .role-selector-pill {
+            position: absolute;
+            top: 0.25rem;
+            bottom: 0.25rem;
+            left: 0.25rem;
+            width: calc(50% - 0.25rem);
+            background: linear-gradient(135deg, #FFE899 0%, #D4AF37 50%, #A17D1B 100%);
+            border-radius: var(--radius-full);
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+        }
+
+        .role-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .role-option.active {
+            color: #0B0C0E;
+        }
+
+        /* Form Styling */
+        .auth-remember-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.75rem;
+            font-size: 0.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.725rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon-left {
+            position: absolute;
+            left: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-400);
+            pointer-events: none;
+            width: 15px;
+            height: 15px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem 0.9rem 2.75rem;
+            background: rgba(11, 12, 14, 0.85);
+            border: 1px solid var(--border-gold-medium);
+            border-radius: var(--radius-sm);
+            color: var(--text-white);
+            font-size: 0.875rem;
+            transition: all 0.35s ease;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25), inset 0 0 8px rgba(0, 0, 0, 0.8);
+            background: rgba(22, 24, 29, 0.95);
+        }
+
+        .input-toggle-pwd {
+            position: absolute;
+            right: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .input-toggle-pwd:hover {
+            color: var(--gold-300);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Avatar overlay info */
+        .role-avatar-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .avatar-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold-400);
+            object-fit: cover;
+        }
+
+        .avatar-info-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-weight: 1.4;
+        }
+
+        .avatar-info-text strong {
+            color: var(--gold-300);
+        }
+
+        /* Checkbox wrapper styling */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin: 1.25rem 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .checkbox-wrapper input {
+            accent-color: var(--gold-400);
+            margin-top: 0.15rem;
+            cursor: pointer;
+        }
+
+        /* Animated loading text inside gold buttons */
+        .submit-btn-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .spin-icon {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Page Reveal Animations */
+        .fade-in-up-delay {
+            opacity: 0;
+            animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+        }
+
+        .slide-in-right-delay {
+            opacity: 0;
+            animation: slideInRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE MOBILE & TABLET MEDIA QUERIES FOR AUTH
+           ============================================================ */
+        @media (max-width: 991px) {
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+                width: 100% !important;
+            }
+            .desktop-nav {
+                display: none !important;
+            }
+            .auth-page-section {
+                min-height: calc(100vh - 4.5rem);
+                padding: 1.5rem 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-sizing: border-box !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+            }
+            .auth-container-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+            }
+            .auth-hero-panel {
+                display: none !important;
+            }
+            .auth-form-panel {
+                padding: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                background: transparent !important;
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .auth-card {
+                width: calc(100% - 2rem) !important;
+                max-width: 28rem !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+                min-width: 0 !important;
+            }
+            .auth-card-decor-leaf {
+                display: none !important;
+            }
+            .auth-card-frame {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
+                min-width: 0 !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .auth-page-section {
+                padding: 1rem 0 !important;
+            }
+            .auth-card {
+                width: 92% !important;
+                max-width: 92% !important;
+                border-radius: var(--radius-md) !important;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7) !important;
+                margin: 0 auto !important;
+                min-width: 0 !important;
+                overflow: hidden !important;
+            }
+            .auth-card-frame {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
+                position: relative !important;
+            }
+            .auth-card-slider {
+                display: flex !important;
+                width: 200% !important;
+                max-width: 200% !important;
+                box-sizing: border-box !important;
+            }
+            .auth-panel {
+                padding: 1.25rem 0.75rem !important;
+                width: 50% !important;
+                max-width: 50% !important;
+                box-sizing: border-box !important;
+                min-width: 0 !important;
+                flex-shrink: 0 !important;
+            }
+            .auth-tabs {
+                display: flex !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .auth-tab {
+                padding: 0.75rem 0.1rem !important;
+                font-size: 0.68rem !important;
+                letter-spacing: 0.03em !important;
+                min-width: 0 !important;
+                flex: 1 !important;
+            }
+            .role-selector-container {
+                padding: 0.2rem !important;
+                margin-bottom: 1rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                min-width: 0 !important;
+            }
+            .role-option {
+                padding: 0.45rem 0.15rem !important;
+                font-size: 0.62rem !important;
+                letter-spacing: 0em !important;
+                gap: 0.15rem !important;
+                min-width: 0 !important;
+                flex: 1 !important;
+            }
+            .role-option span {
+                white-space: nowrap !important;
+                font-size: 0.62rem !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            .input-wrapper {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                min-width: 0 !important;
+            }
+            .auth-input {
+                font-size: 0.775rem !important;
+                padding: 0.7rem 0.6rem 0.7rem 2.1rem !important;
+                box-sizing: border-box !important;
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+            .input-icon-left {
+                left: 0.6rem !important;
+            }
+            .form-group {
+                margin-bottom: 0.85rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                min-width: 0 !important;
+            }
+            .form-label {
+                font-size: 0.65rem !important;
+                letter-spacing: 0.06em !important;
+            }
+            .auth-panel h3 {
+                font-size: 1.25rem !important;
+            }
+            .auth-panel p {
+                font-size: 0.65rem !important;
+                margin-bottom: 0.9rem !important;
+            }
+            .auth-remember-row {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                gap: 0.2rem !important;
+                margin-bottom: 1.1rem !important;
+                font-size: 0.68rem !important;
+                min-width: 0 !important;
+            }
+            .auth-remember-row label,
+            .auth-remember-row a {
+                font-size: 0.68rem !important;
+                white-space: nowrap !important;
+            }
+            .auth-submit-btn,
+            #loginSubmitBtn,
+            #signupSubmitBtn {
+                padding: 0.75rem 0.4rem !important;
+                font-size: 0.75rem !important;
+                letter-spacing: 0.04em !important;
+                white-space: normal !important;
+                word-break: break-word !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                line-height: 1.3 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ══ LUXURY PRELOADER ══════════════════════════════════════════════ -->
+    <div id="luxrio-preloader" role="status" aria-label="Loading STACKLY">
+
+        <!-- Decorative corner sparkles -->
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+
+        <!-- Horizontal deco lines -->
+        <div class="preloader-deco-line"></div>
+        <div class="preloader-deco-line"></div>
+
+        <!-- STACKLY Logo -->
+        <div class="preloader-logo-wrap">
+            <img src="images/image/logo.webp" alt="STACKLY — Luxury Haute Joaillerie">
+        </div>
+
+        <!-- Animated Diamond Orbit Scene -->
+        <div class="preloader-diamond-scene">
+            <div class="preloader-ring-outer"></div>
+            <div class="preloader-ring-mid"></div>
+            <div class="preloader-ring-inner"></div>
+
+            <!-- Orbiting gold dots -->
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+
+            <!-- Spinning Diamond SVG -->
+            <svg class="preloader-diamond-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%"   stop-color="#FFF8E7"/>
+                        <stop offset="35%"  stop-color="#D4AF37"/>
+                        <stop offset="65%"  stop-color="#FFF5D0"/>
+                        <stop offset="100%" stop-color="#AA771C"/>
+                    </linearGradient>
+                    <filter id="diamondGlow">
+                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur"/>
+                    </filter>
+                </defs>
+                <polygon points="32,4 58,24 32,60 6,24" fill="url(#diamondGrad)" filter="url(#diamondGlow)" opacity="0.95"/>
+                <line x1="32" y1="4"  x2="32" y2="60" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="58" y2="24" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="6"  y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+            </svg>
+        </div>
+
+        <!-- Brand name + tagline -->
+        <p class="preloader-brand-name">STACKLY</p>
+        <p class="preloader-tagline">Haute Joaillerie &amp; Fine Jewelry</p>
+
+        <!-- Shimmer progress bar -->
+        <div class="preloader-progress-wrap">
+            <div class="preloader-progress-bar"></div>
+        </div>
+
+        <!-- Loading text -->
+        <p class="preloader-loading-text">Curating Your Luxury Experience</p>
+
+    </div>
+    <!-- ══ END PRELOADER ═══════════════════════════════════════════════════ -->
+    <!-- MAIN HEADER -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+
+            <!-- Brand Logo (Left) -->
+            <a href="index.html" class="brand-logo" aria-label="STACKLY Home">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img">
+            </a>
+
+            <!-- Desktop Navigation Links (Centered) -->
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Actions (Cart + Login Button + Hamburger Menu) -->
+            <div class="header-right-actions">
+                <!-- Cart Icon with Badge -->
+                <button id="headerCartBtn" onclick="toggleCartDrawer(true)" class="header-cart-btn" title="Shopping Bag" aria-label="Open Shopping Bag">
+                    <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+                    <span id="cartCount" class="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="header-login-btn" title="Client Portal Sign In" style="text-decoration: none;">
+                    <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+                <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="mobile-drawer-menu hidden">
+            <div class="mobile-drawer-inner">
+                <a href="index.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Home</a>
+                <a href="services.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Services</a>
+                <a href="about.html" class="mobile-nav-link" onclick="toggleMobileMenu()">About</a>
+                <a href="blog.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Blog</a>
+                <a href="contact.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Contact</a>
+                <a href="login.html" class="mobile-nav-link active" onclick="toggleMobileMenu()" style="color: var(--gold-400); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION: SPLIT SCREEN VIP AUTHENTICATION -->
+    <main class="auth-page-section">
+        <div class="auth-container-grid">
+            
+            <!-- COLUMN 1: IMMERSIVE AUTH HERO PANEL -->
+            <div class="auth-hero-panel slide-in-right-delay">
+                <!-- Background Image (Referencing local images directory) -->
+                <img src="images/image/atelier-craftsman.webp" alt="STACKLY Atelier Craftsmanship Banner" class="auth-hero-bg">
+                <div class="auth-hero-overlay"></div>
+
+                <!-- Top Area -->
+                <div class="auth-hero-badge">
+                    <span class="status-dot"></span>
+                    <span>ATELIER COMMISSIONS PORTAL</span>
+                </div>
+
+                <!-- Middle Content -->
+                <div class="auth-hero-content">
+                    <h1 class="auth-hero-title">
+                        Secure Atelier Access &<br>
+                        <span class="gold-gradient-text italic">VIP Client Services</span>
+                    </h1>
+                    <p class="auth-hero-text">
+                        Welcome back to the STACKLY Private Circle. Authenticate your credentials to manage your private salon viewings, verify your GIA certification records, or configure bespoke high jewelry orders.
+                    </p>
+                </div>
+
+                <!-- Bottom Trust Badges (with 4-6 local asset/icon references) -->
+                <div class="auth-trust-badges">
+                    <!-- Badge 1 -->
+                    <div class="auth-trust-item">
+                        <div class="auth-trust-icon-box">
+                            <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <div class="auth-trust-info">
+                            <h4>Confidential Salon Showings</h4>
+                            <p>Encrypted concierge scheduling for Place Vendôme & Mayfair viewings.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Badge 2 -->
+                    <div class="auth-trust-item">
+                        <div class="auth-trust-icon-box">
+                            <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <div class="auth-trust-info">
+                            <h4>GIA Certificate Audits</h4>
+                            <p>Direct digital access to laser inscriptions and appraisals for cataloged stones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMN 2: INTERACTIVE FORM PANEL -->
+            <div class="auth-form-panel fade-in-up-delay">
+                
+                <!-- Authentic Auth Card Wrapper -->
+                <div class="auth-card">
+                    <!-- Leaf background sketch decoration (from local New folder) -->
+                    <img src="images/New folder/hero-slide-1-1-4.webp" alt="Leaf Sketch Pattern" class="auth-card-decor-leaf">
+
+                    <!-- Sliding Panel Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" id="tab-btn-login" onclick="switchView('login')">Client Login</button>
+                        <button class="auth-tab" id="tab-btn-signup" onclick="switchView('signup')">VIP Register</button>
+                    </div>
+
+                    <!-- Inner Frame for Transition Slider -->
+                    <div class="auth-card-frame">
+                        <div class="auth-card-slider" id="authSlider">
+                            
+                            <!-- VIEW 1: INTERACTIVE LOGIN PANEL (DEFAULT) -->
+                            <div class="auth-panel" id="panel-login">
+                                <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--text-white); font-weight: 300; margin-bottom: 0.25rem;">VIP Sign In</h3>
+                                <p style="color: var(--gold-300); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.75rem;">Access private salon services</p>
+
+
+
+                                <form id="loginForm" onsubmit="handleLoginSubmission(event)">
+                                    <!-- Custom Styled Animated Role Selector -->
+                                    <div class="form-group">
+                                        <label class="form-label">Select Suite Access</label>
+                                        <div class="role-selector-container">
+                                            <div class="role-selector-pill" id="login-role-pill"></div>
+                                            <label class="role-option active" onclick="setRole('user', 'login')">
+                                                <input type="radio" name="login-role" value="user" checked style="display:none;">
+                                                <i data-lucide="user" style="width: 14px; height: 14px;"></i>
+                                                <span>Client Portal</span>
+                                            </label>
+                                            <label class="role-option" onclick="setRole('admin', 'login')">
+                                                <input type="radio" name="login-role" value="admin" style="display:none;">
+                                                <i data-lucide="shield" style="width: 14px; height: 14px;"></i>
+                                                <span>Atelier Admin</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                     <!-- Email Field -->
+                                     <div class="form-group">
+                                         <label class="form-label">Client ID / Email Address *</label>
+                                         <div class="input-wrapper">
+                                             <i data-lucide="mail" class="input-icon-left"></i>
+                                             <input type="email" required placeholder="client@stackly.com" class="auth-input" id="login-email">
+                                         </div>
+                                     </div> 
+
+                                    <!-- Password Field with Show/Hide Eye Toggle -->
+                                    <div class="form-group" style="margin-bottom: 1rem;">
+                                        <label class="form-label">Atelier Password *</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="key-round" class="input-icon-left" style="width: 15px; height: 15px; color: var(--gold-400);"></i>
+                                            <input type="password" required placeholder="••••••••••••" class="auth-input" id="login-password">
+                                            <button type="button" class="input-toggle-pwd" onclick="togglePasswordVisibility('login-password', this)" title="Show/Hide Password">
+                                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Forgot Password & Remember Me row -->
+                                    <div class="auth-remember-row">
+                                        <label style="color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                                            <input type="checkbox" checked style="accent-color: var(--gold-400);"> Remember Session
+                                        </label>
+                                        <!-- CRUCIAL REQUIREMENT: Clicking Forgot Password resets or redirects directly to 404.html -->
+                                        <a href="404.html" style="color: var(--gold-400); text-decoration: underline;">Forgot Password?</a>
+                                    </div>
+
+                                    <!-- Submit Button with loading state simulation -->
+                                    <button type="submit" id="loginSubmitBtn" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; padding: 1.05rem; justify-content: center; font-size: 0.9rem; font-weight: 700; box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4);">
+                                        <span class="submit-btn-content">
+                                            <span>Authorize Secure Session</span>
+                                            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                                        </span>
+                                    </button>
+                                </form>
+
+                                <p style="text-align: center; color: var(--text-muted); font-size: 0.825rem; margin-top: 2rem;">
+                                    Don't have an account? <a href="#" onclick="switchView('signup'); return false;" style="color: var(--gold-400); font-weight: 600; text-decoration: underline;">Sign Up here</a>
+                                </p>
+                            </div>
+
+                            <!-- VIEW 2: INTERACTIVE SIGN UP PANEL (HIDDEN/TOGGLE) -->
+                            <div class="auth-panel" id="panel-signup">
+                                <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--text-white); font-weight: 300; margin-bottom: 0.25rem;">VIP Registry</h3>
+                                <p style="color: var(--gold-300); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.75rem;">Create your client credentials</p>
+
+
+
+                                <form id="signupForm" onsubmit="handleSignupSubmission(event)">
+                                    <!-- Custom Styled Animated Role Selector -->
+                                    <div class="form-group">
+                                        <label class="form-label">Suite Access Role</label>
+                                        <div class="role-selector-container">
+                                            <div class="role-selector-pill" id="signup-role-pill"></div>
+                                            <label class="role-option active" onclick="setRole('user', 'signup')">
+                                                <input type="radio" name="signup-role" value="user" checked style="display:none;">
+                                                <i data-lucide="user" style="width: 14px; height: 14px;"></i>
+                                                <span>Client</span>
+                                            </label>
+                                            <label class="role-option" onclick="setRole('admin', 'signup')">
+                                                <input type="radio" name="signup-role" value="admin" style="display:none;">
+                                                <i data-lucide="shield" style="width: 14px; height: 14px;"></i>
+                                                <span>Atelier Admin</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Full Name Field -->
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name *</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="user-check" class="input-icon-left" style="width: 15px; height: 15px; color: var(--gold-400);"></i>
+                                            <input type="text" required placeholder="Lady Eleanor Vance" class="auth-input" id="signup-name">
+                                        </div>
+                                    </div>
+
+                                    <!-- Email Address Field -->
+                                    <div class="form-group">
+                                        <label class="form-label">Private Email Address *</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="mail" class="input-icon-left"></i>
+                                            <input type="email" required placeholder="eleanor@vance.com" class="auth-input" id="signup-email">
+                                        </div>
+                                    </div>
+
+                                    <!-- Password Field with Show/Hide Eye Toggle -->
+                                    <div class="form-group">
+                                        <label class="form-label">Choose Security Password *</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="key-round" class="input-icon-left" style="width: 15px; height: 15px; color: var(--gold-400);"></i>
+                                            <input type="password" required placeholder="••••••••••••" class="auth-input" id="signup-password">
+                                            <button type="button" class="input-toggle-pwd" onclick="togglePasswordVisibility('signup-password', this)" title="Show/Hide Password">
+                                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Confirm Password Field with Show/Hide Eye Toggle -->
+                                    <div class="form-group" style="margin-bottom: 0.5rem;">
+                                        <label class="form-label">Confirm Security Password *</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="check" class="input-icon-left" style="width: 15px; height: 15px; color: var(--gold-400);"></i>
+                                            <input type="password" required placeholder="••••••••••••" class="auth-input" id="signup-confirm-password">
+                                            <button type="button" class="input-toggle-pwd" onclick="togglePasswordVisibility('signup-confirm-password', this)" title="Show/Hide Password">
+                                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Terms & Conditions Acceptance -->
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" required id="signup-terms">
+                                        <label for="signup-terms">I accept the terms of GIA appraisal handling, encrypted portal storage, and VIP communications policies.</label>
+                                    </div>
+
+                                    <!-- Submit Button with loading state simulation -->
+                                    <button type="submit" id="signupSubmitBtn" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; padding: 1.05rem; justify-content: center; font-size: 0.9rem; font-weight: 700; box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4);">
+                                        <span class="submit-btn-content">
+                                            <span>Initialize VIP Account</span>
+                                            <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+                                        </span>
+                                    </button>
+                                </form>
+
+                                <p style="text-align: center; color: var(--text-muted); font-size: 0.825rem; margin-top: 2rem;">
+                                    Already have an account? <a href="#" onclick="switchView('login'); return false;" style="color: var(--gold-400); font-weight: 600; text-decoration: underline;">Log In here</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="main-footer">
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <!-- Brand Col -->
+                <div>
+                    <a href="index.html" class="brand-logo" aria-label="STACKLY Home" style="display: inline-block; margin-bottom: 1.25rem; text-decoration: none;">
+                        <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img" style="height: 60px; width: auto; object-fit: contain;">
+                    </a>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                        Handcrafting world-class high jewelry, certified solitaire engagement rings, and bespoke gem creations since 1874.
+                    </p>
+                    <div class="social-links">
+                        <a href="404.html" class="social-btn" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Youtube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="footer-heading">Collections</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Solitaire Diamond Rings</a></li>
+                        <li><a href="404.html">Royal Gemstone Necklaces</a></li>
+                        <li><a href="404.html">Haute Drop Earrings</a></li>
+                        <li><a href="404.html">Fine Gold Bangles</a></li>
+                        <li><a href="404.html">Archival Masterpieces</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html" class="active">Login / Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Boutique Info -->
+                <div>
+                    <h4 class="footer-heading">Contact Atelier</h4>
+                    <ul class="footer-contact-list">
+                        <li><i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Aishwrya complex, gandhipuram, coimbatore</li>
+                        <li><i data-lucide="phone" style="width: 16px; height: 16px; color: var(--gold-400);"></i> mob: 9876543210</li>
+                        <li><i data-lucide="mail" style="width: 16px; height: 16px; color: var(--gold-400);"></i> stacklykr@jewll.com</li>
+                        <li><i data-lucide="clock" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Mon - Sat: 10:00 - 19:00 IST</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 STACKLY Haute Joaillerie. All rights reserved. Created & Maintained by <a href="404.html" style="color: var(--gold-300); text-decoration: underline;">@stacklykr</a></p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Privacy Policy</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Terms of Service</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">GIA Guarantee</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- CART SIDE DRAWER -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay hidden" onclick="toggleCartDrawer()"></div>
+    <div id="cartDrawer" class="cart-drawer hidden">
+        <div class="cart-drawer-header">
+            <h3>Shopping Bag (<span id="drawerCartCount">0</span>)</h3>
+            <button onclick="toggleCartDrawer()" style="background: transparent; border: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <div id="cartDrawerItems" class="cart-drawer-body">
+            <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">Your shopping bag is empty.</p>
+        </div>
+        <div class="cart-drawer-footer">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span style="color: var(--text-light);">Subtotal</span>
+                <span id="cartSubtotal" style="font-weight: bold; color: var(--gold-300);">$0.00</span>
+            </div>
+            <button onclick="window.location.href='404.html'" class="btn-primary gold-bg-gradient" style="width: 100%; border: none;">
+                Checkout Now <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastNotification" class="toast-notification" style="position: fixed; bottom: 2rem; right: 2rem; background: rgba(18, 20, 24, 0.95); border: 1.5px solid var(--gold-400); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); border-radius: var(--radius-md); padding: 1.2rem 1.75rem; color: var(--text-white); z-index: 10000; display: flex; align-items: center; gap: 1rem; opacity: 0; transform: translateY(120%); pointer-events: none; transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;">
+        <i id="toastIcon" data-lucide="check-circle-2" style="width: 22px; height: 22px; color: var(--gold-400);"></i>
+        <div>
+            <h4 id="toastTitle" style="font-size: 0.9rem; font-weight: 600; color: var(--text-white);">Session Initiated</h4>
+            <p id="toastBody" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem;">Successfully authorized credentials.</p>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION DYNAMIC CONTROL SCRIPT -->
+    <script>
+        // Tab switching controller
+        function switchView(view) {
+            const slider = document.getElementById('authSlider');
+            const tabLogin = document.getElementById('tab-btn-login');
+            const tabSignup = document.getElementById('tab-btn-signup');
+
+            if (!slider || !tabLogin || !tabSignup) return;
+
+            if (view === 'login') {
+                slider.style.transform = 'translateX(0)';
+                tabLogin.classList.add('active');
+                tabSignup.classList.remove('active');
+            } else if (view === 'signup') {
+                slider.style.transform = 'translateX(-50%)';
+                tabLogin.classList.remove('active');
+                tabSignup.classList.add('active');
+            }
+        }
+
+        // Password Show/Hide toggle
+        function togglePasswordVisibility(inputId, button) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+
+            const iconElement = button.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.innerHTML = '<i data-lucide="eye-off" style="width: 16px; height: 16px;"></i>';
+            } else {
+                input.type = 'password';
+                button.innerHTML = '<i data-lucide="eye" style="width: 16px; height: 16px;"></i>';
+            }
+            
+            // Re-render Lucide icons for the updated toggle button
+            if (window.lucide) {
+                lucide.createIcons({
+                    attrs: {
+                        style: 'width: 16px; height: 16px;'
+                    }
+                });
+            }
+        }
+
+        // Custom styled role selection handler
+        function setRole(role, section) {
+            const container = button = null;
+            const options = document.querySelectorAll(`[name="${section}-role"]`);
+            
+            // Toggle active radio input value
+            options.forEach(opt => {
+                if (opt.value === role) {
+                    opt.checked = true;
+                    opt.parentElement.classList.add('active');
+                } else {
+                    opt.parentElement.classList.remove('active');
+                }
+            });
+
+            // Slide the pill selector background
+            const pill = document.getElementById(`${section}-role-pill`);
+            if (pill) {
+                if (role === 'admin') {
+                    pill.style.transform = 'translateX(100%)';
+                } else {
+                    pill.style.transform = 'translateX(0)';
+                }
+            }
+
+
+        }
+
+        // Form Success Toast Notification Helper
+        function triggerSuccessToast(title, body) {
+            const toast = document.getElementById('toastNotification');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastBody = document.getElementById('toastBody');
+
+            if (!toast || !toastTitle || !toastBody) return;
+
+            toastTitle.textContent = title;
+            toastBody.textContent = body;
+            
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+            toast.style.pointerEvents = 'auto';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(120%)';
+                toast.style.pointerEvents = 'none';
+            }, 4000);
+        }
+
+        // Interactive Login Form submission workflow
+        function handleLoginSubmission(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('login-email');
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+
+            // Strict Email Validation Requirement: Must contain '@' and end with '.com'
+            const isValidEmail = /^[^\s@]+@[^\s@]+\.com$/i.test(emailVal);
+
+            if (!isValidEmail) {
+                if (emailInput) {
+                    emailInput.style.borderColor = '#e87c7c';
+                    emailInput.focus();
+                }
+                triggerSuccessToast('Invalid Email', 'Please enter a valid email address containing "@" and ending with ".com"');
+                return;
+            } else if (emailInput) {
+                emailInput.style.borderColor = '';
+            }
+
+            const btn = document.getElementById('loginSubmitBtn');
+
+            // Animate loading simulation state
+            btn.disabled = true;
+            btn.innerHTML = `
+                <span class="submit-btn-content">
+                    <span>Authenticating VIP Session...</span>
+                    <i data-lucide="loader-2" class="spin-icon" style="width: 16px; height: 16px;"></i>
+                </span>
+            `;
+            if (window.lucide) lucide.createIcons();
+
+            const selectedRole = document.querySelector('input[name="login-role"]:checked') ? document.querySelector('input[name="login-role"]:checked').value : 'user';
+
+            // Store logged-in user credentials for dashboard retrieval
+            sessionStorage.setItem('userEmail', emailVal);
+            sessionStorage.setItem('loggedInEmail', emailVal);
+            sessionStorage.setItem('userRole', selectedRole);
+
+            setTimeout(() => {
+                triggerSuccessToast('Session Authorized', 'Welcome back to STACKLY Haute Joaillerie.');
+                
+                setTimeout(() => {
+                    if (selectedRole === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        window.location.href = 'user-dashboard.html';
+                    }
+                }, 800);
+            }, 800);
+        }
+
+        // Interactive Sign Up Form submission & validation workflow
+        function handleSignupSubmission(e) {
+            e.preventDefault();
+
+            const emailInput = document.getElementById('signup-email');
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+
+            if (emailInput && !/^[^\s@]+@[^\s@]+\.com$/i.test(emailVal)) {
+                emailInput.style.borderColor = '#e87c7c';
+                emailInput.focus();
+                alert('Please enter a valid email address containing "@" and ending with ".com"');
+                return;
+            }
+
+            const pwdInput = document.getElementById('signup-password');
+            const confirmInput = document.getElementById('signup-confirm-password');
+
+            // Password confirmation check
+            if (pwdInput.value !== confirmInput.value) {
+                alert('Atelier passwords do not match. Please verify.');
+                confirmInput.focus();
+                return;
+            }
+
+            // Save signup credentials
+            if (emailVal) {
+                sessionStorage.setItem('userEmail', emailVal);
+                sessionStorage.setItem('loggedInEmail', emailVal);
+            }
+
+            const btn = document.getElementById('signupSubmitBtn');
+            const originalHtml = btn.innerHTML;
+
+            // Animate loading simulation state
+            btn.disabled = true;
+            btn.innerHTML = `
+                <span class="submit-btn-content">
+                    <span>Initializing VIP Records...</span>
+                    <i data-lucide="loader-2" class="spin-icon" style="width: 16px; height: 16px;"></i>
+                </span>
+            `;
+            if (window.lucide) lucide.createIcons();
+
+            setTimeout(() => {
+                triggerSuccessToast('Account Created Successfully', 'Your VIP credentials are set. Redirecting to login...');
+                
+                setTimeout(() => {
+                    // Reset forms
+                    document.getElementById('signupForm').reset();
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                    if (window.lucide) lucide.createIcons();
+
+                    // Switch view back to login and update selected role if signup was admin
+                    const checkedRole = document.querySelector('input[name="signup-role"]:checked').value;
+                    setRole(checkedRole, 'login');
+                    switchView('login');
+                }, 2000);
+            }, 1200);
+        }
+
+        // Clear dashboard states on login screen load
+        document.addEventListener('DOMContentLoaded', () => {
+            sessionStorage.removeItem("adminActiveTab");
+            sessionStorage.removeItem("userActiveTab");
+        });
+    </script>
+</body>
+
+</html>

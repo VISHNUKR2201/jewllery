@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY | Luxury Haute Joaillerie & Fine Jewelry</title>
+    <meta name="description" content="Explore STACKLY's exclusive handcrafted diamond rings, luxury necklaces, gold bangles, and gemstone high jewelry collections.">
+    <meta name="author" content="@stacklykr">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Stylesheet in css Folder -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom JavaScript in js Folder -->
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <!-- Website Created & Maintained by @stacklykr -->
+
+    <!-- MAIN HEADER -->
+    <!-- MAIN HEADER -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+
+            <!-- Brand Logo (Left) -->
+            <a href="index.html" class="brand-logo" aria-label="STACKLY Home">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img">
+            </a>
+
+            <!-- Desktop Navigation Links (Centered) -->
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Actions (Cart + Login Button + Hamburger Menu) -->
+            <div class="header-right-actions">
+                <!-- Cart Icon with Badge -->
+                <button id="headerCartBtn" onclick="toggleCartDrawer(true)" class="header-cart-btn" title="Shopping Bag" aria-label="Open Shopping Bag">
+                    <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+                    <span id="cartCount" class="cart-badge">0</span>
+                </button>
+                <a href="login.html" class="header-login-btn" title="Client Portal Sign In" style="text-decoration: none;">
+                    <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+                <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="mobile-drawer-menu hidden">
+            <div class="mobile-drawer-inner">
+                <a href="index.html" class="mobile-nav-link active" onclick="toggleMobileMenu()">Home</a>
+                <a href="services.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Services</a>
+                <a href="about.html" class="mobile-nav-link" onclick="toggleMobileMenu()">About</a>
+                <a href="blog.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Blog</a>
+                <a href="contact.html" class="mobile-nav-link" onclick="toggleMobileMenu()">Contact</a>
+                <a href="login.html" class="mobile-nav-link" onclick="toggleMobileMenu()" style="color: var(--gold-400); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                    <span>Login / Sign Up</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════════
+         LUXRIO HERO SECTION  — Preloader + Slice Slider
+         ══════════════════════════════════════════════════ -->
+
+    <!-- ══ LUXURY PRELOADER ══════════════════════════════════════════════ -->
+    <div id="luxrio-preloader" role="status" aria-label="Loading STACKLY">
+
+        <!-- Decorative corner sparkles -->
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 24 24"><path d="M12 4 L13 10 L19 12 L13 14 L12 20 L11 14 L5 12 L11 10 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+        <div class="preloader-sparkle"><svg viewBox="0 0 16 16"><path d="M8 1 L9 7 L15 8 L9 9 L8 15 L7 9 L1 8 L7 7 Z"/></svg></div>
+
+        <!-- Horizontal deco lines -->
+        <div class="preloader-deco-line"></div>
+        <div class="preloader-deco-line"></div>
+
+        <!-- STACKLY Logo -->
+        <div class="preloader-logo-wrap">
+            <img src="images/image/logo.webp" alt="STACKLY — Luxury Haute Joaillerie">
+        </div>
+
+        <!-- Animated Diamond Orbit Scene -->
+        <div class="preloader-diamond-scene">
+            <div class="preloader-ring-outer"></div>
+            <div class="preloader-ring-mid"></div>
+            <div class="preloader-ring-inner"></div>
+
+            <!-- Orbiting gold dots -->
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+            <div class="preloader-orbit-dot"></div>
+
+            <!-- Spinning Diamond SVG -->
+            <svg class="preloader-diamond-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%"   stop-color="#FFF8E7"/>
+                        <stop offset="35%"  stop-color="#D4AF37"/>
+                        <stop offset="65%"  stop-color="#FFF5D0"/>
+                        <stop offset="100%" stop-color="#AA771C"/>
+                    </linearGradient>
+                    <filter id="diamondGlow">
+                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur"/>
+                    </filter>
+                </defs>
+                <!-- Diamond shape -->
+                <polygon points="32,4 58,24 32,60 6,24" fill="url(#diamondGrad)" filter="url(#diamondGlow)" opacity="0.95"/>
+                <!-- Facet lines for sparkle -->
+                <line x1="32" y1="4"  x2="32" y2="60" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="58" y2="24" stroke="rgba(255,248,230,0.35)" stroke-width="0.8"/>
+                <line x1="6"  y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="60" stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="6"  y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+                <line x1="58" y1="24" x2="32" y2="4"  stroke="rgba(255,248,230,0.2)"  stroke-width="0.6"/>
+            </svg>
+        </div>
+
+        <!-- Brand name + tagline -->
+        <p class="preloader-brand-name">STACKLY</p>
+        <p class="preloader-tagline">Haute Joaillerie &amp; Fine Jewelry</p>
+
+        <!-- Shimmer progress bar -->
+        <div class="preloader-progress-wrap">
+            <div class="preloader-progress-bar"></div>
+        </div>
+
+        <!-- Loading text -->
+        <p class="preloader-loading-text">Curating Your Luxury Experience</p>
+
+    </div>
+    <!-- ══ END PRELOADER ═══════════════════════════════════════════════════ -->
+
+    <!-- LUXRIO HERO -->
+    <section id="hero" class="luxrio-hero">
+
+        <!-- Floating decorative elements -->
+        <img src="images/New folder/hero-slide-1-1-2.webp"
+             alt="Floating Bracelet"
+             class="luxrio-float luxrio-float--bracelet">
+        <img src="images/New folder/hero-slide-1-1-4.webp"
+             alt="Leaf Sketch"
+             class="luxrio-float luxrio-float--leaf">
+
+        <!-- Left hand — bracelet -->
+        <div class="luxrio-side luxrio-side--left">
+            <img src="images/New folder/hero-slide-1-1-1.webp"
+                 alt="Gold Bangles & Triangle Bracelet">
+        </div>
+
+        <!-- Centre content -->
+        <div class="luxrio-center">
+
+            <!-- Slide text (slice effect) -->
+            <div class="luxrio-slide-track" id="luxrioTrack">
+
+                <!-- Slide 0 -->
+                <div class="luxrio-slide is-active" data-index="0">
+                    <p class="luxrio-tag">Holy Jewelry &amp; Diamonds</p>
+                    <div class="luxrio-heading-wrap">
+                        <div class="luxrio-heading-clip luxrio-heading-clip--top">
+                            <h1 class="luxrio-h1 luxrio-accent">NECKLACE</h1>
+                            <h2 class="luxrio-h2">JEWELLERY</h2>
+                        </div>
+                        <div class="luxrio-heading-clip luxrio-heading-clip--btm" aria-hidden="true">
+                            <h1 class="luxrio-h1 luxrio-accent">NECKLACE</h1>
+                            <h2 class="luxrio-h2">JEWELLERY</h2>
+                        </div>
+                    </div>
+                    <p class="luxrio-sub">
+                        <span class="luxrio-accent-text">PENDANTS</span>
+                        &amp; Fine Collections
+                    </p>
+                    <a href="404.html" class="luxrio-btn">SHOP NOW</a>
+                </div>
+
+                <!-- Slide 1 -->
+                <div class="luxrio-slide" data-index="1">
+                    <p class="luxrio-tag">Rare Gemstone Selection</p>
+                    <div class="luxrio-heading-wrap">
+                        <div class="luxrio-heading-clip luxrio-heading-clip--top">
+                            <h1 class="luxrio-h1 luxrio-accent">SAPPHIRE</h1>
+                            <h2 class="luxrio-h2">RINGS</h2>
+                        </div>
+                        <div class="luxrio-heading-clip luxrio-heading-clip--btm" aria-hidden="true">
+                            <h1 class="luxrio-h1 luxrio-accent">SAPPHIRE</h1>
+                            <h2 class="luxrio-h2">RINGS</h2>
+                        </div>
+                    </div>
+                    <p class="luxrio-sub">
+                        <span class="luxrio-accent-text">SOLITAIRE</span>
+                        &amp; Diamond Halo
+                    </p>
+                    <a href="404.html" class="luxrio-btn">SHOP NOW</a>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="luxrio-slide" data-index="2">
+                    <p class="luxrio-tag">Master Atelier Craft</p>
+                    <div class="luxrio-heading-wrap">
+                        <div class="luxrio-heading-clip luxrio-heading-clip--top">
+                            <h1 class="luxrio-h1 luxrio-accent">BESPOKE</h1>
+                            <h2 class="luxrio-h2">BANGLES</h2>
+                        </div>
+                        <div class="luxrio-heading-clip luxrio-heading-clip--btm" aria-hidden="true">
+                            <h1 class="luxrio-h1 luxrio-accent">BESPOKE</h1>
+                            <h2 class="luxrio-h2">BANGLES</h2>
+                        </div>
+                    </div>
+                    <p class="luxrio-sub">
+                        <span class="luxrio-accent-text">18K GOLD</span>
+                        &amp; Pavé Diamond
+                    </p>
+                    <a href="404.html" class="luxrio-btn">SHOP NOW</a>
+                </div>
+
+            </div><!-- /luxrioTrack -->
+
+            <!-- Slide counter -->
+            <div class="luxrio-counter">
+                <span id="luxrioCurrentSlide">01</span>
+                <span class="luxrio-counter-sep"></span>
+                <span class="luxrio-counter-total">03</span>
+            </div>
+
+            <!-- Prev / Next arrows -->
+            <div class="luxrio-arrows">
+                <button class="luxrio-arrow luxrio-arrow--prev" id="luxrioPrev" aria-label="Previous slide">
+                    &#8592;
+                </button>
+                <button class="luxrio-arrow luxrio-arrow--next" id="luxrioNext" aria-label="Next slide">
+                    &#8594;
+                </button>
+            </div>
+
+        </div><!-- /luxrio-center -->
+
+        <!-- Right hand — sapphire ring -->
+        <div class="luxrio-side luxrio-side--right">
+            <img src="images/New folder/hero-slide-1-1-3.webp"
+                 alt="Blue Sapphire Diamond Ring">
+        </div>
+
+    </section>
+
+
+    <!-- TRUST STATS STRIP -->
+    <section class="trust-bar">
+        <div class="container trust-grid">
+            <div>
+                <p class="trust-number">100%</p>
+                <p class="trust-label">Ethical Sourced Diamonds</p>
+            </div>
+            <div>
+                <p class="trust-number">GIA & IGI</p>
+                <p class="trust-label">Certified Master Gems</p>
+            </div>
+            <div>
+                <p class="trust-number">150+ Years</p>
+                <p class="trust-label">Heritage Craftsmanship</p>
+            </div>
+            <div>
+                <p class="trust-number">Worldwide</p>
+                <p class="trust-label">Insured Doorstep Delivery</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED CATEGORIES SECTION (CURATED SELECTS - Premium LUXRIO Style) -->
+    <section id="categories" class="categories-section curated-selects-luxury">
+        <!-- Floating decorative line art -->
+        <img src="images/New folder/hero-slide-1-1-4.webp" alt="Floral Line Art" class="curated-decor-flower">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Curated Selects</span>
+                <h2 class="section-title">Signature Haute Categories</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="categories-grid">
+
+                <!-- Category 1: Rings -->
+                <div class="category-card" onclick="window.location.href='404.html';">
+                    <div class="category-card-image">
+                        <img src="images/image/6685436e265d5f8d0d1cde67_category-05-p-500.webp" alt="Solitaire & Diamond Rings">
+                    </div>
+                    <div class="category-card-overlay">
+                        <span class="category-badge"><i data-lucide="sparkle" style="width: 10px; height: 10px;"></i> 142 CREATIONS</span>
+                        <h3 class="category-name">Solitaire &amp; Fine Rings</h3>
+                        <span class="category-link">
+                            Explore Collection <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Necklaces -->
+                <div class="category-card" onclick="window.location.href='404.html';">
+                    <div class="category-card-image">
+                        <img src="images/image/668543a4bf948780c7dce268_category-06-p-500.webp" alt="High Necklaces & Pendants">
+                    </div>
+                    <div class="category-card-overlay">
+                        <span class="category-badge"><i data-lucide="sparkle" style="width: 10px; height: 10px;"></i> 98 CREATIONS</span>
+                        <h3 class="category-name">Royal Necklaces</h3>
+                        <span class="category-link">
+                            Explore Collection <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Earrings -->
+                <div class="category-card" onclick="window.location.href='404.html';">
+                    <div class="category-card-image">
+                        <img src="images/image/6685437e46722a1ae9e8899e_category-07.webp" alt="Haute Drop Earrings">
+                    </div>
+                    <div class="category-card-overlay">
+                        <span class="category-badge"><i data-lucide="sparkle" style="width: 10px; height: 10px;"></i> 76 CREATIONS</span>
+                        <h3 class="category-name">Haute Drop Earrings</h3>
+                        <span class="category-link">
+                            Explore Collection <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 4: Bracelets -->
+                <div class="category-card" onclick="window.location.href='404.html';">
+                    <div class="category-card-image">
+                        <img src="images/image/668543c8b2e33051788de563_category-08-p-500.webp" alt="18K Gold Bangles & Cuffs">
+                    </div>
+                    <div class="category-card-overlay">
+                        <span class="category-badge"><i data-lucide="sparkle" style="width: 10px; height: 10px;"></i> 112 CREATIONS</span>
+                        <h3 class="category-name">18K Gold Bangles</h3>
+                        <span class="category-link">
+                            Explore Collection <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND STORY & ARTISAN CRAFTSMANSHIP -->
+    <section id="about" class="craftsmanship-section">
+        <div class="container">
+            <div class="craftsmanship-grid">
+
+                <!-- Left Column: Staggered Image Wall -->
+                <div class="craftsmanship-gallery-wall">
+                    <div class="craftsmanship-wall-item craftsmanship-wall-item--main">
+                        <img src="images/image/atelier-craftsman.webp" alt="Drafting Jewelry Necklace Sketch">
+                    </div>
+                    <div class="craftsmanship-wall-item craftsmanship-wall-item--side">
+                        <img src="images/image/artisan-hands.webp" alt="Artisan Gemstone Setting">
+                    </div>
+                    <div class="craftsmanship-wall-item craftsmanship-wall-item--bottom">
+                        <img src="images/image/66868535682fce4489cb8d46_about-03.webp" alt="Master Lapidary Polishing Diamond">
+                    </div>
+                    <div class="craftsmanship-atelier-tag">
+                        Atelier Paris &amp; London
+                    </div>
+                </div>
+
+                <!-- Right Column: Story Content -->
+                <div class="craftsmanship-story">
+                    <span class="section-subtitle" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="gem" style="width: 16px; height: 16px;"></i> The Heritage of STACKLY
+                    </span>
+                    <h2 class="section-title" style="text-align: left; font-size: clamp(2.2rem, 4vw, 2.75rem); line-height: 1.2;">
+                        Sculpting the Extraordinary <span class="gold-gradient-text italic">Since 1874</span>
+                    </h2>
+                    
+                    <p class="craftsmanship-story-p">
+                        Since our founding, STACKLY has been a sanctuary for haute joaillerie. Our master designers, gemologists, and lapidaries collaborate within our Place Vendôme and Mayfair ateliers to breathe life into rare, conflict-free diamonds and precious metals. Only the top 0.1% of the world's natural stones are selected, each meticulously sculpted to unlock unmatched brilliance.
+                    </p>
+
+                    <!-- Core Pillars / Timeline -->
+                    <div class="craftsmanship-pillars">
+                        <div class="pillar-item">
+                            <div class="pillar-icon-box">
+                                <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="pillar-info">
+                                <h4>Certified Perfection</h4>
+                                <p>Every single diamond undergoes rigorous inspection under 40x magnification with triple-excellent cut parameters.</p>
+                            </div>
+                        </div>
+
+                        <div class="pillar-item">
+                            <div class="pillar-icon-box">
+                                <i data-lucide="sparkles" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="pillar-info">
+                                <h4>Micro-Pavé Setting</h4>
+                                <p>Prongs and bezels are sculpted under high-resolution microscopes to ensure everlasting gem security and perfect alignment.</p>
+                            </div>
+                        </div>
+
+                        <div class="pillar-item">
+                            <div class="pillar-icon-box">
+                                <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="pillar-info">
+                                <h4>Sustainable Gold Heritage</h4>
+                                <p>Forged using 100% recycled 18K solid gold, supporting an environmentally friendly and ethical supply chain.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="404.html" class="btn-primary gold-bg-gradient" style="margin-top: 0.5rem;">
+                            Discover Atelier Process <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EXCLUSIVE SHOP BY CATEGORY SECTION (LUXRIO Style) -->
+    <section id="shop-by-category" class="sbc-section">
+        <div class="sbc-container">
+            <!-- Left Side Image Banner -->
+            <div class="sbc-left-banner" style="background-image: url('images/image/sbc-model-earring.webp');">
+                <div class="sbc-banner-overlay">
+                    <div class="sbc-banner-content">
+                        <svg class="sbc-wave-line" viewBox="0 0 100 20" width="80" height="16">
+                            <path d="M 0 10 Q 25 20, 50 10 T 100 10" fill="none" stroke="white" stroke-width="2"/>
+                        </svg>
+                        <h2 class="sbc-vertical-title">EARRING</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Side Categories Grid -->
+            <div class="sbc-right-content">
+                <!-- Floating flower sketch (top right) -->
+                <img src="images/New folder/hero-slide-1-1-4.webp" alt="Flower Sketch" class="sbc-decor-flower">
+                
+                <div class="sbc-content-inner">
+                    <span class="sbc-subtitle">EXCLUSIVE COLLECTION</span>
+                    <h2 class="sbc-title">SHOP BY CATEGORY</h2>
+                    
+                    <!-- Classic Gold Filigree Divider -->
+                    <div class="sbc-filigree-divider">
+                        <span></span>
+                        <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                        <span></span>
+                    </div>
+                    
+                    <div class="sbc-cards-grid">
+                        <!-- Card 1: Wedding Ring -->
+                        <div class="sbc-card" onclick="window.location.href='404.html';">
+                            <div class="sbc-img-wrap">
+                                <img src="images/image/6685436e265d5f8d0d1cde67_category-05-p-500.webp" alt="Wedding Ring">
+                            </div>
+                            <h4 class="sbc-card-title">Wedding Ring</h4>
+                            <span class="sbc-card-count">10 PRODUCT</span>
+                        </div>
+                        
+                        <!-- Card 2: Diamond Pendant -->
+                        <div class="sbc-card" onclick="window.location.href='404.html';">
+                            <div class="sbc-img-wrap">
+                                <img src="images/image/668543a4bf948780c7dce268_category-06-p-500.webp" alt="Diamond Pendant">
+                            </div>
+                            <h4 class="sbc-card-title">Diamond Pendant</h4>
+                            <span class="sbc-card-count">12 PRODUCT</span>
+                        </div>
+                        
+                        <!-- Card 3: Woman Earring -->
+                        <div class="sbc-card" onclick="window.location.href='404.html';">
+                            <div class="sbc-img-wrap">
+                                <img src="images/image/6685437e46722a1ae9e8899e_category-07.webp" alt="Woman Earring">
+                            </div>
+                            <h4 class="sbc-card-title">Woman Earring</h4>
+                            <span class="sbc-card-count">15 PRODUCT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom right orange circle decor -->
+                <div class="sbc-bottom-decor">
+                    <a href="404.html" class="sbc-arrow-btn" aria-label="View All Products">
+                        <i data-lucide="arrow-up-right" style="width: 20px; height: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CURATED PRODUCT COLLECTION -->
+    <section id="products" class="products-section">
+        <div class="container">
+
+            <!-- Section Header -->
+            <div class="products-header-flex">
+                <div>
+                    <span class="section-subtitle">High Jewelry Vault</span>
+                    <h2 class="section-title" style="text-align: left; font-size: 2.75rem;">The Masterpiece Collection</h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs" id="filterTabs">
+                    <button onclick="filterCategory('all')" class="filter-tab active" data-filter="all">All</button>
+                    <button onclick="filterCategory('rings')" class="filter-tab" data-filter="rings">Rings</button>
+                    <button onclick="filterCategory('necklaces')" class="filter-tab" data-filter="necklaces">Necklaces</button>
+                    <button onclick="filterCategory('earrings')" class="filter-tab" data-filter="earrings">Earrings</button>
+                    <button onclick="filterCategory('bracelets')" class="filter-tab" data-filter="bracelets">Bracelets</button>
+                </div>
+            </div>
+
+            <!-- Product Grid (All 12 Product Images) -->
+            <div class="products-grid" id="productGrid">
+
+                <!-- Product 1 -->
+                <div class="product-card rings">
+                    <div class="product-card-image">
+                        <img src="images/image/668627f0add662916a351911_Product-Thumb-09.webp" alt="Solitaire Diamond Ring">
+                        <span class="product-badge">New</span>
+                        <button onclick="addToWishlist('Solitaire Diamond Ring')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Solitaire Rings</span>
+                            <h3 class="product-title">Solitaire Diamond Ring</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(24)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$1,490</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Solitaire Diamond Ring', '$1,490', 'images/image/668627f0add662916a351911_Product-Thumb-09.webp', 'Hand-cut 1.5ct solitaire round diamond set in 18K white gold band with GIA certification.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Solitaire Diamond Ring', '$1,490', 'images/image/668627f0add662916a351911_Product-Thumb-09.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card rings">
+                    <div class="product-card-image">
+                        <img src="images/image/66862734add662916a344fa2_Product-Thumb-10.webp" alt="Eternal Gold Band">
+                        <span class="product-badge" style="background-color: var(--bg-obsidian); color: var(--gold-300); border: 1px solid var(--border-gold-medium);">Bestseller</span>
+                        <button onclick="addToWishlist('Eternal Gold Band')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Bespoke Rings</span>
+                            <h3 class="product-title">Eternal Gold Band Ring</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(42)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$850</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Eternal Gold Band Ring', '$850', 'images/image/66862734add662916a344fa2_Product-Thumb-10.webp', 'Timeless 18K solid yellow gold ribbon band crafted with comfort-fit curved edges.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Eternal Gold Band Ring', '$850', 'images/image/66862734add662916a344fa2_Product-Thumb-10.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card necklaces">
+                    <div class="product-card-image">
+                        <img src="images/image/66862918d29189a265b93f17_Product-Thumb-11.webp" alt="Sapphire Pendant Necklace">
+                        <button onclick="addToWishlist('Sapphire Pendant Necklace')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Fine Necklaces</span>
+                            <h3 class="product-title">Sapphire Pendant Necklace</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(18)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$2,200</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Sapphire Pendant Necklace', '$2,200', 'images/image/66862918d29189a265b93f17_Product-Thumb-11.webp', 'Royal Ceylon blue sapphire framed in a diamond halo with delicate platinum chain.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Sapphire Pendant Necklace', '$2,200', 'images/image/66862918d29189a265b93f17_Product-Thumb-11.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card earrings">
+                    <div class="product-card-image">
+                        <img src="images/image/6686273431bc1f2fbbf9f5a6_Product-Thumb-12.webp" alt="Pearl & Diamond Drop Earrings">
+                        <button onclick="addToWishlist('Pearl & Diamond Drop Earrings')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Haute Earrings</span>
+                            <h3 class="product-title">Pearl & Diamond Drop Earrings</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(31)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$1,150</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Pearl & Diamond Drop Earrings', '$1,150', 'images/image/6686273431bc1f2fbbf9f5a6_Product-Thumb-12.webp', 'Luminous South Sea cultured pearls suspended from brilliant-cut diamond clusters.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Pearl & Diamond Drop Earrings', '$1,150', 'images/image/6686273431bc1f2fbbf9f5a6_Product-Thumb-12.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card bracelets">
+                    <div class="product-card-image">
+                        <img src="images/image/668627c2af3541217e87951d_product-thumb-14.webp" alt="Rose Gold Bangle">
+                        <button onclick="addToWishlist('Rose Gold Bangle')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Bracelets</span>
+                            <h3 class="product-title">Rose Gold Diamond Bangle</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(15)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$1,680</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Rose Gold Diamond Bangle', '$1,680', 'images/image/668627c2af3541217e87951d_product-thumb-14.webp', '18K rose gold hinged cuff encrusted with pavé diamonds in asymmetric floral motifs.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Rose Gold Diamond Bangle', '$1,680', 'images/image/668627c2af3541217e87951d_product-thumb-14.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card rings">
+                    <div class="product-card-image">
+                        <img src="images/image/668628741aebac5475fef059_product-thumb-15.webp" alt="Emerald Cut Engagement Ring">
+                        <span class="product-badge">Exclusive</span>
+                        <button onclick="addToWishlist('Emerald Cut Engagement Ring')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Solitaire Rings</span>
+                            <h3 class="product-title">Emerald Cut Diamond Ring</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(39)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$3,400</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Emerald Cut Diamond Ring', '$3,400', 'images/image/668628741aebac5475fef059_product-thumb-15.webp', '2.5ct VVS1 emerald-cut center diamond with tapered baguette side gems in platinum setting.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Emerald Cut Diamond Ring', '$3,400', 'images/image/668628741aebac5475fef059_product-thumb-15.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card earrings">
+                    <div class="product-card-image">
+                        <img src="images/image/66862396f9a1930f3004a408_product-thumb-16.webp" alt="Diamond Cluster Studs">
+                        <button onclick="addToWishlist('Diamond Cluster Studs')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Haute Earrings</span>
+                            <h3 class="product-title">Diamond Cluster Studs</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(27)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$980</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Diamond Cluster Studs', '$980', 'images/image/66862396f9a1930f3004a408_product-thumb-16.webp', 'Seven round brilliant diamonds cluster together creating the illusion of a singular massive solitaire.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Diamond Cluster Studs', '$980', 'images/image/66862396f9a1930f3004a408_product-thumb-16.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card rings">
+                    <div class="product-card-image">
+                        <img src="images/image/668628742fc42ec7b13f3a82_product-thumb-17.webp" alt="Platinum Eternity Band">
+                        <button onclick="addToWishlist('Platinum Eternity Band')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Eternity Bands</span>
+                            <h3 class="product-title">Platinum Eternity Band</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(50)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$2,890</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Platinum Eternity Band', '$2,890', 'images/image/668628742fc42ec7b13f3a82_product-thumb-17.webp', 'Continuous circle of shared-prong round diamonds encircling solid 950 platinum ring.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Platinum Eternity Band', '$2,890', 'images/image/668628742fc42ec7b13f3a82_product-thumb-17.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="product-card necklaces">
+                    <div class="product-card-image">
+                        <img src="images/image/668623969c0e150c39492517_product-thumb-18.webp" alt="Ruby Royal Choker">
+                        <button onclick="addToWishlist('Ruby Royal Choker')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Fine Necklaces</span>
+                            <h3 class="product-title">Ruby Royal Choker</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(19)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$4,250</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Ruby Royal Choker', '$4,250', 'images/image/668623969c0e150c39492517_product-thumb-18.webp', 'Burmese pigeon blood rubies intertwined with 18K yellow gold mesh collar.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Ruby Royal Choker', '$4,250', 'images/image/668623969c0e150c39492517_product-thumb-18.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="product-card bracelets">
+                    <div class="product-card-image">
+                        <img src="images/image/6686239635dfc0650918ec51_product-thumb-19.webp" alt="Marquise Diamond Cuff">
+                        <button onclick="addToWishlist('Marquise Diamond Cuff')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Bracelets</span>
+                            <h3 class="product-title">Marquise Diamond Cuff</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(33)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$3,100</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Marquise Diamond Cuff', '$3,100', 'images/image/6686239635dfc0650918ec51_product-thumb-19.webp', 'Slender marquise cut diamonds set in geometric vine formation across solid white gold.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Marquise Diamond Cuff', '$3,100', 'images/image/6686239635dfc0650918ec51_product-thumb-19.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 11 -->
+                <div class="product-card rings">
+                    <div class="product-card-image">
+                        <img src="images/image/668627f0e2b6e1e49b2a26d6_product-thumb-20.webp" alt="Vintage Gemstone Brooch">
+                        <button onclick="addToWishlist('Vintage Gemstone Brooch')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Archival Selects</span>
+                            <h3 class="product-title">Vintage Gemstone Brooch</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(12)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$5,800</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Vintage Gemstone Brooch', '$5,800', 'images/image/668627f0e2b6e1e49b2a26d6_product-thumb-20.webp', 'Rare Art Deco brooch handcrafted with emeralds, sapphires, and old European-cut diamonds.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Vintage Gemstone Brooch', '$5,800', 'images/image/668627f0e2b6e1e49b2a26d6_product-thumb-20.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 12 -->
+                <div class="product-card necklaces">
+                    <div class="product-card-image">
+                        <img src="images/image/66862847d1c1b363176c5b1c_product-thumb-21.webp" alt="Celestial Gold Pendant">
+                        <button onclick="addToWishlist('Celestial Gold Pendant')" class="wishlist-btn" title="Add to Wishlist">
+                            <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="product-card-body">
+                        <div>
+                            <span class="product-category-tag">Fine Necklaces</span>
+                            <h3 class="product-title">Celestial Gold Pendant</h3>
+                            <div class="product-rating">
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                                <span style="color: var(--text-muted); font-size: 11px; margin-left: 4px;">(29)</span>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <span class="product-price">$1,350</span>
+                            <div class="product-card-actions">
+                                <button onclick="openQuickView('Celestial Gold Pendant', '$1,350', 'images/image/66862847d1c1b363176c5b1c_product-thumb-21.webp', 'Radiant solar medallion with central solitaire diamond suspended on 18K yellow gold rope chain.')" class="btn-view-quick">View</button>
+                                <button onclick="addToCart('Celestial Gold Pendant', '$1,350', 'images/image/66862847d1c1b363176c5b1c_product-thumb-21.webp')" class="btn-add-bag"><i data-lucide="shopping-bag" style="width:14px;height:14px;"></i> Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: BESPOKE RING CONFIGURATOR (LUXRIO Interactive) -->
+    <section id="ring-configurator" class="configurator-section">
+        <div class="container">
+            <div class="configurator-grid">
+                
+                <!-- Left Preview Box -->
+                <div class="configurator-preview-box">
+                    <div class="configurator-pedestal-glow"></div>
+                    <img id="configuratorRingImg" src="images/image/ring-yellow-gold.webp" alt="Bespoke Yellow Gold Ring" class="configurator-ring-img">
+                    <span class="configurator-stage-badge">
+                        <i data-lucide="sparkles" style="width: 12px; height: 12px; color: var(--gold-400);"></i> 360° ATELIER PREVIEW
+                    </span>
+                </div>
+
+                <!-- Right Customization Panel -->
+                <div class="configurator-story">
+                    <span class="section-subtitle">Bespoke Configurator</span>
+                    <h2 class="section-title" style="text-align: left; font-size: clamp(2.2rem, 4vw, 2.75rem); line-height: 1.2;">
+                        Design Your Perfect Heirloom
+                    </h2>
+                    <p style="color: var(--text-light); font-weight: 300; margin-top: 1rem; line-height: 1.7;">
+                        Select from our signature hand-polished metals and select your ideal carat size. Witness your custom creation come to life instantly under master lighting.
+                    </p>
+
+                    <div class="configurator-card" style="margin-top: 2rem;">
+                        <div class="configurator-title-row">
+                            <div>
+                                <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-white); font-weight: 400;">The Solitaire Ring</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px; letter-spacing: 0.15em;">Estimated GIA Valuation</p>
+                            </div>
+                            <span id="configuratorPrice" class="configurator-price-label">$5,800</span>
+                        </div>
+
+                        <!-- Metal Band Selector -->
+                        <div class="option-group">
+                            <span class="option-label">1. Select Metal Band</span>
+                            <div class="selector-grid">
+                                <button onclick="selectRingMetal('yellow')" id="metal-yellow" class="selector-btn active">
+                                    <span class="metal-swatch metal-swatch--yellow"></span> 18K Yellow Gold
+                                </button>
+                                <button onclick="selectRingMetal('rose')" id="metal-rose" class="selector-btn">
+                                    <span class="metal-swatch metal-swatch--rose"></span> 18K Rose Gold
+                                </button>
+                                <button onclick="selectRingMetal('platinum')" id="metal-platinum" class="selector-btn">
+                                    <span class="metal-swatch metal-swatch--platinum"></span> Platinum 950
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Carat Size Selector -->
+                        <div class="option-group">
+                            <span class="option-label">2. Select Diamond Weight</span>
+                            <div class="selector-grid">
+                                <button onclick="selectRingCarat(1.5, 5800)" id="carat-1-5" class="selector-btn active">1.5 Carat</button>
+                                <button onclick="selectRingCarat(2.5, 9500)" id="carat-2-5" class="selector-btn">2.5 Carat</button>
+                                <button onclick="selectRingCarat(4.0, 16200)" id="carat-4-0" class="selector-btn">4.0 Carat</button>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button onclick="window.location.href='404.html';" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; margin-top: 0.5rem; height: 3.25rem;">
+                            Acquire Bespoke Creation <i data-lucide="gem" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: GALA RUNWAY COLLECTION CAROUSEL (Infinite Scroll) -->
+    <section id="gala-runway" class="runway-section">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <span class="section-subtitle">The Gala Runway</span>
+                <h2 class="section-title">As Seen On The Red Carpet</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="sparkle" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="runway-slider-container">
+            <div class="runway-track">
+                <!-- Card 1 -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/image/gala-runway.webp" alt="Met Gala Showcase">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">MET GALA, NEW YORK</span>
+                        <h4 class="runway-card-title">Empress Solar Collar</h4>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/New folder/hero-slide-1-1-1.webp" alt="Cannes Film Festival">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">CANNES, FRANCE</span>
+                        <h4 class="runway-card-title">Crescent Diamond Choker</h4>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/image/sbc-model-earring.webp" alt="Venice Biennale">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">VENICE BIENNALE</span>
+                        <h4 class="runway-card-title">Imperial Solitaire Drops</h4>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/New folder/hero-slide-1-1-2.webp" alt="Paris Haute Couture">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">HAUTE COUTURE, PARIS</span>
+                        <h4 class="runway-card-title">Midnight Emerald Loop</h4>
+                    </div>
+                </div>
+
+                <!-- Duplicate sets to loop infinitely -->
+                <!-- Card 1 Duplicate -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/image/gala-runway.webp" alt="Met Gala Showcase">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">MET GALA, NEW YORK</span>
+                        <h4 class="runway-card-title">Empress Solar Collar</h4>
+                    </div>
+                </div>
+                <!-- Card 2 Duplicate -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/New folder/hero-slide-1-1-1.webp" alt="Cannes Film Festival">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">CANNES, FRANCE</span>
+                        <h4 class="runway-card-title">Crescent Diamond Choker</h4>
+                    </div>
+                </div>
+                <!-- Card 3 Duplicate -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/image/sbc-model-earring.webp" alt="Venice Biennale">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">VENICE BIENNALE</span>
+                        <h4 class="runway-card-title">Imperial Solitaire Drops</h4>
+                    </div>
+                </div>
+                <!-- Card 4 Duplicate -->
+                <div class="runway-card" onclick="window.location.href='404.html';">
+                    <div class="runway-card-img">
+                        <img src="images/New folder/hero-slide-1-1-2.webp" alt="Paris Haute Couture">
+                    </div>
+                    <div class="runway-card-overlay">
+                        <span class="runway-badge">HAUTE COUTURE, PARIS</span>
+                        <h4 class="runway-card-title">Midnight Emerald Loop</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE RARE GEMSTONES AUCTION VAULT -->
+    <section id="auction-vault" class="auction-section">
+        <div class="container">
+            <div class="auction-grid">
+                
+                <!-- Left Vault Showcase -->
+                <div class="auction-vault-display">
+                    <img src="images/image/rare-blue-diamond.webp" alt="Midnight Flawless Blue Diamond">
+                    <div class="auction-security-laser"></div>
+                    <div style="position: absolute; top: 1.5rem; left: 1.5rem;">
+                        <span class="glass-card" style="padding: 0.375rem 0.875rem; border-radius: var(--radius-md); font-size: 11px; color: var(--gold-300); display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border-gold-medium);">
+                            <i data-lucide="shield-check" style="width: 14px; height: 14px; color: var(--gold-400);"></i> GIA CERTIFIED #90214
+                        </span>
+                    </div>
+                    <div style="position: absolute; bottom: 1.5rem; left: 1.5rem;">
+                        <span class="glass-card" style="padding: 0.375rem 0.875rem; border-radius: var(--radius-md); font-size: 11px; color: #ff5252; display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255, 82, 82, 0.4); background: rgba(11, 12, 14, 0.85);">
+                            <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #ff5252; animation: sbc-wave-pulse 1.5s infinite;"></span> SECURED VAULT #09 • LIVE SEALED BIDDING
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Vault Story & Timer -->
+                <div class="configurator-story">
+                    <span class="section-subtitle">Private Auction Vault</span>
+                    <h2 class="section-title" style="text-align: left; font-size: clamp(2.2rem, 4vw, 2.75rem); line-height: 1.2;">
+                        The Midnight Blue Diamond
+                    </h2>
+                    <p style="color: var(--text-light); font-weight: 300; margin-top: 1rem; line-height: 1.7;">
+                        A historic 12.42-carat heart-cut Fancy Vivid Blue diamond of flawless clarity. Undergoing private sealed bidding for global patrons.
+                    </p>
+
+                    <!-- Active Auction Timer -->
+                    <div>
+                        <div class="auction-timer-container">
+                            <div class="timer-unit">
+                                <span id="auction-days" class="timer-val">02</span>
+                                <span class="timer-label">Days</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span id="auction-hours" class="timer-val">14</span>
+                                <span class="timer-label">Hrs</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span id="auction-minutes" class="timer-val">32</span>
+                                <span class="timer-label">Mins</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span id="auction-seconds" class="timer-val">15</span>
+                                <span class="timer-label">Secs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bid Box Info -->
+                    <div class="auction-valuation-card">
+                        <div>
+                            <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; display: block; letter-spacing: 0.15em;">Current High Valuation</span>
+                            <span style="font-family: var(--font-serif); font-size: 2rem; color: var(--gold-300);">$1,420,000</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; display: block; letter-spacing: 0.15em;">Min Bid Increment</span>
+                            <span style="font-family: var(--font-serif); font-size: 2rem; color: var(--text-white);">$50,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Bid Chips -->
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                        <span style="font-size: 11px; color: var(--gold-400); align-self: center; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-right: 4px;">Quick Add:</span>
+                        <button onclick="setBidAmount(1470000)" class="quick-bid-chip">+$50K ($1.47M)</button>
+                        <button onclick="setBidAmount(1520000)" class="quick-bid-chip">+$100K ($1.52M)</button>
+                        <button onclick="setBidAmount(1600000)" class="quick-bid-chip">+$180K ($1.60M)</button>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="number" id="bidAmountInput" placeholder="Enter Sealed Bid ($)" class="form-input" style="flex: 1; background: rgba(11, 12, 14, 0.85); border: 1px solid var(--border-gold-medium); border-radius: 8px;">
+                        <button onclick="window.location.href='404.html';" class="btn-primary gold-bg-gradient" style="border: none;">
+                            Place Sealed Bid <i data-lucide="gavel" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HAUTE JOAILLERIE ATELIER & BESPOKE COMMISSION LOUNGE (Replaces Private Salon) -->
+    <section id="services" class="boutique-section">
+        <!-- Background radial glow -->
+        <div class="atelier-glow-bg"></div>
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header" style="text-align: center; margin-bottom: 3.5rem;">
+                <span class="section-subtitle">Haute Joaillerie Atelier</span>
+                <h2 class="section-title">The Art of Bespoke Jewelry Commissions</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="gem" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="boutique-grid">
+
+                <!-- Left Column: 3-Step Craftsman Atelier Showcase -->
+                <div>
+                    <h3 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--text-white); font-weight: 300; margin-bottom: 1.5rem; line-height: 1.3;">
+                        Crafting Your <span class="gold-gradient-text italic">One-of-a-Kind Heirloom</span>
+                    </h3>
+                    <p style="color: var(--text-light); font-weight: 300; line-height: 1.7; margin-bottom: 2rem;">
+                        Step into our private Place Vendôme &amp; Mayfair viewing suites. Collaborate directly with our master jewellers to conceptualize, source, and forge custom diamond engagement rings and high jewelry pieces.
+                    </p>
+
+                    <!-- Atelier Process Cards -->
+                    <div class="atelier-steps-list">
+                        <div class="atelier-step-card active" onclick="selectAtelierStep(0)">
+                            <div class="step-num">01</div>
+                            <div>
+                                <h4>Private Design &amp; CAD Sketching</h4>
+                                <p>Render your vision into 3D watercolor CAD sketches guided by chief Paris designers.</p>
+                            </div>
+                        </div>
+
+                        <div class="atelier-step-card" onclick="selectAtelierStep(1)">
+                            <div class="step-num">02</div>
+                            <div>
+                                <h4>GIA Certified Master Gem Selection</h4>
+                                <p>Select from top 0.1% conflict-free natural diamonds and unheated Ceylon sapphires.</p>
+                            </div>
+                        </div>
+
+                        <div class="atelier-step-card" onclick="selectAtelierStep(2)">
+                            <div class="step-num">03</div>
+                            <div>
+                                <h4>Micro-Pavé Hand Forging</h4>
+                                <p>Master lapidaries hand-sculpt recycled 18K solid gold and set brilliant pavé stones under 40x zoom.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: VIP Consultation Booking Box & Image Stage -->
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <div class="boutique-image-wrap">
+                        <img src="images/image/private-salon-suite.webp" alt="STACKLY Place Vendôme Atelier Suite">
+                        <div style="position: absolute; bottom: 1.25rem; right: 1.25rem;">
+                            <span class="glass-card" style="padding: 0.5rem 1rem; border-radius: var(--radius-md); font-size: 12px; color: var(--gold-300); display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border-gold-medium);">
+                                <i data-lucide="map-pin" style="width: 14px; height: 14px; color: var(--gold-400);"></i> Aishwrya complex, Coimbatore
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="boutique-form-box">
+                        <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--gold-300); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i data-lucide="calendar" style="width: 18px; height: 18px; color: var(--gold-400);"></i> Reserve Private VIP Consultation
+                        </h3>
+                        <form id="boutiqueForm" onsubmit="event.preventDefault(); window.location.href='404.html';">
+                            <div class="form-grid-2">
+                                <input type="text" placeholder="Your Name" required class="form-input">
+                                <input type="email" placeholder="Your Email Address" required class="form-input">
+                            </div>
+                            <div class="form-grid-2">
+                                <select required class="form-input">
+                                    <option value="">Select Boutique Salon</option>
+                                    <option value="paris">Place Vendôme, Paris</option>
+                                    <option value="london">Mayfair, London</option>
+                                    <option value="ny">Fifth Avenue, New York</option>
+                                </select>
+                                <input type="date" required class="form-input" style="color: var(--text-muted);">
+                            </div>
+                            <button type="submit" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; margin-top: 0.5rem; height: 3.25rem;">
+                                Request Private Reservation <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS & REVIEWS SECTION (Collector Testimonials - Regal Upgrade) -->
+    <section class="testimonials-section">
+        <div class="container">
+
+            <!-- Section Header (Primary Hierarchy) -->
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <span class="section-subtitle">Collector Testimonials</span>
+                <h2 class="section-title">Voices of Our Patronage</h2>
+                <div class="sbc-filigree-divider">
+                    <span></span>
+                    <i data-lucide="sparkle" style="width: 14px; height: 14px; color: var(--gold-400);"></i>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Banner Feature Stage -->
+            <div class="quote-banner" style="margin-bottom: 3rem;">
+                <div class="quote-banner-image">
+                    <img src="images/image/66878515f5374460f86c8aec_testimonial-p-800.webp" alt="Luxury Testimonial">
+                </div>
+                <div class="quote-banner-overlay">
+                    <i data-lucide="quote" style="width: 44px; height: 44px; color: var(--gold-400); margin-bottom: 1rem; filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.4));"></i>
+                    <blockquote style="font-family: var(--font-serif); font-size: clamp(1.5rem, 3.5vw, 2.35rem); color: var(--text-white); font-weight: 300; font-style: italic; max-width: 52rem; line-height: 1.35;">
+                        "The solitaire diamond ring crafted by STACKLY exceeded every expectation. The fire and clarity under lighting is nothing short of hypnotic."
+                    </blockquote>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-top: 1.5rem;">
+                        <span style="width: 30px; height: 1px; background: var(--gold-400);"></span>
+                        <p style="color: var(--gold-300); font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600;">
+                            Lady Eleanor Vance, Duchess of Sussex
+                        </p>
+                        <span style="width: 30px; height: 1px; background: var(--gold-400);"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reviews-grid">
+
+                <!-- Review 1 -->
+                <div class="review-card glass-card">
+                    <div class="review-card-inner">
+                        <div class="product-rating" style="margin-bottom: 0.75rem;">
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--text-light); font-style: italic; font-weight: 300; line-height: 1.6;">"The emerald engagement ring design service was completely seamless. Outstanding heritage craftsmanship."</p>
+                    </div>
+                    <div class="reviewer-footer">
+                        <div class="reviewer-avatar-wrap">
+                            <img src="images/image/portrait-girl-jacket-white-shirt-looking-camera.webp" alt="Sophia Loren" class="reviewer-avatar">
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; font-weight: 600; color: var(--text-white); font-family: var(--font-serif);">Sophia Loren</p>
+                            <p style="font-size: 10px; color: var(--gold-400); letter-spacing: 0.1em; text-transform: uppercase;">Paris, France</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card glass-card">
+                    <div class="review-card-inner">
+                        <div class="product-rating" style="margin-bottom: 0.75rem;">
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--text-light); font-style: italic; font-weight: 300; line-height: 1.6;">"Purchased the sapphire pendant for our 20th anniversary. Pure perfection with GIA documents."</p>
+                    </div>
+                    <div class="reviewer-footer">
+                        <div class="reviewer-avatar-wrap">
+                            <img src="images/image/young-confident-businessman-looking-camera.webp" alt="Elena Rostova" class="reviewer-avatar">
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; font-weight: 600; color: var(--text-white); font-family: var(--font-serif);">Elena Rostova</p>
+                            <p style="font-size: 10px; color: var(--gold-400); letter-spacing: 0.1em; text-transform: uppercase;">Geneva, Switzerland</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card glass-card">
+                    <div class="review-card-inner">
+                        <div class="product-rating" style="margin-bottom: 0.75rem;">
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--text-light); font-style: italic; font-weight: 300; line-height: 1.6;">"The private appointment at the Mayfair suite made picking out our wedding bands an unforgettable memory."</p>
+                    </div>
+                    <div class="reviewer-footer">
+                        <div class="reviewer-avatar-wrap">
+                            <img src="images/image/portrait-happy-smiling-young-businessman-blue-suit-isolated-white-wall.webp" alt="Claire Beauchamp" class="reviewer-avatar">
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; font-weight: 600; color: var(--text-white); font-family: var(--font-serif);">Claire Beauchamp</p>
+                            <p style="font-size: 10px; color: var(--gold-400); letter-spacing: 0.1em; text-transform: uppercase;">London, UK</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card glass-card">
+                    <div class="review-card-inner">
+                        <div class="product-rating" style="margin-bottom: 0.75rem;">
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                            <i data-lucide="star" style="width: 14px; height: 14px;"></i>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--text-light); font-style: italic; font-weight: 300; line-height: 1.6;">"Sensational diamond tennis bracelet. Packed in heavy lacquered wooden box with white glove delivery."</p>
+                    </div>
+                    <div class="reviewer-footer">
+                        <div class="reviewer-avatar-wrap">
+                            <img src="images/image/portrait-happy-smiling-young-businessman-brown-suit-isolated-white-wall.webp" alt="Isabella Rossi" class="reviewer-avatar">
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; font-weight: 600; color: var(--text-white); font-family: var(--font-serif);">Isabella Rossi</p>
+                            <p style="font-size: 10px; color: var(--gold-400); letter-spacing: 0.1em; text-transform: uppercase;">Milan, Italy</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- JEWELRY JOURNAL / BLOG SECTION -->
+    <section id="journal" class="journal-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">The Gazette</span>
+                <h2 class="section-title">Haute Joaillerie Journal</h2>
+                <div class="gold-divider"></div>
+            </div>
+
+            <!-- Journal Grid -->
+            <div class="journal-grid">
+
+                <!-- Article 1 -->
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="images/image/66853b330584bdf0f4abdf24_blog-thumb-05-p-800.webp" alt="Engagement Ring Guide">
+                    </div>
+                    <div class="article-body">
+                        <div>
+                            <div style="font-size: 12px; color: var(--gold-300); margin-bottom: 0.5rem;">July 18, 2026 • Diamond Guide</div>
+                            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-white); font-weight: 400;">How to Choose the Perfect Solitaire Cut</h3>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">Understanding table percentages, carat proportions, and light reflection when selecting diamond engagement rings.</p>
+                        </div>
+                        <div style="padding-top: 1rem; border-top: 1px solid rgba(212, 175, 55, 0.1); margin-top: 1rem;">
+                            <a href="404.html" style="font-size: 12px; font-weight: 600; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.15em; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                Read Editorial <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="images/image/66853b422a5375354f8abffd_blog-thumb-06-p-800.webp" alt="Gold Layering Guide">
+                    </div>
+                    <div class="article-body">
+                        <div>
+                            <div style="font-size: 12px; color: var(--gold-300); margin-bottom: 0.5rem;">June 24, 2026 • Styling Masterclass</div>
+                            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-white); font-weight: 400;">The Art of Layering Fine Gold Necklaces</h3>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">Proportional balance, combining mixed chains, and integrating sapphire pendants for effortless elegance.</p>
+                        </div>
+                        <div style="padding-top: 1rem; border-top: 1px solid rgba(212, 175, 55, 0.1); margin-top: 1rem;">
+                            <a href="404.html" style="font-size: 12px; font-weight: 600; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.15em; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                Read Editorial <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="images/image/66853b546225e9a7f7c86d54_blog-thumb-07-p-800.webp" alt="Gemstone Care Guide">
+                    </div>
+                    <div class="article-body">
+                        <div>
+                            <div style="font-size: 12px; color: var(--gold-300); margin-bottom: 0.5rem;">May 12, 2026 • Jewelry Care</div>
+                            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-white); font-weight: 400;">Preserving High Jewelry Brilliance</h3>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6;">Expert cleaning protocols, ultrasonic precautions, and velvet vault storage for rare emeralds & diamonds.</p>
+                        </div>
+                        <div style="padding-top: 1rem; border-top: 1px solid rgba(212, 175, 55, 0.1); margin-top: 1rem;">
+                            <a href="404.html" style="font-size: 12px; font-weight: 600; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.15em; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                Read Editorial <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP NEWSLETTER & PRIVATE INVITATIONS -->
+    <section id="blog" class="newsletter-section">
+        <div style="position: absolute; inset: 0; z-index: 0;">
+            <img src="images/image/66879a5d9c0146431d7b8217_newsletter-p-800.webp" alt="VIP Newsletter Background" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.25; filter: contrast(1.2) brightness(0.7);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, var(--bg-obsidian) 0%, rgba(11, 12, 14, 0.75) 50%, var(--bg-obsidian) 100%);"></div>
+        </div>
+
+        <div class="container" style="position: relative; z-index: 1; text-align: center; max-width: 44rem;">
+            <span class="section-subtitle" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Exclusive Access
+            </span>
+            <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-top: 0.5rem;">
+                Join The STACKLY <span class="gold-gradient-text italic">Private Circle</span>
+            </h2>
+            <p style="color: var(--text-light); font-weight: 300; margin: 1rem 0 2rem 0; line-height: 1.7; font-size: 0.95rem;">
+                Be first to receive private invitations to new high jewelry collection unveilings, rare gemstone acquisitions, and complimentary gift privileges.
+            </p>
+
+            <form onsubmit="event.preventDefault(); window.location.href='404.html';" style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                <input type="email" placeholder="Enter your email address" required class="form-input" style="max-width: 24rem; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--gold-400);">
+                <button type="submit" class="btn-primary gold-bg-gradient" style="border: none;">
+                    Subscribe <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="main-footer">
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <!-- Brand Col -->
+                <div>
+                    <a href="index.html" class="brand-logo" aria-label="STACKLY Home" style="display: inline-block; margin-bottom: 1.25rem; text-decoration: none;">
+                        <img src="images/image/logo.webp" alt="STACKLY Logo" class="brand-logo-img" style="height: 60px; width: auto; object-fit: contain;">
+                    </a>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                        Handcrafting world-class high jewelry, certified solitaire engagement rings, and bespoke gem creations since 1874.
+                    </p>
+                    <div class="social-links">
+                        <a href="404.html" class="social-btn" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="404.html" class="social-btn" title="Youtube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="footer-heading">Collections</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Solitaire Diamond Rings</a></li>
+                        <li><a href="404.html">Royal Gemstone Necklaces</a></li>
+                        <li><a href="404.html">Haute Drop Earrings</a></li>
+                        <li><a href="404.html">Fine Gold Bangles</a></li>
+                        <li><a href="404.html">Archival Masterpieces</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login / Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Boutique Info -->
+                <div>
+                    <h4 class="footer-heading">Contact Atelier</h4>
+                    <ul class="footer-contact-list">
+                        <li><i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Aishwrya complex, gandhipuram, coimbatore</li>
+                        <li><i data-lucide="phone" style="width: 16px; height: 16px; color: var(--gold-400);"></i> mob: 9876543210</li>
+                        <li><i data-lucide="mail" style="width: 16px; height: 16px; color: var(--gold-400);"></i> stacklykr@jewll.com</li>
+                        <li><i data-lucide="clock" style="width: 16px; height: 16px; color: var(--gold-400);"></i> Mon - Sat: 10:00 - 19:00 IST</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 STACKLY Haute Joaillerie. All rights reserved. Created & Maintained by <a href="404.html" style="color: var(--gold-300); text-decoration: underline;">@stacklykr</a></p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Privacy Policy</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">Terms of Service</a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 12px;">GIA Certification Guarantee</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- QUICK VIEW PRODUCT MODAL -->
+    <div id="quickViewModal" class="quick-view-modal hidden">
+        <div class="quick-view-content glass-card">
+            <button onclick="closeQuickView()" class="modal-close-btn" title="Close Modal">&times;</button>
+            <div class="modal-grid">
+                <div class="modal-image-wrap">
+                    <img id="modalProductImage" src="" alt="Product Detail">
+                </div>
+                <div>
+                    <span id="modalCategoryTag" class="product-category-tag">STACKLY Haute Joaillerie</span>
+                    <h3 id="modalProductTitle" style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--text-white); margin: 0.5rem 0;">Product Title</h3>
+                    <p id="modalProductPrice" style="font-size: 1.25rem; font-weight: 700; color: var(--gold-300); margin-bottom: 1rem;">$0.00</p>
+                    <p id="modalProductDesc" style="color: var(--text-light); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300;">Product details description.</p>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button onclick="addToBagFromModal()" class="btn-primary gold-bg-gradient" style="flex: 1; border: none;">
+                            Add to Bag <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <button onclick="closeQuickView()" class="btn-secondary" style="padding: 0 1rem;">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART SIDE DRAWER -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay hidden" onclick="toggleCartDrawer()"></div>
+    <div id="cartDrawer" class="cart-drawer hidden">
+        <div class="cart-drawer-header">
+            <h3>Shopping Bag (<span id="drawerCartCount">0</span>)</h3>
+            <button onclick="toggleCartDrawer()" style="background: transparent; border: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <div id="cartDrawerItems" class="cart-drawer-body">
+            <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">Your shopping bag is empty.</p>
+        </div>
+        <div class="cart-drawer-footer">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <span style="color: var(--text-light);">Subtotal</span>
+                <span id="cartSubtotal" style="font-weight: bold; color: var(--gold-300);">$0.00</span>
+            </div>
+            <button onclick="window.location.href='404.html'" class="btn-primary gold-bg-gradient" style="width: 100%; border: none;">
+                Checkout Now <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+        </div>
+    <!-- CLIENT LOGIN MODAL -->
+    <div id="loginModal" class="quick-view-modal hidden">
+        <div class="quick-view-content glass-card" style="max-width: 28rem; padding: 2.5rem 2rem;">
+            <button onclick="closeLoginModal()" class="modal-close-btn" title="Close Modal">&times;</button>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="images/image/logo.webp" alt="STACKLY Logo" style="height: 48px; width: auto; mix-blend-mode: screen; filter: contrast(1.6) brightness(1.1); margin-bottom: 1rem;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--text-white); font-weight: 300;">Client Portal</h3>
+                <p style="color: var(--gold-300); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.25rem;">STACKLY VIP Salon Access</p>
+            </div>
+            
+            <form onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div>
+                    <label style="display: block; color: var(--text-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Email or Client ID</label>
+                    <input type="email" required placeholder="client@jewll.com" class="form-input" style="width: 100%; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--border-gold-medium); color: var(--text-white);">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Password</label>
+                    <input type="password" required placeholder="••••••••••••" class="form-input" style="width: 100%; background: rgba(11, 12, 14, 0.8); border: 1px solid var(--border-gold-medium); color: var(--text-white);">
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                    <label style="color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                        <input type="checkbox" checked style="accent-color: var(--gold-400);"> Remember Me
+                    </label>
+                    <a href="#" onclick="alert('Password reset link sent to your VIP account email.')" style="color: var(--gold-400); text-decoration: underline;">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary gold-bg-gradient" style="width: 100%; border: none; margin-top: 0.5rem; justify-content: center; padding: 0.85rem;">
+                    Sign In to Portal <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
